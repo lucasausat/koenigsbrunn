@@ -1,156 +1,409 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KÖNIGSBRUNN | OFFICIAL</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #0062ff;
-            --secondary: #00e5ff;
-            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
-            --bg-dark: #030508;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --border: rgba(0, 98, 255, 0.2);
-            --text-main: #cecece;
-            --text-bright: #ffffff;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KÖNIGSBRUNN | OFFICIAL</title>
 
-        /* --- BACKGROUND GLOW --- */
-        .bg-glow {
-            position: fixed; width: 100vw; height: 100vh;
-            background: 
-                radial-gradient(circle at 10% 10%, rgba(0, 98, 255, 0.1) 0%, transparent 40%),
-                radial-gradient(circle at 90% 90%, rgba(0, 229, 255, 0.1) 0%, transparent 40%);
-            z-index: -1;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
 
-        /* --- REDIRECT OVERLAY --- */
-        #redirect-overlay {
-            position: fixed; inset: 0; background: var(--bg-dark); z-index: 50000;
-            display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center;
-        }
-        
-        /* --- COOLER LOADSCREEN --- */
-        #fast-load {
-            position: fixed; inset: 0; background: var(--bg-dark); z-index: 45000;
-            display: flex; justify-content: center; align-items: center;
-            transition: opacity 0.8s ease;
-        }
-        .load-gradient {
-            width: 80px; height: 80px; border-radius: 50%;
-            background: var(--gradient);
-            filter: blur(30px);
-            animation: pulse 1s infinite alternate;
-        }
-        @keyframes pulse { from { transform: scale(1); opacity: 0.4; } to { transform: scale(1.5); opacity: 0.8; } }
+<style>
 
-        /* --- MOBILE/iOS LOCK --- */
-        #mobile-lock {
-            display: none; position: fixed; inset: 0; background: #000; z-index: 60000;
-            flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 30px;
-        }
-        .lock-icon { font-size: 3rem; margin-bottom: 20px; filter: drop-shadow(0 0 10px var(--primary)); }
+:root{
+--primary:#0062ff;
+--secondary:#00e5ff;
+--gradient:linear-gradient(135deg,var(--primary),var(--secondary));
+--bg-dark:#05070a;
+--border:rgba(255,255,255,0.06);
+--text-main:#cecece;
+--text-bright:#ffffff;
+}
 
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: default; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; }
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+font-family:'Inter',sans-serif;
+background:#05070a;
+color:var(--text-main);
+overflow-x:hidden;
+}
 
-        /* --- NAVIGATION --- */
-        nav {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 8%; position: fixed; width: 100%; z-index: 1000;
-            backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
-        }
-        .logo { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.2rem; color: white; }
-        .logo span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+/* LOADER */
 
-        /* --- HERO SECTION --- */
-        header { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-        .hero-title { font-family: 'Montserrat', sans-serif; font-size: clamp(3rem, 10vw, 6.5rem); font-weight: 900; line-height: 0.9; color: var(--text-bright); margin-bottom: 25px; }
-        .hero-title b { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 40px rgba(0, 98, 255, 0.3); }
-        
-        .btn-primary { 
-            background: var(--gradient); color: #fff; padding: 16px 40px; text-decoration: none; 
-            border-radius: 8px; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; 
-            box-shadow: 0 0 20px rgba(0, 98, 255, 0.4); transition: 0.3s;
-        }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 30px rgba(0, 229, 255, 0.6); }
+#loader{
+position:fixed;
+inset:0;
+background:#05070a;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:50000;
+}
 
-        /* --- LOADER BAR --- */
-        .loader-bar { width: 250px; height: 3px; background: rgba(255,255,255,0.05); margin: 20px auto; position: relative; border-radius: 10px; overflow: hidden; }
-        .loader-fill { position: absolute; left: 0; top: 0; height: 100%; background: var(--gradient); width: 0%; }
-        .animate-load { animation: load 5s linear forwards; }
-        @keyframes load { to { width: 100%; } }
+.loader-bar{
+width:220px;
+height:3px;
+background:rgba(255,255,255,0.1);
+margin-top:20px;
+overflow:hidden;
+}
 
-        .rd-logo { font-family: 'Montserrat', sans-serif; font-size: 2rem; color: white; }
-        .rd-p { color: #555; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; margin-top: 10px; }
+.loader-fill{
+height:100%;
+width:0%;
+background:var(--primary);
+animation:load 2.5s forwards;
+}
 
-    </style>
+@keyframes load{
+to{width:100%}
+}
+
+/* CURSOR GLOW */
+
+.cursor-glow{
+position:fixed;
+width:400px;
+height:400px;
+background:radial-gradient(circle,rgba(0,229,255,0.15),transparent 60%);
+pointer-events:none;
+z-index:0;
+}
+
+/* PARTICLES */
+
+#particles{
+position:fixed;
+width:100%;
+height:100%;
+z-index:-1;
+}
+
+/* NAV */
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 8%;
+position:fixed;
+width:100%;
+backdrop-filter:blur(20px);
+border-bottom:1px solid var(--border);
+z-index:1000;
+}
+
+.logo{
+font-family:'Montserrat';
+font-weight:900;
+font-size:1.1rem;
+}
+
+.logo span{
+background:var(--gradient);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.nav-right{display:flex;gap:20px}
+
+/* HERO */
+
+header{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+
+.hero-title{
+font-family:'Montserrat';
+font-size:clamp(2.5rem,8vw,5.5rem);
+font-weight:900;
+color:white;
+}
+
+.hero-title b{
+background:var(--gradient);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.hero-desc{
+max-width:500px;
+margin-top:20px;
+color:#888;
+}
+
+.btn-group{margin-top:30px;display:flex;gap:12px}
+
+.btn{
+padding:14px 30px;
+border-radius:6px;
+font-weight:700;
+font-size:0.75rem;
+text-decoration:none;
+text-transform:uppercase;
+letter-spacing:1px;
+transition:0.3s;
+}
+
+.btn-primary{
+background:var(--gradient);
+color:white;
+box-shadow:0 10px 20px rgba(0,98,255,0.2);
+}
+
+.btn-primary:hover{
+box-shadow:0 0 25px rgba(0,229,255,0.6);
+transform:translateY(-3px);
+}
+
+/* CONTAINER */
+
+.container{
+max-width:1100px;
+margin:auto;
+padding:80px 20px;
+}
+
+/* GRID */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:20px;
+}
+
+/* GLASS CARDS */
+
+.card{
+padding:35px;
+border-radius:14px;
+background:rgba(255,255,255,0.03);
+border:1px solid rgba(255,255,255,0.08);
+backdrop-filter:blur(20px);
+box-shadow:0 20px 40px rgba(0,0,0,0.4);
+transition:0.4s;
+}
+
+.card:hover{
+transform:translateY(-6px);
+border-color:var(--primary);
+}
+
+/* TEAM */
+
+.team-title{
+font-family:'Montserrat';
+font-size:1.8rem;
+text-align:center;
+margin-bottom:50px;
+color:white;
+}
+
+.team-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:15px;
+}
+
+.team-member{
+padding:25px;
+border-radius:10px;
+background:rgba(255,255,255,0.03);
+border:1px solid rgba(255,255,255,0.08);
+}
+
+.badge{
+display:block;
+margin-top:10px;
+font-size:0.65rem;
+font-weight:700;
+}
+
+.badge-owner{color:#ff3c3c}
+.badge-lead{color:#00e5ff}
+
+/* REVEAL */
+
+.reveal{
+opacity:0;
+transform:translateY(20px);
+transition:0.8s;
+}
+
+.reveal.active{
+opacity:1;
+transform:translateY(0);
+}
+
+.reveal:nth-child(1){transition-delay:0.1s}
+.reveal:nth-child(2){transition-delay:0.2s}
+.reveal:nth-child(3){transition-delay:0.3s}
+
+/* FOOTER */
+
+footer{
+text-align:center;
+padding:60px;
+color:#333;
+font-size:0.7rem;
+border-top:1px solid var(--border);
+}
+
+</style>
 </head>
+
 <body>
 
-<div class="bg-glow"></div>
-
-<div id="mobile-lock">
-    <div class="lock-icon">📱</div>
-    <h2 style="font-family: 'Montserrat'; color: #fff; letter-spacing: -1px;">DESKTOP ONLY</h2>
-    <p style="color: #666; font-size: 0.9rem; margin-top: 10px; max-width: 250px;">Königsbrunn Web ist ein High-End Erlebnis und benötigt einen Desktop-PC oder Laptop.</p>
+<div id="loader">
+<h2 style="color:white;font-family:Montserrat">INITIALIZING SYSTEM</h2>
+<div class="loader-bar">
+<div class="loader-fill"></div>
+</div>
 </div>
 
-<div id="redirect-overlay">
-    <div class="rd-logo">WALDERSREUTH <span>➔ KÖNIGSBRUNN</span></div>
-    <p class="rd-p">System-Migration läuft</p>
-    <div class="loader-bar">
-        <div class="loader-fill" id="fill-bar"></div>
-    </div>
-</div>
-
-<div id="fast-load">
-    <div class="load-gradient"></div>
-</div>
+<div id="particles"></div>
 
 <nav>
-    <div class="logo">KÖNIGS<span>BRUNN</span></div>
+<div class="logo">KÖNIGS<span>BRUNN</span></div>
+<div class="nav-right">
+<a href="#features">Features</a>
+<a href="#staff">Staff</a>
+<a href="https://discord.gg/QX5xj22dGW" target="_blank">Discord</a>
+</div>
 </nav>
 
 <header>
-    <h1 class="hero-title">NEXT-LEVEL<br><b>ROLEPLAY.</b></h1>
-    <a href="https://discord.gg/QX5xj22dGW" class="btn-primary">Projekt Beitreten</a>
+
+<h1 class="hero-title">NEXT-GEN<br><b>ROLEPLAY</b></h1>
+
+<p class="hero-desc">
+Eine neue Ära des Roblox-Roleplays beginnt hier.
+Minimalistisch, performant und auf höchstem Niveau.
+</p>
+
+<div class="btn-group">
+<a href="https://discord.gg/QX5xj22dGW" class="btn btn-primary">Discord</a>
+</div>
+
 </header>
 
+<div class="container" id="features">
+
+<div class="grid">
+
+<div class="card reveal">
+<h3>ECONOMY</h3>
+<p>Ein realistisches und faires Wirtschaftssystem.</p>
+</div>
+
+<div class="card reveal">
+<h3>ENGINE</h3>
+<p>Optimierter Code für maximale Stabilität.</p>
+</div>
+
+<div class="card reveal">
+<h3>VISION</h3>
+<p>Community-Feedback treibt unsere Entwicklung.</p>
+</div>
+
+</div>
+
+<div style="margin-top:120px" id="staff">
+
+<h2 class="team-title reveal">PROJECT STAFF</h2>
+
+<div class="team-grid">
+
+<div class="team-member reveal">
+lucas.aus.at
+<span class="badge badge-owner">Project Owner</span>
+</div>
+
+<div class="team-member reveal">
+joge2286
+<span class="badge badge-owner">Project Owner</span>
+</div>
+
+<div class="team-member reveal">
+benschi1503
+<span class="badge badge-lead">Lead Developer</span>
+</div>
+
+<div class="team-member reveal">
+mrlenny13
+<span class="badge badge-lead">Developer</span>
+</div>
+
+</div>
+</div>
+</div>
+
+<footer>
+© 2026 KÖNIGSBRUNN — ALL RIGHTS RESERVED
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
 <script>
-    const currentUrl = window.location.href;
-    const redirectOverlay = document.getElementById('redirect-overlay');
-    const fastLoad = document.getElementById('fast-load');
-    const fillBar = document.getElementById('fill-bar');
-    const mobileLock = document.getElementById('mobile-lock');
 
-    // 1. MOBILE / iOS CHECK
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 1024;
-    
-    if (isMobile) {
-        mobileLock.style.display = 'flex';
-        fastLoad.style.display = 'none';
-    } else {
-        // 2. REDIRECT LOGIK
-        if (currentUrl.includes("waldersreuth")) {
-            fastLoad.style.display = 'none';
-            redirectOverlay.style.display = 'flex';
-            fillBar.classList.add('animate-load');
+/* LOADER */
 
-            setTimeout(() => {
-                window.location.href = "https://lucasausat.github.io/koenigsbrunn-web/";
-            }, 5000);
-        } else {
-            // 3. SCHNELLER LOADSCREEN
-            setTimeout(() => {
-                fastLoad.style.opacity = '0';
-                setTimeout(() => { fastLoad.style.display = 'none'; }, 800);
-            }, 1000);
-        }
-    }
+window.onload=()=>{
+setTimeout(()=>{
+document.getElementById("loader").style.opacity="0"
+setTimeout(()=>document.getElementById("loader").style.display="none",600)
+},2000)
+}
+
+/* CURSOR GLOW */
+
+const glow=document.createElement("div")
+glow.classList.add("cursor-glow")
+document.body.appendChild(glow)
+
+document.addEventListener("mousemove",e=>{
+glow.style.left=e.clientX-200+"px"
+glow.style.top=e.clientY-200+"px"
+})
+
+/* PARALLAX HERO */
+
+document.addEventListener("mousemove",e=>{
+const x=(window.innerWidth/2-e.clientX)/40
+const y=(window.innerHeight/2-e.clientY)/40
+document.querySelector(".hero-title").style.transform=`translate(${x}px,${y}px)`
+})
+
+/* SCROLL REVEAL */
+
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("active")
+}
+})
+})
+
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el))
+
+/* PARTICLES */
+
+particlesJS("particles",{
+particles:{
+number:{value:70},
+size:{value:3},
+move:{speed:1},
+line_linked:{enable:true},
+color:{value:"#00e5ff"}
+}
+})
+
 </script>
 
 </body>
