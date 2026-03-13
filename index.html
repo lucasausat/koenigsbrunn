@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KÖNIGSBRUNN | OFFICIAL</title>
+    
+    <meta http-equiv="refresh" content="5; URL=https://lucasausat.github.io/koenigsbrunn-web/">
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -17,48 +20,33 @@
             --text-bright: #ffffff;
         }
 
-        /* --- GLASS SCROLLBAR --- */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg-dark); }
-        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: default; }
-        html { scroll-behavior: smooth; }
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: var(--bg-dark); 
-            color: var(--text-main); 
-            overflow-x: hidden; 
-            line-height: 1.5;
+        /* --- REDIRECT OVERLAY (UMZUGSANIMATION) --- */
+        #redirect-overlay {
+            position: fixed; inset: 0; background: #05070a; z-index: 30000;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
         }
+        .rd-logo { font-family: 'Montserrat', sans-serif; font-size: 2rem; letter-spacing: -1px; margin-bottom: 10px; color: white; }
+        .rd-logo span { color: var(--primary); }
+        .loader-bar { width: 200px; height: 2px; background: rgba(255,255,255,0.1); margin: 20px auto; position: relative; border-radius: 10px; }
+        .loader-fill { position: absolute; left: 0; top: 0; height: 100%; background: var(--primary); width: 0%; animation: load 5s linear forwards; }
+        .rd-p { color: #444; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; }
+        @keyframes load { to { width: 100%; } }
 
-        /* --- MOBILE SPERRE (iOS / Android) --- */
+        /* --- MOBILE SPERRE --- */
         #mobile-lock {
-            display: none; position: fixed; inset: 0; background: #000; z-index: 20000;
+            display: none; position: fixed; inset: 0; background: #000; z-index: 40000;
             flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 30px;
         }
         @media (max-width: 1024px) { #mobile-lock { display: flex; } body { overflow: hidden; } }
 
-        /* --- MODERN LOADER --- */
-        #loader {
-            position: fixed; inset: 0; background: #000; z-index: 10000;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: opacity 0.8s ease;
-        }
-        .circle-loader {
-            width: 40px; height: 40px; border: 2px solid rgba(255,255,255,0.05);
-            border-top: 2px solid var(--primary); border-radius: 50%;
-            animation: spin 0.8s linear infinite; margin-bottom: 15px;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* --- BACKGROUND BLOBS --- */
-        .bg-glow {
-            position: fixed; width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(0, 98, 255, 0.1) 0%, transparent 70%);
-            z-index: -1; top: -150px; right: -50px; pointer-events: none;
-        }
+        /* --- MAIN STYLES --- */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: default; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; line-height: 1.5; }
 
         /* --- NAVIGATION --- */
         nav {
@@ -70,101 +58,57 @@
         .logo span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
         .nav-right { display: flex; align-items: center; gap: 20px; }
-
-        /* Dropdown */
         .dropdown { position: relative; }
-        .drop-btn { 
-            font-size: 0.65rem; font-weight: 800; letter-spacing: 1px; color: var(--text-bright); 
-            padding: 6px 12px; border: 1px solid var(--border); border-radius: 4px; transition: 0.3s;
-        }
-        .dropdown:hover .drop-btn { border-color: var(--primary); }
-        .drop-content {
-            position: absolute; top: 100%; right: 0; background: rgba(5,7,10,0.95);
-            border: 1px solid var(--border); border-radius: 6px; padding: 8px 0; margin-top: 10px;
-            min-width: 160px; opacity: 0; visibility: hidden; transform: translateY(10px); transition: 0.3s;
-        }
+        .drop-btn { font-size: 0.65rem; font-weight: 800; letter-spacing: 1px; color: var(--text-bright); padding: 6px 12px; border: 1px solid var(--border); border-radius: 4px; transition: 0.3s; }
+        .drop-content { position: absolute; top: 100%; right: 0; background: rgba(5,7,10,0.95); border: 1px solid var(--border); border-radius: 6px; padding: 8px 0; margin-top: 10px; min-width: 160px; opacity: 0; visibility: hidden; transform: translateY(10px); transition: 0.3s; }
         .dropdown:hover .drop-content { opacity: 1; visibility: visible; transform: translateY(0); }
-        .drop-content a {
-            display: block; padding: 8px 15px; font-size: 0.7rem; color: #888; text-decoration: none;
-            text-transform: uppercase; font-weight: 700; transition: 0.2s;
-        }
+        .drop-content a { display: block; padding: 8px 15px; font-size: 0.7rem; color: #888; text-decoration: none; text-transform: uppercase; font-weight: 700; transition: 0.2s; }
         .drop-content a:hover { color: var(--secondary); background: rgba(255,255,255,0.03); padding-left: 20px; }
 
-        /* --- HERO --- */
-        header {
-            height: 100vh; display: flex; flex-direction: column; justify-content: center;
-            align-items: center; text-align: center; padding: 0 20px;
-        }
-        .hero-title {
-            font-family: 'Montserrat', sans-serif; font-size: clamp(2.5rem, 8vw, 5.5rem);
-            font-weight: 900; line-height: 1; letter-spacing: -2px; margin-bottom: 20px; color: var(--text-bright);
-        }
+        /* --- HERO & CONTENT --- */
+        header { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; }
+        .hero-title { font-family: 'Montserrat', sans-serif; font-size: clamp(2.5rem, 8vw, 5.5rem); font-weight: 900; line-height: 1; letter-spacing: -2px; margin-bottom: 20px; color: var(--text-bright); }
         .hero-title b { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .hero-desc { max-width: 550px; font-size: 1rem; color: #888; margin-bottom: 35px; font-weight: 300; }
-
-        /* --- BUTTONS --- */
-        .btn-group { display: flex; gap: 12px; align-items: center; }
-        .btn {
-            padding: 14px 30px; border-radius: 5px; font-weight: 700; font-size: 0.75rem;
-            text-decoration: none; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            text-transform: uppercase; letter-spacing: 1px;
-        }
-        .btn-primary { background: var(--gradient); color: #fff; box-shadow: 0 10px 20px rgba(0, 98, 255, 0.15); }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(0, 98, 255, 0.3); }
         
-        /* Gesperrter Button */
-        .btn-locked {
-            background: rgba(255,255,255,0.05); color: #444; border: 1px solid var(--border);
-            cursor: not-allowed; display: flex; align-items: center; gap: 8px;
-        }
+        .btn-group { display: flex; gap: 12px; align-items: center; }
+        .btn { padding: 14px 30px; border-radius: 5px; font-weight: 700; font-size: 0.75rem; text-decoration: none; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        .btn-primary { background: var(--gradient); color: #fff; box-shadow: 0 10px 20px rgba(0, 98, 255, 0.15); }
+        .btn-locked { background: rgba(255,255,255,0.05); color: #444; border: 1px solid var(--border); cursor: not-allowed; display: flex; align-items: center; gap: 8px; }
         .btn-locked svg { width: 12px; fill: #444; }
 
-        /* --- CONTENT SECTIONS --- */
         .container { max-width: 1000px; margin: 0 auto; padding: 80px 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        
-        .card {
-            background: var(--card-bg); border: 1px solid var(--border);
-            padding: 35px; border-radius: 12px; transition: 0.4s;
-        }
-        .card:hover { border-color: var(--primary); transform: translateY(-3px); background: rgba(0, 98, 255, 0.02); }
-        .card h3 { font-family: 'Montserrat', sans-serif; font-size: 1.1rem; margin-bottom: 12px; color: var(--text-bright); }
-        .card p { font-size: 0.9rem; color: #777; }
+        .card { background: var(--card-bg); border: 1px solid var(--border); padding: 35px; border-radius: 12px; transition: 0.4s; }
+        .card:hover { border-color: var(--primary); transform: translateY(-3px); }
 
-        /* --- TEAM --- */
         .team-title { font-family: 'Montserrat', sans-serif; text-align: center; margin-bottom: 50px; font-size: 1.8rem; color: var(--text-bright); }
         .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
-        
-        .team-member {
-            background: var(--card-bg); border: 1px solid var(--border);
-            padding: 25px; border-radius: 10px; text-align: center; transition: 0.3s;
-        }
-        .team-member:hover { border-color: var(--secondary); background: #080a0f; }
-        .name { display: block; font-weight: 600; font-size: 0.95rem; color: var(--text-bright); margin-bottom: 10px; }
+        .team-member { background: var(--card-bg); border: 1px solid var(--border); padding: 25px; border-radius: 10px; text-align: center; transition: 0.3s; }
         .badge { font-size: 0.6rem; padding: 3px 10px; border-radius: 4px; font-weight: 800; text-transform: uppercase; }
         .badge-owner { background: rgba(255, 60, 60, 0.1); color: #ff3c3c; border: 1px solid rgba(255, 60, 60, 0.15); }
         .badge-lead { background: rgba(0, 229, 255, 0.1); color: var(--secondary); border: 1px solid rgba(0, 229, 255, 0.15); }
 
-        footer { text-align: center; padding: 50px; color: #333; font-size: 0.7rem; border-top: 1px solid var(--border); margin-top: 80px; letter-spacing: 1px; }
-
+        footer { text-align: center; padding: 50px; color: #333; font-size: 0.7rem; border-top: 1px solid var(--border); margin-top: 80px; }
         .reveal { opacity: 0; transform: translateY(15px); transition: 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
-
     </style>
 </head>
 <body>
 
+<div id="redirect-overlay">
+    <div class="rd-logo">WALDERSREUTH <span>➔ KÖNIGSBRUNN</span></div>
+    <p class="rd-p">Wir ziehen um. Einen Moment...</p>
+    <div class="loader-bar">
+        <div class="loader-fill"></div>
+    </div>
+    <a href="https://lucasausat.github.io/koenigsbrunn-web/" style="color: var(--primary); text-decoration: none; font-size: 0.7rem; margin-top: 10px;">Klicke hier, falls nichts passiert</a>
+</div>
+
 <div id="mobile-lock">
     <h2 style="font-family: 'Montserrat'; color: #fff; margin-bottom: 15px;">DESKTOP ONLY</h2>
-    <p style="color: #666; font-size: 0.9rem;">Königsbrunn Web ist aktuell nur für Computer optimiert.<br>Bitte besuche uns an deinem PC.</p>
+    <p style="color: #666; font-size: 0.9rem;">Königsbrunn Web ist aktuell nur für Computer optimiert.</p>
 </div>
-
-<div id="loader">
-    <div class="circle-loader"></div>
-    <div style="font-family: 'Montserrat'; font-size: 0.6rem; letter-spacing: 3px; color: #333;">INITIALIZING INTERFACE</div>
-</div>
-
-<div class="bg-glow"></div>
 
 <nav>
     <div class="logo">KÖNIGS<span>BRUNN</span></div>
@@ -184,9 +128,8 @@
 <header>
     <h1 class="hero-title">NEXT-GEN<br><b>ROLEPLAY.</b></h1>
     <p class="hero-desc">Eine neue Ära des Roblox-Roleplays beginnt hier. Minimalistisch, performant und auf höchstem Niveau.</p>
-    
     <div class="btn-group">
-        <a href="https://discord.gg/QX5xj22dGW" class="btn btn-primary" style="cursor: pointer;">Discord</a>
+        <a href="https://discord.gg/QX5xj22dGW" class="btn btn-primary">Discord</a>
         <div class="btn btn-locked">
             <svg viewBox="0 0 24 24"><path d="M12 2C9.243 2 7 4.243 7 7V10H6C4.897 10 4 10.897 4 12V20C4 21.103 4.897 22 6 22H18C19.103 22 20 21.103 20 20V12C20 10.897 19.103 10 18 10H17V7C17 4.243 14.757 2 12 2ZM9 7C9 5.346 10.346 4 12 4C13.654 4 15 5.346 15 7V10H9V7ZM6 12H18V20H6V12Z"/></svg>
             Bewerbung
@@ -196,62 +139,34 @@
 
 <div class="container" id="features">
     <div class="grid">
-        <div class="card reveal">
-            <h3>ECONOMY</h3>
-            <p>Ein faires und realistisches Geldsystem für volle Kontrolle über den Markt.</p>
-        </div>
-        <div class="card reveal">
-            <h3>ENGINE</h3>
-            <p>Optimierte Code-Strukturen für maximale Frames und Stabilität.</p>
-        </div>
-        <div class="card reveal">
-            <h3>VISION</h3>
-            <p>Stetige Weiterentwicklung basierend auf dem Feedback unserer Community.</p>
-        </div>
+        <div class="card reveal"><h3>ECONOMY</h3><p>Ein faires und realistisches Geldsystem.</p></div>
+        <div class="card reveal"><h3>ENGINE</h3><p>Optimierte Code-Strukturen für maximale Stabilität.</p></div>
+        <div class="card reveal"><h3>VISION</h3><p>Stetige Weiterentwicklung durch Community-Feedback.</p></div>
     </div>
 
     <div style="margin-top: 120px;" id="staff">
         <h2 class="team-title reveal">PROJECT STAFF</h2>
         <div class="team-grid">
-            <div class="team-member reveal">
-                <span class="name">lucas.aus.at</span>
-                <span class="badge badge-owner">Project Owner</span>
-            </div>
-            <div class="team-member reveal">
-                <span class="name">joge2286</span>
-                <span class="badge badge-owner">Project Owner</span>
-            </div>
-            <div class="team-member reveal">
-                <span class="name">benschi1503</span>
-                <span class="badge badge-lead">Lead Developer</span>
-            </div>
-            <div class="team-member reveal">
-                <span class="name">mrlenny13</span>
-                <span class="badge badge-lead">Developer</span>
-            </div>
+            <div class="team-member reveal"><span class="name">lucas.aus.at</span><span class="badge badge-owner">Project Owner</span></div>
+            <div class="team-member reveal"><span class="name">joge2286</span><span class="badge badge-owner">Project Owner</span></div>
+            <div class="team-member reveal"><span class="name">benschi1503</span><span class="badge badge-lead">Lead Developer</span></div>
+            <div class="team-member reveal"><span class="name">mrlenny13</span><span class="badge badge-lead">Developer</span></div>
         </div>
     </div>
 </div>
 
-<footer>
-    &copy; 2026 KÖNIGSBRUNN // ALL RIGHTS RESERVED
-</footer>
+<footer>&copy; 2026 KÖNIGSBRUNN // ALL RIGHTS RESERVED</footer>
 
 <script>
-    window.addEventListener('load', () => {
-        const loader = document.getElementById('loader');
-        setTimeout(() => {
-            loader.style.opacity = '0';
-            setTimeout(() => loader.style.display = 'none', 800);
-        }, 1000); 
-    });
+    // Automatisches Ausblenden des Umzugs-Overlays nach 5 Sek (falls man nicht weitergeleitet wird)
+    setTimeout(() => {
+        document.getElementById('redirect-overlay').style.opacity = '0';
+        setTimeout(() => document.getElementById('redirect-overlay').style.display = 'none', 800);
+    }, 5000);
 
     const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) entry.target.classList.add('active');
-        });
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
     }, { threshold: 0.1 });
-
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 
