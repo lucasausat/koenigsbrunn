@@ -8,628 +8,198 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Montserrat:wght@700;900&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
 
 <style>
-
 :root{
---primary:#0062ff;
---secondary:#00e5ff;
---bg-dark:#05070a;
---border:rgba(255,255,255,0.06);
---text-main:#cecece;
---text-bright:#ffffff;
+    --primary:#0062ff;
+    --secondary:#00e5ff;
+    --bg-dark:#05070a;
+    --border:rgba(255,255,255,0.06);
+    --text-main:#cecece;
+    --text-bright:#ffffff;
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
 
 body{
-font-family:'Inter',sans-serif;
-background:#05070a;
-color:var(--text-main);
-overflow-x:hidden;
+    font-family:'Inter',sans-serif;
+    background:#05070a;
+    color:var(--text-main);
+    overflow-x:hidden;
 }
 
 /* CYBER GRID BACKGROUND */
-
 body::before{
-content:"";
-position:fixed;
-inset:0;
-background-image:
-linear-gradient(rgba(0,229,255,0.06) 1px,transparent 1px),
-linear-gradient(90deg,rgba(0,229,255,0.06) 1px,transparent 1px);
-background-size:50px 50px;
-animation:gridMove 12s linear infinite;
-z-index:-2;
-}
-
-body::after{
-content:"";
-position:fixed;
-inset:-200px;
-background:
-radial-gradient(circle at center,rgba(0,229,255,0.08),transparent 70%);
-animation:gridRotate 30s linear infinite;
-z-index:-3;
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:
+    linear-gradient(rgba(0,229,255,0.06) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,229,255,0.06) 1px,transparent 1px);
+    background-size:50px 50px;
+    animation:gridMove 12s linear infinite;
+    z-index:-2;
 }
 
 @keyframes gridMove{
-0%{transform:translateY(0)}
-100%{transform:translateY(50px)}
-}
-
-@keyframes gridRotate{
-0%{transform:rotate(0deg)}
-100%{transform:rotate(360deg)}
+    0%{transform:translateY(0)}
+    100%{transform:translateY(50px)}
 }
 
 .cursor-glow{
-position:fixed;
-width:350px;
-height:350px;
-background:radial-gradient(circle,rgba(0,229,255,0.2),transparent 70%);
-pointer-events:none;
-z-index:0;
+    position:fixed;
+    width:350px;
+    height:350px;
+    background:radial-gradient(circle,rgba(0,229,255,0.2),transparent 70%);
+    pointer-events:none;
+    z-index:0;
+    transform: translate(-50%, -50%);
 }
 
 /* NAV */
-
 nav{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:20px 8%;
-position:fixed;
-width:100%;
-backdrop-filter:blur(20px);
-border-bottom:1px solid var(--border);
-z-index:1000;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 8%;
+    position:fixed;
+    width:100%;
+    backdrop-filter:blur(20px);
+    border-bottom:1px solid var(--border);
+    z-index:1000;
 }
 
-.logo{
-font-family:'Orbitron';
-font-weight:900;
-font-size:1.1rem;
-}
+.logo{ font-family:'Orbitron'; font-weight:900; font-size:1.1rem; color: white; }
+.logo span{ color: var(--secondary); }
 
-.logo span{
-background:linear-gradient(120deg,#0062ff,#00e5ff,#0033ff);
-background-size:200% 200%;
-animation:gradientMove 6s infinite;
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-.nav-right{
-display:flex;
-gap:12px;
-}
-
+.nav-right{ display:flex; gap:12px; }
 .nav-right a{
-padding:8px 18px;
-border-radius:8px;
-text-decoration:none;
-font-size:0.7rem;
-letter-spacing:1px;
-text-transform:uppercase;
-color:white;
-background:rgba(255,255,255,0.05);
-border:1px solid rgba(255,255,255,0.08);
-backdrop-filter:blur(15px);
-transition:0.3s;
+    padding:8px 18px; border-radius:8px; text-decoration:none; font-size:0.7rem;
+    letter-spacing:1px; text-transform:uppercase; color:white;
+    background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08);
+    transition:0.3s;
 }
 
-.nav-right a:hover{
-background:rgba(255,255,255,0.12);
-box-shadow:0 0 20px rgba(0,229,255,0.4);
-}
+.nav-right a:hover{ background:rgba(255,255,255,0.12); box-shadow:0 0 20px rgba(0,229,255,0.4); }
 
 /* HERO */
-
 header{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
+    height:100vh; display:flex; flex-direction:column;
+    justify-content:center; align-items:center; text-align:center;
 }
 
 .hero-title{
-font-family:'Orbitron';
-font-size:clamp(3rem,9vw,6rem);
-font-weight:900;
-letter-spacing:3px;
-color:white;
-text-shadow:
-0 0 10px rgba(0,229,255,0.6),
-0 0 30px rgba(0,229,255,0.3);
+    font-family:'Orbitron'; font-size:clamp(3rem,9vw,6rem); font-weight:900;
+    letter-spacing:3px; color:white;
+    text-shadow: 0 0 10px rgba(0,229,255,0.6);
 }
 
-.hero-desc{
-max-width:520px;
-margin-top:20px;
-color:#888;
-font-size:0.95rem;
-}
+.hero-desc{ max-width:520px; margin-top:20px; color:#888; font-size:0.95rem; }
 
-.hero-line{
-width:120px;
-height:2px;
-background:linear-gradient(90deg,transparent,#00e5ff,transparent);
-margin-top:30px;
-}
-
-.server-status{
-margin-top:15px;
-font-size:0.75rem;
-color:#00e5ff;
-letter-spacing:1px;
-}
+.server-status{ margin-top:15px; font-size:0.75rem; color:#00e5ff; letter-spacing:1px; }
 
 /* BUTTONS */
-
-.btn-group{
-margin-top:30px;
-display:flex;
-gap:12px;
-flex-wrap:wrap;
-justify-content:center;
-}
-
+.btn-group{ margin-top:30px; display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
 .btn{
-padding:14px 30px;
-border-radius:8px;
-font-weight:700;
-font-size:0.75rem;
-text-decoration:none;
-text-transform:uppercase;
-letter-spacing:2px;
-transition:0.3s;
-color:white;
-border:1px solid rgba(0,229,255,0.4);
-background:rgba(0,229,255,0.08);
-backdrop-filter:blur(10px);
-cursor:pointer;
+    padding:14px 30px; border-radius:8px; font-weight:700; font-size:0.75rem;
+    text-decoration:none; text-transform:uppercase; letter-spacing:2px;
+    transition:0.3s; color:white; border:1px solid rgba(0,229,255,0.4);
+    background:rgba(0,229,255,0.08); cursor:pointer;
 }
 
-.btn:hover{
-background:rgba(0,229,255,0.2);
-box-shadow:0 0 20px #00e5ff;
-transform:translateY(-3px);
-}
-
-.locked{
-border-color:#ff2a2a;
-opacity:0.7;
-}
+.btn:hover{ background:rgba(0,229,255,0.2); box-shadow:0 0 20px #00e5ff; transform:translateY(-3px); }
+.locked{ border-color:#ff2a2a; opacity:0.7; }
 
 /* LAYOUT */
-
-.container{
-max-width:1100px;
-margin:auto;
-padding:80px 20px;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:20px;
-}
-
+.container{ max-width:1100px; margin:auto; padding:80px 20px; }
+.grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
 .card{
-padding:35px;
-border-radius:16px;
-background:rgba(255,255,255,0.04);
-border:1px solid rgba(255,255,255,0.08);
-backdrop-filter:blur(30px);
-transition:0.4s;
-transform-style:preserve-3d;
+    padding:35px; border-radius:16px; background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.08); backdrop-filter:blur(30px);
+    transition:0.4s;
 }
-
-.card:hover{
-transform:rotateX(6deg) rotateY(-6deg) scale(1.05);
-box-shadow:0 20px 60px rgba(0,229,255,0.25);
-}
+.card:hover{ transform: scale(1.05); box-shadow:0 20px 60px rgba(0,229,255,0.25); }
 
 /* PROGRESS */
-
-.progress{
-margin-top:40px;
-}
-
-.progress-item{
-margin-bottom:18px;
-}
-
-.progress-bar{
-height:6px;
-background:#111;
-border-radius:4px;
-overflow:hidden;
-}
-
-.progress-fill{
-height:100%;
-background:linear-gradient(90deg,#0062ff,#00e5ff);
-animation:progressAnim 3s forwards;
-width:0;
-}
-
-@keyframes progressAnim{
-to{width:var(--progress)}
-}
-
-/* MAP LOCK */
-
-.map-card{
-width:320px;
-height:200px;
-margin:100px auto;
-border-radius:10px;
-overflow:hidden;
-position:relative;
-}
-
-.map-lock{
-position:absolute;
-inset:0;
-display:flex;
-align-items:center;
-justify-content:center;
-background:rgba(0,0,0,0.9);
-font-family:'Orbitron';
-letter-spacing:2px;
-color:#00e5ff;
-}
+.progress-item{ margin-bottom:18px; color: white; font-family: 'Orbitron'; font-size: 0.8rem;}
+.progress-bar{ height:6px; background:#111; border-radius:4px; overflow:hidden; margin-top: 8px;}
+.progress-fill{ height:100%; background:linear-gradient(90deg,#0062ff,#00e5ff); width: var(--p-width); }
 
 /* FOOTER */
+footer{ text-align:center; padding:60px; color:#444; font-size:0.7rem; border-top:1px solid var(--border); }
 
-footer{
-text-align:center;
-padding:60px;
-color:#333;
-font-size:0.7rem;
-border-top:1px solid var(--border);
+/* POPUP */
+#popup {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+    background: #ff2a2a; color: white; padding: 10px 20px; border-radius: 5px;
+    font-family: 'Orbitron'; font-size: 0.8rem; opacity: 0; transition: 0.3s; z-index: 2000;
 }
-
 </style>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Österreich | Community Portal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@500;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --oe-red: #ed2939;
-            --oe-glow: rgba(237, 41, 57, 0.6);
-            --bg-dark: #05070a;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.1);
-        }
-
-        /* --- ANTI-FLASH: Seite ist am Anfang unsichtbar --- */
-        #main-content, #decision-gui, #video-intro { display: none; }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background: var(--bg-dark); 
-            color: #cecece; 
-            overflow-x: hidden; 
-        }
-
-        /* Hintergrund-Animation (Berge + Grid) */
-        .bg-fixed {
-            position: fixed; inset: 0; z-index: -2;
-            background: linear-gradient(rgba(5,7,10,0.8), rgba(5,7,10,0.8)), 
-                        url('https://images.unsplash.com/photo-1527668752968-14dc70a27c95?auto=format&fit=crop&q=80&w=1920');
-            background-size: cover; background-position: center;
-        }
-
-        /* --- MODERN DECISION GUI --- */
-        #decision-gui {
-            position: fixed; inset: 0; z-index: 9999;
-            background: radial-gradient(circle at center, #10141d 0%, #05070a 100%);
-            display: flex; align-items: center; justify-content: center;
-        }
-        .cyber-panel {
-            padding: 50px; border-radius: 20px; border: 1px solid var(--oe-red);
-            background: rgba(0,0,0,0.8); backdrop-filter: blur(20px);
-            text-align: center; box-shadow: 0 0 50px rgba(237, 41, 57, 0.2);
-        }
-        .cyber-panel h2 { font-family: 'Orbitron'; color: white; margin-bottom: 20px; letter-spacing: 5px; }
-        .cyber-btn {
-            display: inline-block; padding: 15px 35px; margin: 10px;
-            border: 1px solid var(--oe-red); background: transparent;
-            color: white; font-family: 'Orbitron'; font-size: 0.8rem;
-            cursor: pointer; transition: 0.4s; letter-spacing: 2px;
-        }
-        .cyber-btn:hover { background: var(--oe-red); box-shadow: 0 0 30px var(--oe-glow); transform: scale(1.05); }
-
-        /* --- NAV & LIVE INFO --- */
-        nav {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 8%; position: fixed; width: 100%; top: 0;
-            backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); z-index: 1000;
-        }
-        .live-info { font-family: 'Orbitron'; font-size: 0.7rem; color: var(--oe-red); text-align: right; }
-
-        /* --- CARDS MIT HOVER-GLOW --- */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; padding: 50px 8%; }
-        .card {
-            padding: 40px; border-radius: 15px; background: var(--card-bg);
-            border: 1px solid var(--border); transition: 0.5s cubic-bezier(0.2, 1, 0.3, 1);
-            position: relative; overflow: hidden;
-        }
-        .card:hover {
-            border-color: var(--oe-red);
-            background: rgba(237, 41, 57, 0.05);
-            transform: translateY(-10px);
-            box-shadow: 0 0 40px rgba(237, 41, 57, 0.2);
-        }
-        .card h3 { font-family: 'Orbitron'; color: white; margin-bottom: 10px; }
-
-        /* --- LOADER --- */
-        #loader {
-            position: fixed; inset: 0; background: #05070a; z-index: 10000;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-        }
-        .load-bar-wrap { width: 300px; height: 2px; background: rgba(255,255,255,0.1); margin-top: 20px; }
-        .load-bar { width: 0%; height: 100%; background: var(--oe-red); box-shadow: 0 0 15px var(--oe-red); }
-
-        /* Hand-Blocker */
-        @media (max-width: 1024px) {
-            #mobile-lock { position: fixed; inset: 0; background: black; z-index: 100000; display: flex !important; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: white; padding: 20px; }
-        }
-        #mobile-lock { display: none; }
-    </style>
 </head>
 
 <body>
 
-<div id="popup" class="popup"></div>
+<div id="popup"></div>
 
 <nav>
-<div class="logo">KÖNIGS<span>BRUNN</span></div>
-<div class="nav-right">
-<a href="#features">Features</a>
-<a href="#progress">Progress</a>
-<a href="#staff">Staff</a>
-<a href="https://discord.gg/QX5xj22dGW" target="_blank">Discord</a>
-</div>
+    <div class="logo">KÖNIGS<span>BRUNN</span></div>
+    <div class="nav-right">
+        <a href="#progress">Progress</a>
+        <a href="#staff">Staff</a>
+        <a href="https://discord.gg/QX5xj22dGW" target="_blank">Discord</a>
+    </div>
 </nav>
 
 <header>
-
-<h1 class="hero-title">KÖNIGSBRUNN<br>CITY ROLEPLAY</h1>
-
-<p class="hero-desc">
-Königsbrunn ist ein neues Roblox Roleplay Projekt.
-Die Stadt befindet sich aktuell in Entwicklung.
-Updates und Bewerbungen folgen bald.
-</p>
-
-<div class="hero-line"></div>
-
-<div class="server-status">
-🟡 GAME IN DEVELOPMENT
-</div>
-
-<div class="btn-group">
-
-<a href="https://discord.gg/QX5xj22dGW" class="btn">
-DISCORD
-</a>
-
-<button class="btn locked" onclick="showPopup('Game is currently under development')">
-GAME
-</button>
-
-<button class="btn locked" onclick="showPopup('Applications are currently closed')">
-APPLICATION
-</button>
-
-</div>
-
+    <h1 class="hero-title">KÖNIGSBRUNN<br>CITY ROLEPLAY</h1>
+    <p class="hero-desc">Königsbrunn ist ein neues Roblox Roleplay Projekt. Die Stadt befindet sich aktuell in Entwicklung.</p>
+    <div class="server-status">🟡 GAME IN DEVELOPMENT</div>
+    <div class="btn-group">
+        <a href="https://discord.gg/QX5xj22dGW" class="btn">DISCORD</a>
+        <button class="btn locked" onclick="showPopup('Game is currently under development')">GAME</button>
+        <button class="btn locked" onclick="showPopup('Applications are currently closed')">APPLICATION</button>
+    </div>
 </header>
 
 <div class="container" id="progress">
-
-<h2 style="font-family:Orbitron;color:white;text-align:center;margin-bottom:40px">
-DEVELOPMENT PROGRESS
-</h2>
-
-<div class="progress">
-
-<div class="progress-item">
-MAP BUILD
-<div class="progress-bar"><div class="progress-fill" style="--progress:5%"></div></div>
-</div>
-
-<div class="progress-item">
-POLICE SYSTEM
-<div class="progress-bar"><div class="progress-fill" style="--progress:3%"></div></div>
-<div id="mobile-lock">
-    <h1 style="font-family:Orbitron; color:var(--oe-red)">SYSTEM LOCK</h1>
-    <p>Bitte nutze einen Desktop-PC, um dieses Portal zu betreten.</p>
-</div>
-
-<div class="progress-item">
-ECONOMY
-<div class="progress-bar"><div class="progress-fill" style="--progress:6%"></div></div>
-<div id="loader">
-    <div style="font-family:Orbitron; color:white; letter-spacing:10px">AUSTRIA</div>
-    <div class="load-bar-wrap"><div class="load-bar" id="l-bar"></div></div>
-</div>
-
-<div class="progress-item">
-VEHICLES
-<div class="progress-bar"><div class="progress-fill" style="--progress:2%"></div></div>
-<div id="decision-gui">
-    <div class="cyber-panel">
-        <h2>INITIALIZING...</h2>
-        <p style="color:#888; margin-bottom:30px">Wähle den Zugangsmodus für das Community Portal</p>
-        <button class="cyber-btn" onclick="startVideo()">CINEMATIC</button>
-        <button class="cyber-btn" onclick="showPortal()">PORTAL</button>
-    </div>
-</div>
-
-<div id="video-intro" style="position:fixed; inset:0; z-index:9000; background:black; align-items:center; justify-content:center;">
-    <div id="player" style="width:80%; aspect-ratio:16/9"></div>
-    <button onclick="showPortal()" style="position:absolute; bottom:40px; border:none; background:white; padding:10px 20px; cursor:pointer; font-family:Orbitron">SKIP</button>
-</div>
-
-<div id="main-content">
-    <div class="bg-fixed"></div>
-    <nav>
-        <div style="font-family:Orbitron; font-weight:900; color:white">ÖSTERREICH<span style="color:var(--oe-red)">.AT</span></div>
-        <div class="live-info">
-            <div id="live-time">00:00:00</div>
-            <div id="oe-status" style="color:#888">VERBINDUNG STEHT...</div>
-        </div>
-    </nav>
-
-    <header style="height:80vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center">
-        <h1 style="font-family:Orbitron; font-size:5rem; color:white; text-shadow:0 0 20px var(--oe-glow)">PORTAL 2.0</h1>
-        <p style="letter-spacing:5px; color:var(--oe-red)">COMMUNITY PROJECT</p>
-    </header>
-
-    <div class="grid">
-        <div class="card"><h3>WIEN</h3><p>Die pulsierende Hauptstadt der Republik.</p></div>
-        <div class="card"><h3>TIROL</h3><p>Alpine Exzellenz und Gipfel-Panoramen.</p></div>
-        <div class="card"><h3>SALZBURG</h3><p>Musik, Kultur und architektonisches Erbe.</p></div>
-        <div class="card"><h3>STEIERMARK</h3><p>Das grüne Herz mit Innovationskraft.</p></div>
-        <div class="card"><h3>KÄRNTEN</h3><p>Südländische Seenlandschaft im Alpenraum.</p></div>
-        <div class="card"><h3>BURGENLAND</h3><p>Sonnige Steppenlandschaft und Weinbau.</p></div>
-    </div>
-
-    <footer style="padding:50px; text-align:center; border-top:1px solid var(--border); font-size:0.7rem; letter-spacing:2px">
-        © 2026 COMMUNITY PROJEKT — ERSTELLT VON [DEIN NAME]
-    </footer>
+    <h2 style="font-family:Orbitron;color:white;text-align:center;margin-bottom:40px">DEVELOPMENT PROGRESS</h2>
+    <div class="progress-item">MAP BUILD<div class="progress-bar"><div class="progress-fill" style="--p-width:5%"></div></div></div>
+    <div class="progress-item">POLICE SYSTEM<div class="progress-bar"><div class="progress-fill" style="--p-width:3%"></div></div></div>
+    <div class="progress-item">ECONOMY<div class="progress-bar"><div class="progress-fill" style="--p-width:6%"></div></div></div>
+    <div class="progress-item">VEHICLES<div class="progress-bar"><div class="progress-fill" style="--p-width:2%"></div></div></div>
 </div>
 
 <div class="container" id="staff">
-
-<h2 style="font-family:Orbitron;font-size:2rem;text-align:center;margin-bottom:50px;color:white">
-PROJECT STAFF
-</h2>
-
-<div class="grid">
-
-<div class="card">
-lucas.aus.at<br>
-<span style="color:#00e5ff;font-size:0.8rem">Management</span>
+    <h2 style="font-family:Orbitron;font-size:2rem;text-align:center;margin-bottom:50px;color:white">PROJECT STAFF</h2>
+    <div class="grid">
+        <div class="card">lucas.aus.at<br><span style="color:#00e5ff;font-size:0.8rem">Management</span></div>
+        <div class="card">joge2286<br><span style="color:#00e5ff;font-size:0.8rem">Management</span></div>
+        <div class="card">benschi1503<br><span style="color:#00e5ff;font-size:0.8rem">Lead Development</span></div>
+        <div class="card">mrlenny13<br><span style="color:#00e5ff;font-size:0.8rem">Developer</span></div>
+    </div>
 </div>
 
-<div class="card">
-joge2286<br>
-<span style="color:#00e5ff;font-size:0.8rem">Management</span>
-</div>
-
-<div class="card">
-benschi1503<br>
-<span style="color:#00e5ff;font-size:0.8rem">Lead Development</span>
-</div>
-
-<div class="card">
-mrlenny13<br>
-<span style="color:#00e5ff;font-size:0.8rem">Developer</span>
-</div>
-
-</div>
-
-</div>
-
-<footer>
-© 2026 KÖNIGSBRUNN — ALL RIGHTS RESERVED
-</footer>
+<footer>© 2026 KÖNIGSBRUNN — ALL RIGHTS RESERVED</footer>
 
 <script>
-
 function showPopup(text){
-let popup=document.getElementById("popup")
-popup.innerText=text
-popup.style.opacity="1"
-setTimeout(()=>popup.style.opacity="0",2000)
+    let popup = document.getElementById("popup");
+    popup.innerText = text;
+    popup.style.opacity = "1";
+    setTimeout(() => popup.style.opacity = "0", 2000);
 }
 
-fetch("https://discord.com/api/guilds/1295464701202866207/widget.json")
-.then(res=>res.json())
-.then(data=>{
-document.getElementById("discord-count").innerText=data.presence_count
-})
+const glow = document.createElement("div");
+glow.classList.add("cursor-glow");
+document.body.appendChild(glow);
 
-const glow=document.createElement("div")
-glow.classList.add("cursor-glow")
-document.body.appendChild(glow)
-
-document.addEventListener("mousemove",e=>{
-glow.style.left=e.clientX-175+"px"
-glow.style.top=e.clientY-175+"px"
-})
-
-document.addEventListener("mousemove",e=>{
-const x=(window.innerWidth/2-e.clientX)/50
-const y=(window.innerHeight/2-e.clientY)/50
-document.querySelector(".hero-title").style.transform=`translate(${x}px,${y}px)`
-})
-
-    // 1. LIVE UHRZEIT & STATUS
-    function updateLiveInfo() {
-        const now = new Date();
-        document.getElementById('live-time').innerText = now.toLocaleTimeString('de-AT');
-        
-        const hours = now.getHours();
-        let status = "";
-        if(hours >= 5 && hours < 11) status = "GUTEN MORGEN, ÖSTERREICH";
-        else if(hours >= 11 && hours < 18) status = "MITTAG IN DER REPUBLIK";
-        else if(hours >= 18 && hours < 22) status = "FEIERABEND IN DEN ALPEN";
-        else status = "NACHTMODUS AKTIV";
-        document.getElementById('oe-status').innerText = status;
-    }
-    setInterval(updateLiveInfo, 1000);
-
-    // 2. YOUTUBE API
-    var player;
-    var tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    document.head.appendChild(tag);
-
-    function onYouTubeIframeAPIReady() {
-        player = new YT.Player('player', {
-            videoId: 'Zn1S3RtGpWs',
-            playerVars: { 'autoplay': 0, 'controls': 0 },
-            events: { 'onStateChange': (e) => { if(e.data == YT.PlayerState.ENDED) showPortal(); } }
-        });
-    }
-
-    // 3. PAGE LOGIC (Fixing the Flash)
-    window.onload = () => {
-        let w = 0;
-        let int = setInterval(() => {
-            w += 2;
-            document.getElementById('l-bar').style.width = w + '%';
-            if(w >= 100) {
-                clearInterval(int);
-                document.getElementById('loader').style.display = 'none';
-                document.getElementById('decision-gui').style.display = 'flex'; // Erst hier erscheint die Abfrage
-            }
-        }, 30);
-    };
-
-    function startVideo() {
-        document.getElementById('decision-gui').style.display = 'none';
-        document.getElementById('video-intro').style.display = 'flex';
-        player.playVideo();
-    }
-
-    function showPortal() {
-        if(player) player.stopVideo();
-        document.getElementById('decision-gui').style.display = 'none';
-        document.getElementById('video-intro').style.display = 'none';
-        const main = document.getElementById('main-content');
-        main.style.display = 'block';
-        setTimeout(() => main.style.opacity = "1", 50);
-    }
+document.addEventListener("mousemove", e => {
+    glow.style.left = e.clientX + "px";
+    glow.style.top = e.clientY + "px";
+    
+    const x = (window.innerWidth / 2 - e.clientX) / 50;
+    const y = (window.innerHeight / 2 - e.clientY) / 50;
+    document.querySelector(".hero-title").style.transform = `translate(${x}px,${y}px)`;
+});
 </script>
 
 </body>
+</html>
