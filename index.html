@@ -5,48 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KÖNIGSBRUNN | OFFICIAL</title>
     
-    <meta http-equiv="refresh" content="5; URL=https://lucasausat.github.io/koenigsbrunn-web/">
-    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #0062ff;
             --secondary: #00e5ff;
             --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
-            --bg-dark: #05070a;
-            --card-bg: rgba(255, 255, 255, 0.02);
-            --border: rgba(255, 255, 255, 0.06);
+            --bg-dark: #030508;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border: rgba(0, 98, 255, 0.2);
             --text-main: #cecece;
             --text-bright: #ffffff;
         }
 
-        /* --- REDIRECT OVERLAY (UMZUGSANIMATION) --- */
-        #redirect-overlay {
-            position: fixed; inset: 0; background: #05070a; z-index: 30000;
-            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+        /* --- BACKGROUND GLOW --- */
+        .bg-glow {
+            position: fixed; width: 100vw; height: 100vh;
+            background: 
+                radial-gradient(circle at 10% 10%, rgba(0, 98, 255, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(0, 229, 255, 0.1) 0%, transparent 40%);
+            z-index: -1;
         }
-        .rd-logo { font-family: 'Montserrat', sans-serif; font-size: 2rem; letter-spacing: -1px; margin-bottom: 10px; color: white; }
-        .rd-logo span { color: var(--primary); }
-        .loader-bar { width: 200px; height: 2px; background: rgba(255,255,255,0.1); margin: 20px auto; position: relative; border-radius: 10px; }
-        .loader-fill { position: absolute; left: 0; top: 0; height: 100%; background: var(--primary); width: 0%; animation: load 5s linear forwards; }
-        .rd-p { color: #444; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; }
-        @keyframes load { to { width: 100%; } }
 
-        /* --- MOBILE SPERRE --- */
+        /* --- REDIRECT OVERLAY --- */
+        #redirect-overlay {
+            position: fixed; inset: 0; background: var(--bg-dark); z-index: 50000;
+            display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+        }
+        
+        /* --- COOLER LOADSCREEN --- */
+        #fast-load {
+            position: fixed; inset: 0; background: var(--bg-dark); z-index: 45000;
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.8s ease;
+        }
+        .load-gradient {
+            width: 80px; height: 80px; border-radius: 50%;
+            background: var(--gradient);
+            filter: blur(30px);
+            animation: pulse 1s infinite alternate;
+        }
+        @keyframes pulse { from { transform: scale(1); opacity: 0.4; } to { transform: scale(1.5); opacity: 0.8; } }
+
+        /* --- MOBILE/iOS LOCK --- */
         #mobile-lock {
-            display: none; position: fixed; inset: 0; background: #000; z-index: 40000;
+            display: none; position: fixed; inset: 0; background: #000; z-index: 60000;
             flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 30px;
         }
-        @media (max-width: 1024px) { #mobile-lock { display: flex; } body { overflow: hidden; } }
+        .lock-icon { font-size: 3rem; margin-bottom: 20px; filter: drop-shadow(0 0 10px var(--primary)); }
 
-        /* --- MAIN STYLES --- */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg-dark); }
-        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
-        
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: default; }
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; line-height: 1.5; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; }
 
         /* --- NAVIGATION --- */
         nav {
@@ -54,120 +63,94 @@
             padding: 20px 8%; position: fixed; width: 100%; z-index: 1000;
             backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
         }
-        .logo { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.1rem; letter-spacing: -0.5px; }
+        .logo { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.2rem; color: white; }
         .logo span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* --- HERO SECTION --- */
+        header { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .hero-title { font-family: 'Montserrat', sans-serif; font-size: clamp(3rem, 10vw, 6.5rem); font-weight: 900; line-height: 0.9; color: var(--text-bright); margin-bottom: 25px; }
+        .hero-title b { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 40px rgba(0, 98, 255, 0.3); }
         
-        .nav-right { display: flex; align-items: center; gap: 20px; }
-        .dropdown { position: relative; }
-        .drop-btn { font-size: 0.65rem; font-weight: 800; letter-spacing: 1px; color: var(--text-bright); padding: 6px 12px; border: 1px solid var(--border); border-radius: 4px; transition: 0.3s; }
-        .drop-content { position: absolute; top: 100%; right: 0; background: rgba(5,7,10,0.95); border: 1px solid var(--border); border-radius: 6px; padding: 8px 0; margin-top: 10px; min-width: 160px; opacity: 0; visibility: hidden; transform: translateY(10px); transition: 0.3s; }
-        .dropdown:hover .drop-content { opacity: 1; visibility: visible; transform: translateY(0); }
-        .drop-content a { display: block; padding: 8px 15px; font-size: 0.7rem; color: #888; text-decoration: none; text-transform: uppercase; font-weight: 700; transition: 0.2s; }
-        .drop-content a:hover { color: var(--secondary); background: rgba(255,255,255,0.03); padding-left: 20px; }
+        .btn-primary { 
+            background: var(--gradient); color: #fff; padding: 16px 40px; text-decoration: none; 
+            border-radius: 8px; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; 
+            box-shadow: 0 0 20px rgba(0, 98, 255, 0.4); transition: 0.3s;
+        }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 30px rgba(0, 229, 255, 0.6); }
 
-        /* --- HERO & CONTENT --- */
-        header { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; }
-        .hero-title { font-family: 'Montserrat', sans-serif; font-size: clamp(2.5rem, 8vw, 5.5rem); font-weight: 900; line-height: 1; letter-spacing: -2px; margin-bottom: 20px; color: var(--text-bright); }
-        .hero-title b { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero-desc { max-width: 550px; font-size: 1rem; color: #888; margin-bottom: 35px; font-weight: 300; }
-        
-        .btn-group { display: flex; gap: 12px; align-items: center; }
-        .btn { padding: 14px 30px; border-radius: 5px; font-weight: 700; font-size: 0.75rem; text-decoration: none; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
-        .btn-primary { background: var(--gradient); color: #fff; box-shadow: 0 10px 20px rgba(0, 98, 255, 0.15); }
-        .btn-locked { background: rgba(255,255,255,0.05); color: #444; border: 1px solid var(--border); cursor: not-allowed; display: flex; align-items: center; gap: 8px; }
-        .btn-locked svg { width: 12px; fill: #444; }
+        /* --- LOADER BAR --- */
+        .loader-bar { width: 250px; height: 3px; background: rgba(255,255,255,0.05); margin: 20px auto; position: relative; border-radius: 10px; overflow: hidden; }
+        .loader-fill { position: absolute; left: 0; top: 0; height: 100%; background: var(--gradient); width: 0%; }
+        .animate-load { animation: load 5s linear forwards; }
+        @keyframes load { to { width: 100%; } }
 
-        .container { max-width: 1000px; margin: 0 auto; padding: 80px 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .card { background: var(--card-bg); border: 1px solid var(--border); padding: 35px; border-radius: 12px; transition: 0.4s; }
-        .card:hover { border-color: var(--primary); transform: translateY(-3px); }
+        .rd-logo { font-family: 'Montserrat', sans-serif; font-size: 2rem; color: white; }
+        .rd-p { color: #555; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; margin-top: 10px; }
 
-        .team-title { font-family: 'Montserrat', sans-serif; text-align: center; margin-bottom: 50px; font-size: 1.8rem; color: var(--text-bright); }
-        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
-        .team-member { background: var(--card-bg); border: 1px solid var(--border); padding: 25px; border-radius: 10px; text-align: center; transition: 0.3s; }
-        .badge { font-size: 0.6rem; padding: 3px 10px; border-radius: 4px; font-weight: 800; text-transform: uppercase; }
-        .badge-owner { background: rgba(255, 60, 60, 0.1); color: #ff3c3c; border: 1px solid rgba(255, 60, 60, 0.15); }
-        .badge-lead { background: rgba(0, 229, 255, 0.1); color: var(--secondary); border: 1px solid rgba(0, 229, 255, 0.15); }
-
-        footer { text-align: center; padding: 50px; color: #333; font-size: 0.7rem; border-top: 1px solid var(--border); margin-top: 80px; }
-        .reveal { opacity: 0; transform: translateY(15px); transition: 0.8s ease-out; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
 
-<div id="redirect-overlay">
-    <div class="rd-logo">WALDERSREUTH <span>➔ KÖNIGSBRUNN</span></div>
-    <p class="rd-p">Wir ziehen um. Einen Moment...</p>
-    <div class="loader-bar">
-        <div class="loader-fill"></div>
-    </div>
-    <a href="https://lucasausat.github.io/koenigsbrunn-web/" style="color: var(--primary); text-decoration: none; font-size: 0.7rem; margin-top: 10px;">Klicke hier, falls nichts passiert</a>
-</div>
+<div class="bg-glow"></div>
 
 <div id="mobile-lock">
-    <h2 style="font-family: 'Montserrat'; color: #fff; margin-bottom: 15px;">DESKTOP ONLY</h2>
-    <p style="color: #666; font-size: 0.9rem;">Königsbrunn Web ist aktuell nur für Computer optimiert.</p>
+    <div class="lock-icon">📱</div>
+    <h2 style="font-family: 'Montserrat'; color: #fff; letter-spacing: -1px;">DESKTOP ONLY</h2>
+    <p style="color: #666; font-size: 0.9rem; margin-top: 10px; max-width: 250px;">Königsbrunn Web ist ein High-End Erlebnis und benötigt einen Desktop-PC oder Laptop.</p>
+</div>
+
+<div id="redirect-overlay">
+    <div class="rd-logo">WALDERSREUTH <span>➔ KÖNIGSBRUNN</span></div>
+    <p class="rd-p">System-Migration läuft</p>
+    <div class="loader-bar">
+        <div class="loader-fill" id="fill-bar"></div>
+    </div>
+</div>
+
+<div id="fast-load">
+    <div class="load-gradient"></div>
 </div>
 
 <nav>
     <div class="logo">KÖNIGS<span>BRUNN</span></div>
-    <div class="nav-right">
-        <div class="dropdown">
-            <div class="drop-btn">NAVIGATION ▼</div>
-            <div class="drop-content">
-                <a href="#features">Features</a>
-                <a href="#staff">Projekt Staff</a>
-                <a href="https://discord.gg/QX5xj22dGW" target="_blank">Support</a>
-            </div>
-        </div>
-        <div class="nav-status" style="color: #444; font-size: 0.65rem; font-weight: 800;">VER 2.0</div>
-    </div>
 </nav>
 
 <header>
-    <h1 class="hero-title">NEXT-GEN<br><b>ROLEPLAY.</b></h1>
-    <p class="hero-desc">Eine neue Ära des Roblox-Roleplays beginnt hier. Minimalistisch, performant und auf höchstem Niveau.</p>
-    <div class="btn-group">
-        <a href="https://discord.gg/QX5xj22dGW" class="btn btn-primary">Discord</a>
-        <div class="btn btn-locked">
-            <svg viewBox="0 0 24 24"><path d="M12 2C9.243 2 7 4.243 7 7V10H6C4.897 10 4 10.897 4 12V20C4 21.103 4.897 22 6 22H18C19.103 22 20 21.103 20 20V12C20 10.897 19.103 10 18 10H17V7C17 4.243 14.757 2 12 2ZM9 7C9 5.346 10.346 4 12 4C13.654 4 15 5.346 15 7V10H9V7ZM6 12H18V20H6V12Z"/></svg>
-            Bewerbung
-        </div>
-    </div>
+    <h1 class="hero-title">NEXT-LEVEL<br><b>ROLEPLAY.</b></h1>
+    <a href="https://discord.gg/QX5xj22dGW" class="btn-primary">Projekt Beitreten</a>
 </header>
 
-<div class="container" id="features">
-    <div class="grid">
-        <div class="card reveal"><h3>ECONOMY</h3><p>Ein faires und realistisches Geldsystem.</p></div>
-        <div class="card reveal"><h3>ENGINE</h3><p>Optimierte Code-Strukturen für maximale Stabilität.</p></div>
-        <div class="card reveal"><h3>VISION</h3><p>Stetige Weiterentwicklung durch Community-Feedback.</p></div>
-    </div>
-
-    <div style="margin-top: 120px;" id="staff">
-        <h2 class="team-title reveal">PROJECT STAFF</h2>
-        <div class="team-grid">
-            <div class="team-member reveal"><span class="name">lucas.aus.at</span><span class="badge badge-owner">Project Owner</span></div>
-            <div class="team-member reveal"><span class="name">joge2286</span><span class="badge badge-owner">Project Owner</span></div>
-            <div class="team-member reveal"><span class="name">benschi1503</span><span class="badge badge-lead">Lead Developer</span></div>
-            <div class="team-member reveal"><span class="name">mrlenny13</span><span class="badge badge-lead">Developer</span></div>
-        </div>
-    </div>
-</div>
-
-<footer>&copy; 2026 KÖNIGSBRUNN // ALL RIGHTS RESERVED</footer>
-
 <script>
-    // Automatisches Ausblenden des Umzugs-Overlays nach 5 Sek (falls man nicht weitergeleitet wird)
-    setTimeout(() => {
-        document.getElementById('redirect-overlay').style.opacity = '0';
-        setTimeout(() => document.getElementById('redirect-overlay').style.display = 'none', 800);
-    }, 5000);
+    const currentUrl = window.location.href;
+    const redirectOverlay = document.getElementById('redirect-overlay');
+    const fastLoad = document.getElementById('fast-load');
+    const fillBar = document.getElementById('fill-bar');
+    const mobileLock = document.getElementById('mobile-lock');
 
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    // 1. MOBILE / iOS CHECK
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 1024;
+    
+    if (isMobile) {
+        mobileLock.style.display = 'flex';
+        fastLoad.style.display = 'none';
+    } else {
+        // 2. REDIRECT LOGIK
+        if (currentUrl.includes("waldersreuth")) {
+            fastLoad.style.display = 'none';
+            redirectOverlay.style.display = 'flex';
+            fillBar.classList.add('animate-load');
+
+            setTimeout(() => {
+                window.location.href = "https://lucasausat.github.io/koenigsbrunn-web/";
+            }, 5000);
+        } else {
+            // 3. SCHNELLER LOADSCREEN
+            setTimeout(() => {
+                fastLoad.style.opacity = '0';
+                setTimeout(() => { fastLoad.style.display = 'none'; }, 800);
+            }, 1000);
+        }
+    }
 </script>
 
 </body>
