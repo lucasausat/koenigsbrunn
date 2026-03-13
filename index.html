@@ -44,6 +44,15 @@ z-index:-1;
 100%{transform:translateY(40px)}
 }
 
+.cursor-glow{
+position:fixed;
+width:350px;
+height:350px;
+background:radial-gradient(circle,rgba(0,229,255,0.2),transparent 70%);
+pointer-events:none;
+z-index:0;
+}
+
 nav{
 display:flex;
 justify-content:space-between;
@@ -112,14 +121,6 @@ color:white;
 text-shadow:
 0 0 10px rgba(0,229,255,0.6),
 0 0 30px rgba(0,229,255,0.3);
-}
-
-.hero-title b{
-background:linear-gradient(120deg,#0062ff,#00e5ff,#0033ff);
-background-size:200% 200%;
-animation:gradientMove 6s infinite;
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
 }
 
 .hero-desc{
@@ -205,6 +206,32 @@ transform:rotateX(6deg) rotateY(-6deg) scale(1.05);
 box-shadow:0 20px 60px rgba(0,229,255,0.25);
 }
 
+.progress{
+margin-top:40px;
+}
+
+.progress-item{
+margin-bottom:18px;
+}
+
+.progress-bar{
+height:6px;
+background:#111;
+border-radius:4px;
+overflow:hidden;
+}
+
+.progress-fill{
+height:100%;
+background:linear-gradient(90deg,#0062ff,#00e5ff);
+animation:progressAnim 3s forwards;
+width:0;
+}
+
+@keyframes progressAnim{
+to{width:var(--progress)}
+}
+
 .map-card{
 width:320px;
 height:200px;
@@ -212,14 +239,6 @@ margin:100px auto;
 border-radius:10px;
 overflow:hidden;
 position:relative;
-cursor:pointer;
-}
-
-.map-card iframe{
-width:100%;
-height:100%;
-border:0;
-filter:blur(12px);
 }
 
 .map-lock{
@@ -228,9 +247,24 @@ inset:0;
 display:flex;
 align-items:center;
 justify-content:center;
-background:rgba(0,0,0,0.7);
+background:rgba(0,0,0,0.9);
 font-family:'Orbitron';
 letter-spacing:2px;
+color:#00e5ff;
+}
+
+.hud-line{
+position:fixed;
+height:1px;
+width:100%;
+background:linear-gradient(90deg,transparent,#00e5ff,transparent);
+animation:hudMove 6s linear infinite;
+opacity:0.4;
+}
+
+@keyframes hudMove{
+0%{transform:translateY(-100%)}
+100%{transform:translateY(100vh)}
 }
 
 .popup{
@@ -259,12 +293,15 @@ border-top:1px solid var(--border);
 
 <body>
 
+<div class="hud-line"></div>
+
 <div id="popup" class="popup"></div>
 
 <nav>
 <div class="logo">KÖNIGS<span>BRUNN</span></div>
 <div class="nav-right">
 <a href="#features">Features</a>
+<a href="#progress">Progress</a>
 <a href="#staff">Staff</a>
 <a href="https://discord.gg/QX5xj22dGW" target="_blank">Discord</a>
 </div>
@@ -272,7 +309,7 @@ border-top:1px solid var(--border);
 
 <header>
 
-<h1 class="hero-title">KÖNIGSBRUNN<br><b>CITY ROLEPLAY</b></h1>
+<h1 class="hero-title">KÖNIGSBRUNN<br>CITY ROLEPLAY</h1>
 
 <p class="hero-desc">
 Königsbrunn ist ein neues Roblox Roleplay Projekt.
@@ -325,12 +362,45 @@ APPLICATION
 
 </div>
 
-<div class="map-card" onclick="unlockMap()">
-<div class="map-lock" id="maplock">ENCRYPTED MAP DATA</div>
-<iframe id="map" src="https://www.google.com/maps?q=Los%20Angeles&output=embed"></iframe>
+<div class="map-card">
+<div class="map-lock">ENCRYPTED MAP DATA</div>
 </div>
 
-<div style="margin-top:120px" id="staff">
+</div>
+
+<div class="container" id="progress">
+
+<h2 style="font-family:Orbitron;color:white;text-align:center;margin-bottom:40px">
+DEVELOPMENT PROGRESS
+</h2>
+
+<div class="progress">
+
+<div class="progress-item">
+MAP BUILD
+<div class="progress-bar"><div class="progress-fill" style="--progress:90%"></div></div>
+</div>
+
+<div class="progress-item">
+POLICE SYSTEM
+<div class="progress-bar"><div class="progress-fill" style="--progress:70%"></div></div>
+</div>
+
+<div class="progress-item">
+ECONOMY
+<div class="progress-bar"><div class="progress-fill" style="--progress:55%"></div></div>
+</div>
+
+<div class="progress-item">
+VEHICLES
+<div class="progress-bar"><div class="progress-fill" style="--progress:30%"></div></div>
+</div>
+
+</div>
+
+</div>
+
+<div class="container" id="staff">
 
 <h2 style="font-family:Orbitron;font-size:2rem;text-align:center;margin-bottom:50px;color:white">
 PROJECT STAFF
@@ -339,24 +409,27 @@ PROJECT STAFF
 <div class="grid">
 
 <div class="card">
-lucas.aus.at
+lucas.aus.at<br>
+<span style="color:#00e5ff;font-size:0.8rem">Management</span>
 </div>
 
 <div class="card">
-joge2286
+joge2286<br>
+<span style="color:#00e5ff;font-size:0.8rem">Management</span>
 </div>
 
 <div class="card">
-benschi1503
+benschi1503<br>
+<span style="color:#00e5ff;font-size:0.8rem">Lead Development</span>
 </div>
 
 <div class="card">
-mrlenny13
+mrlenny13<br>
+<span style="color:#00e5ff;font-size:0.8rem">Developer</span>
 </div>
 
 </div>
 
-</div>
 </div>
 
 <footer>
@@ -366,28 +439,31 @@ mrlenny13
 <script>
 
 function showPopup(text){
-
 let popup=document.getElementById("popup")
 popup.innerText=text
 popup.style.opacity="1"
-
-setTimeout(()=>{
-popup.style.opacity="0"
-},2000)
-
-}
-
-function unlockMap(){
-
-document.getElementById("map").style.filter="blur(0)"
-document.getElementById("maplock").style.display="none"
-
+setTimeout(()=>popup.style.opacity="0",2000)
 }
 
 fetch("https://discord.com/api/guilds/1295464701202866207/widget.json")
 .then(res=>res.json())
 .then(data=>{
 document.getElementById("discord-count").innerText=data.presence_count
+})
+
+const glow=document.createElement("div")
+glow.classList.add("cursor-glow")
+document.body.appendChild(glow)
+
+document.addEventListener("mousemove",e=>{
+glow.style.left=e.clientX-175+"px"
+glow.style.top=e.clientY-175+"px"
+})
+
+document.addEventListener("mousemove",e=>{
+const x=(window.innerWidth/2-e.clientX)/50
+const y=(window.innerHeight/2-e.clientY)/50
+document.querySelector(".hero-title").style.transform=`translate(${x}px,${y}px)`
 })
 
 </script>
