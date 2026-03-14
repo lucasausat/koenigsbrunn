@@ -29,14 +29,16 @@ nav { position: fixed; top: 0; width: 100%; padding: 25px 5%; display: flex; jus
 .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 500; font-size: 0.95rem; transition: 0.3s; }
 .nav-links a:hover { color: var(--primary); }
 
-/* --- Hero Section mit Holz-Hintergrund --- */
+/* --- Hero Section mit neuem Holz-Hintergrund --- */
 .hero {
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 0 10%;
-    background: url('https://i.imgur.com/1dK4hLs.jpg') center/cover no-repeat; /* mattes Holzbild */
+    /* Neues Bild mit Overlay für bessere Lesbarkeit */
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                url('https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
     position: relative;
     overflow: hidden;
 }
