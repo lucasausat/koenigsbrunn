@@ -1,45 +1,55 @@
 <!DOCTYPE html>
-
 <html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stadt Königsbrunn | Offizielle Website</title>
+
+<title>Königsbrunn City RP | Roblox Roleplay</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
 <style>
 
 :root{
---primary:#1e4fa3;
---accent:#2f7df6;
---bg:#f4f6f9;
---text:#1a1a1a;
+--primary:#2f7df6;
+--accent:#00e0ff;
+--dark:#0b0f18;
+--card:#121826;
+--text:#e6e9f0;
 }
 
-*{margin:0;padding:0;box-sizing:border-box;}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
 
 body{
 font-family:'Inter',sans-serif;
-background:var(--bg);
+background:var(--dark);
 color:var(--text);
+overflow-x:hidden;
 }
 
-/* NAV */
+/* NAVBAR */
 
 nav{
-background:white;
-padding:18px 8%;
 display:flex;
 justify-content:space-between;
 align-items:center;
-border-bottom:1px solid #ddd;
+padding:18px 8%;
+background:rgba(0,0,0,0.6);
+backdrop-filter:blur(10px);
+position:sticky;
+top:0;
+z-index:100;
 }
 
 .logo{
 font-weight:800;
-font-size:1.2rem;
-color:var(--primary);
+font-size:1.3rem;
+color:white;
+letter-spacing:1px;
 }
 
 .nav-links{
@@ -49,8 +59,9 @@ gap:25px;
 
 .nav-links a{
 text-decoration:none;
-color:#444;
+color:#aaa;
 font-weight:500;
+transition:0.2s;
 }
 
 .nav-links a:hover{
@@ -60,110 +71,140 @@ color:var(--accent);
 /* HERO */
 
 header{
-height:420px;
-background:linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)),
-url("https://images.unsplash.com/photo-1505761671935-60b3a7427bad?q=80&w=1600") center/cover;
+height:520px;
+
+background:
+linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),
+url("https://images.unsplash.com/photo-1605902711622-cfb43c44367f?q=80&w=1800") center/cover;
+
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-color:white;
 text-align:center;
 padding:20px;
 }
 
 header h1{
-font-size:3rem;
+font-size:3.2rem;
 font-weight:800;
+margin-bottom:10px;
+}
+
+header span{
+color:var(--accent);
 }
 
 header p{
-margin-top:15px;
-font-size:1.1rem;
-opacity:0.9;
+opacity:0.8;
+margin-bottom:25px;
 }
 
-/* DEVELOPMENT BANNER */
+.hero-buttons{
+display:flex;
+gap:15px;
+}
 
-.dev-banner{
-background:#2f7df6;
+.btn{
+padding:12px 22px;
+border-radius:8px;
+text-decoration:none;
+font-weight:600;
+transition:0.25s;
+}
+
+.btn-primary{
+background:var(--primary);
 color:white;
-text-align:center;
-padding:14px;
-font-size:0.95rem;
 }
 
-/* CONTAINER */
+.btn-primary:hover{
+background:var(--accent);
+}
+
+.btn-outline{
+border:2px solid var(--accent);
+color:var(--accent);
+}
+
+.btn-outline:hover{
+background:var(--accent);
+color:black;
+}
+
+/* SECTION */
 
 .container{
-max-width:1100px;
+max-width:1200px;
 margin:auto;
-padding:60px 20px;
+padding:80px 20px;
 }
 
 /* GRID */
 
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:25px;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:30px;
 }
 
 .card{
-background:white;
-padding:30px;
-border-radius:10px;
-box-shadow:0 10px 25px rgba(0,0,0,0.08);
-transition:0.3s;
+background:var(--card);
+padding:28px;
+border-radius:14px;
+transition:0.25s;
+border:1px solid rgba(255,255,255,0.05);
 }
 
 .card:hover{
-transform:translateY(-5px);
+transform:translateY(-8px);
+box-shadow:0 0 20px rgba(0,224,255,0.3);
 }
 
 .card h3{
-color:var(--primary);
 margin-bottom:10px;
+color:var(--accent);
 }
 
 /* NEWS */
 
 .news{
-margin-top:60px;
+margin-top:70px;
 }
 
 .news-item{
-background:white;
+background:var(--card);
 padding:20px;
+margin-bottom:15px;
 border-left:4px solid var(--accent);
+border-radius:6px;
+}
+
+/* COMMUNITY SECTION */
+
+.community{
+text-align:center;
+margin-top:80px;
+}
+
+.community h2{
 margin-bottom:15px;
 }
 
-/* INFO SECTION */
-
-.info-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:30px;
-margin-top:50px;
-}
-
-.info-box{
-background:white;
-padding:25px;
-border-radius:10px;
-box-shadow:0 10px 20px rgba(0,0,0,0.08);
+.community a{
+margin-top:15px;
+display:inline-block;
 }
 
 /* FOOTER */
 
 footer{
-background:#111;
-color:#aaa;
+background:black;
 text-align:center;
 padding:40px;
-margin-top:60px;
-font-size:0.85rem;
+margin-top:80px;
+color:#777;
+font-size:0.9rem;
 }
 
 </style>
@@ -173,115 +214,114 @@ font-size:0.85rem;
 <body>
 
 <nav>
-<div class="logo">STADT KÖNIGSBRUNN</div>
+
+<div class="logo">KÖNIGSBRUNN RP</div>
 
 <div class="nav-links">
-<a href="#">Startseite</a>
-<a href="#service">Stadt</a>
-<a href="#news">Aktuelles</a>
+<a href="#">Start</a>
+<a href="#bereiche">Stadt</a>
+<a href="#news">Updates</a>
 <a href="https://discord.gg/qg4gYuxUgx" target="_blank">Discord</a>
 </div>
+
 </nav>
 
 <header>
-<h1>Willkommen in Königsbrunn</h1>
-<p>Offizielle Website der Stadt Königsbrunn</p>
-</header>
 
-<div class="dev-banner">
-🎮 Die Stadt Königsbrunn ist eine fiktive deutsche Stadt im Roblox Roleplay Spiel „Königsbrunn City Roleplay“.  
-Das Spiel befindet sich aktuell noch in Entwicklung.
+<h1>Willkommen in <span>Königsbrunn City RP</span></h1>
+
+<p>Eine realistische deutsche Stadt im Roblox Roleplay Universum</p>
+
+<div class="hero-buttons">
+
+<a class="btn btn-primary" href="#">🎮 Spiel starten</a>
+
+<a class="btn btn-outline" href="https://discord.gg/qg4gYuxUgx" target="_blank">
+💬 Discord
+</a>
+
 </div>
+
+</header>
 
 <div class="container">
 
-<h2 style="margin-bottom:30px;">Städtische Bereiche</h2>
+<h2 style="margin-bottom:30px;" id="bereiche">Stadtbereiche</h2>
 
-<div class="grid" id="service">
+<div class="grid">
 
 <div class="card">
 <h3>🏛 Rathaus</h3>
-<p>Informationen zur Stadtverwaltung und zum Bürgermeister der Stadt Königsbrunn.</p>
+<p>Hier befindet sich die Stadtverwaltung und der Bürgermeister von Königsbrunn.</p>
 </div>
 
 <div class="card">
-<h3>📄 Bürgerservice</h3>
-<p>Informationen für Bürgerinnen und Bürger der Stadt sowie geplante Verwaltungsangebote.</p>
+<h3>🚓 Polizei</h3>
+<p>Die Polizei sorgt für Sicherheit in der Stadt und schützt alle Bürger.</p>
 </div>
 
 <div class="card">
-<h3>🌳 Stadt & Leben</h3>
-<p>Informationen über Kultur, Vereine, Bildung und das Leben in der Stadt.</p>
+<h3>🚑 Rettungsdienst</h3>
+<p>Notfälle werden durch den Rettungsdienst schnell versorgt.</p>
+</div>
+
+<div class="card">
+<h3>🏙 Stadtleben</h3>
+<p>Erlebe Geschäfte, Häuser, Straßen und das echte Leben der Stadt.</p>
 </div>
 
 <div class="card">
 <h3>🗺 Stadtkarte</h3>
-<p>Eine interaktive Karte der Stadt Königsbrunn befindet sich aktuell in Entwicklung und wird bald veröffentlicht.</p>
+<p>Eine interaktive Karte der Stadt wird bald veröffentlicht.</p>
 </div>
 
 <div class="card">
-<h3>🎮 Roblox Projekt</h3>
-<p>Königsbrunn City Roleplay ist ein Roblox-Spiel, das eine realistische deutsche Stadt simuliert.</p>
-</div>
-
-<div class="card">
-<h3>💬 Community</h3>
-<p>Die Community organisiert sich über unseren Discord Server. Dort findest du Updates und kannst Support erhalten.</p>
-<a href="https://discord.gg/qg4gYuxUgx" target="_blank">Discord beitreten</a>
+<h3>🎮 Roblox Roleplay</h3>
+<p>Königsbrunn City RP ist ein realistisches deutsches Roleplay Spiel auf Roblox.</p>
 </div>
 
 </div>
 
 <div class="news" id="news">
 
-<h2 style="margin-bottom:20px;">Projekt-Neuigkeiten</h2>
+<h2 style="margin-bottom:20px;">Projekt Updates</h2>
 
 <div class="news-item">
-<strong>Projekt gestartet</strong><br>
-Die Entwicklung des Roblox Spiels „Königsbrunn City Roleplay“ hat offiziell begonnen.
-</div>
-
-<div class="news-item">
-<strong>Discord Community eröffnet</strong><br>
-Unser offizieller Discord Server ist jetzt online. Dort erhältst du alle Updates zum Projekt.
+<strong>🚧 Spielentwicklung gestartet</strong><br>
+Die Entwicklung von Königsbrunn City RP hat offiziell begonnen.
 </div>
 
 <div class="news-item">
-<strong>Stadtkarte in Entwicklung</strong><br>
-Aktuell wird an einer interaktiven Stadtkarte gearbeitet, die bald auf dieser Website verfügbar sein wird.
+<strong>💬 Discord Community</strong><br>
+Unsere Community organisiert sich über unseren Discord Server.
+</div>
+
+<div class="news-item">
+<strong>🗺 Neue Stadtkarte</strong><br>
+Die erste Version der Stadtkarte befindet sich aktuell in Entwicklung.
 </div>
 
 </div>
 
-<div class="info-grid" id="kontakt">
+<div class="community">
 
-<div class="info-box">
-<h3>🏛 Bürgermeister</h3>
-<p>
-Bürgermeister: Max Mustermann<br>
-Stadtverwaltung Königsbrunn<br>
-Diese Stadt ist Teil eines fiktiven Roblox Roleplay Projekts.
-</p>
-</div>
+<h2>Werde Teil der Community</h2>
 
-<div class="info-box">
-<h3>💬 Support & Kontakt</h3>
-<p>
-Support erfolgt ausschließlich über unseren Discord Server.<br>
-Dort kannst du ein Ticket eröffnen und das Team kontaktieren.
-</p>
+<p>Trete unserem Discord bei und erhalte alle Updates zum Projekt.</p>
 
-<a href="https://discord.gg/qg4gYuxUgx" target="_blank">
-Discord Server öffnen
+<a class="btn btn-primary" href="https://discord.gg/qg4gYuxUgx" target="_blank">
+Discord beitreten
 </a>
-</div>
 
 </div>
 
 </div>
 
 <footer>
-© 2026 Stadt Königsbrunn | Fiktive Website für ein Roblox Roleplay Projekt
+
+© 2026 Königsbrunn City Roleplay  
+Fiktive Stadt für ein Roblox Roleplay Projekt
+
 </footer>
 
 </body>
