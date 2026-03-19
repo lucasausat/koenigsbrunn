@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Königsbrunn Projekt-Zentrum</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
-
 <style>
 :root {
     --bg: #05070a;
@@ -106,7 +105,6 @@ input, textarea, select {
 
 <script>
 const webhook = "https://discord.com/api/webhooks/1482362165343289554/dxmV3m784pljdjVccnOUj5j6Fxpjph3YeBIHgogwdZ2DN9Rus8CDJs7PWqWh2T5vhz3V";
-
 let last = 0;
 
 const modQuestions = [
@@ -197,7 +195,9 @@ footer:{text:"SYSTEM:APPLICATION"}
 })
 });
 
+// **NEU: Weiterleitung nach Absenden**
 alert("Bewerbung erfolgreich gesendet!");
+window.location.href = "https://lucasausat.github.io/koenigsbrunn-web/bewerbungsportal"; 
 };
 
 // Dashboard
