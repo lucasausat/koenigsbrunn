@@ -3,84 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wartungsarbeiten | Königsbrunn</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;800&display=swap" rel="stylesheet">
+    <title>System Update | Königsbrunn</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #05070a;
+            --bg: #030508;
             --surface: #0d1117;
             --primary: #3b82f6;
+            --accent: #00f2ff;
             --text-main: #f8fafc;
-            --text-muted: #94a3b8;
+            --text-muted: #64748b;
+            --error: #ef4444;
         }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg);
             color: var(--text-main);
+            margin: 0;
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0;
-            text-align: center;
+            overflow: hidden;
+        }
+
+        /* Hintergrund-Animation */
+        .grid-bg {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(var(--primary) 1px, transparent 1px), 
+                              linear-gradient(90deg, var(--primary) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.05;
+            mask-image: radial-gradient(circle, black, transparent 80%);
         }
 
         .container {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            background: rgba(13, 17, 23, 0.6);
             padding: 40px;
-            max-width: 600px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
         }
 
-        .icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
+        .logo { font-weight: 800; font-size: 1.8rem; margin-bottom: 10px; letter-spacing: -1px; }
+        .logo span { color: var(--primary); text-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
+
+        .status-tag {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            border: 1px solid rgba(239, 68, 68, 0.2);
             display: inline-block;
+            margin-bottom: 20px;
             animation: pulse 2s infinite;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 15px;
+        h2 { margin-bottom: 15px; font-weight: 600; }
+        p { color: var(--text-muted); line-height: 1.6; margin-bottom: 30px; font-size: 0.95rem; }
+
+        /* Progress Bar */
+        .progress-container {
+            background: rgba(255,255,255,0.05);
+            height: 8px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        .progress-fill {
+            height: 100%;
+            width: 35%; /* Start-Wert */
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            box-shadow: 0 0 15px var(--primary);
+            animation: progressAnim 10s infinite alternate ease-in-out;
         }
 
-        h1 span { color: var(--primary); }
-
-        p {
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
             color: var(--text-muted);
-            font-size: 1.1rem;
-            line-height: 1.6;
             margin-bottom: 30px;
         }
 
-        .status-badge {
-            display: inline-block;
-            padding: 8px 20px;
-            background: rgba(239, 68, 68, 0.1);
-            color: #ef4444;
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.9rem;
+        /* System List */
+        .system-list {
+            text-align: left;
+            background: rgba(0,0,0,0.2);
+            border-radius: 12px;
+            padding: 15px;
         }
+        .system-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+        .system-item:last-child { border: none; }
+        .dot { height: 8px; width: 8px; background: orange; border-radius: 50%; display: inline-block; margin-right: 5px; }
+        .dot.loading { animation: blink 1s infinite; }
 
         @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.1); opacity: 0.7; }
-            100% { transform: scale(1); opacity: 1; }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        @keyframes blink {
+            0%, 100% { background: orange; box-shadow: 0 0 5px orange; }
+            50% { background: #333; box-shadow: none; }
+        }
+        @keyframes progressAnim {
+            0% { width: 30%; }
+            100% { width: 45%; }
         }
     </style>
 </head>
 <body>
 
+    <div class="grid-bg"></div>
+
     <div class="container">
-        <div class="icon">⚠️</div>
-        <h1>KÖNIGS<span>BRUNN</span></h1>
+        <div class="status-tag">System-Upgrade läuft</div>
+        <div class="logo">KÖNIGS<span>BRUNN</span></div>
+        
+        <h2>Komplette Neustrukturierung</h2>
         <p>
-            Wir haben aktuell mit größeren technischen Problemen zu kämpfen. 
-            Daher ist das Projekt-Zentrum bis auf Weiteres <strong>offline</strong>.
+            Wir migrieren aktuell auf eine neue System-Architektur und binden mehrere externe Schnittstellen an.
+            Die Arbeiten werden voraussichtlich <b>3 bis 4 Tage</b> beanspruchen.
         </p>
-        <div class="status-badge">Status: In Arbeit</div>
+
+        <div class="progress-container">
+            <div class="progress-fill"></div>
+        </div>
+        <div class="progress-label">
+            <span>Core-Migration</span>
+            <span>ca. 38% abgeschlossen</span>
+        </div>
+
+        <div class="system-list">
+            <div class="system-item">
+                <span>Externe Datenbanken</span>
+                <span><span class="dot loading"></span> Reconnecting...</span>
+            </div>
+            <div class="system-item">
+                <span>API-Schnittstellen</span>
+                <span><span class="dot loading"></span> Restructuring...</span>
+            </div>
+            <div class="system-item">
+                <span>Authentifizierungs-Server</span>
+                <span style="color: #64748b;">Offline</span>
+            </div>
+        </div>
     </div>
 
 </body>
