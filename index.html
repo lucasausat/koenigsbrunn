@@ -3,296 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>System Update | Königsbrunn</title>
+    <title>Königsbrunn | Projekt-Zentrum</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #030508;
             --surface: #0d1117;
             --primary: #3b82f6;
-            --accent: #00f2ff;
+            --accent: #60a5fa;
             --text-main: #f8fafc;
-            --text-muted: #64748b;
-            --error: #ef4444;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.08);
+            --glass: rgba(13, 17, 23, 0.7);
         }
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg);
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: var(--bg); 
             color: var(--text-main);
-            margin: 0;
-            height: 100vh;
-            overflow: hidden;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        #maintenance-overlay {
-            position: fixed;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            background-color: var(--bg);
-        }
-
+        /* Hintergrund-Grid dezent (vom neuen Design übernommen) */
         .grid-bg {
-            position: absolute;
+            position: fixed;
             inset: 0;
             background-image: linear-gradient(var(--primary) 1px, transparent 1px), 
                               linear-gradient(90deg, var(--primary) 1px, transparent 1px);
-            background-size: 50px 50px;
-            opacity: 0.08;
-            mask-image: radial-gradient(circle, black, transparent 80%);
-            animation: gridFlow 20s linear infinite;
+            background-size: 60px 60px;
+            opacity: 0.03;
+            z-index: -1;
         }
 
-        @keyframes gridFlow {
-            from { background-position: 0 0; }
-            to { background-position: 100px 100px; }
+        /* Modernisierte Nav */
+        nav { 
+            position: fixed; 
+            top: 0; 
+            width: 100%; 
+            padding: 20px 8%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            backdrop-filter: blur(15px); 
+            background: var(--glass); 
+            border-bottom: 1px solid var(--border); 
+            z-index: 1000;
         }
 
-        .container {
-            position: relative;
-            z-index: 10;
-            width: 90%;
-            max-width: 500px;
+        .logo { font-weight: 800; font-size: 1.5rem; letter-spacing: -1px; }
+        .logo span { color: var(--primary); text-shadow: 0 0 15px rgba(59, 130, 246, 0.3); }
+
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { 
+            color: var(--text-muted); 
+            text-decoration: none; 
+            font-size: 0.9rem; 
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--primary); }
+
+        /* Hero Bereich - Moderner aber schlicht */
+        .hero { 
+            height: 80vh; 
+            display: flex; 
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center; 
             text-align: center;
-            background: rgba(13, 17, 23, 0.7);
+            padding: 0 10%; 
+        }
+
+        .hero h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 20px; }
+        .hero p { color: var(--text-muted); max-width: 600px; font-size: 1.1rem; }
+
+        /* Content Sektionen */
+        section { padding: 80px 10%; }
+
+        .card {
+            background: var(--surface);
             padding: 40px;
             border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border: 1px solid var(--border);
+            transition: transform 0.3s, border-color 0.3s;
         }
 
-        .logo { font-weight: 800; font-size: 1.8rem; margin-bottom: 10px; letter-spacing: -1px; }
-        .logo span { color: var(--primary); text-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
-
-        .status-tag {
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--error);
-            padding: 6px 16px;
-            border-radius: 100px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            display: inline-block;
-            margin-bottom: 20px;
-            animation: pulse 2s infinite;
+        .card:hover {
+            border-color: rgba(59, 130, 246, 0.4);
         }
 
-        h2 { margin-bottom: 15px; font-weight: 600; }
-        p { color: var(--text-muted); line-height: 1.6; margin-bottom: 30px; font-size: 0.95rem; }
+        h2 { font-size: 2rem; margin-bottom: 30px; font-weight: 700; }
 
-        .progress-container {
-            background: rgba(255,255,255,0.05);
-            height: 8px;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 10px;
-        }
-
-        .progress-fill {
-            height: 100%;
-            width: 25%;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            box-shadow: 0 0 15px var(--primary);
-        }
-
-        .progress-label {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-bottom: 30px;
-        }
-
-        .system-list {
-            text-align: left;
-            background: rgba(0,0,0,0.2);
-            border-radius: 12px;
-            padding: 15px;
-        }
-
-        .system-item {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.03);
-        }
-
-        .system-item:last-child { border: none; }
-
-        .dot {
-            height: 8px;
-            width: 8px;
-            background: orange;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 8px;
-        }
-
-        .dot.loading { animation: blink 1s infinite; }
-
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
-
-        @keyframes blink { 
-            0% { background: orange; box-shadow: 0 0 5px orange; } 
-            50% { background: #333; box-shadow: none; } 
-            100% { background: orange; box-shadow: 0 0 5px orange; }
-        }
-
-        #main-content {
-            padding: 50px;
-            text-align: center;
-        }
-
-        /* 🔐 Login Box */
-        #login-box {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0,0,0,0.6);
+        /* Dashboard-Liste vom alten Skript (verbessert) */
+        #list { margin-top: 20px; }
+        .app-item {
+            background: rgba(255,255,255,0.03);
+            margin-bottom: 12px;
             padding: 15px;
             border-radius: 12px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
-            z-index: 10000;
+            border-left: 4px solid var(--primary);
+            font-size: 0.9rem;
         }
 
-        #login-box input {
-            padding: 8px;
-            border-radius: 8px;
-            border: none;
-            outline: none;
-            background: rgba(255,255,255,0.1);
-            color: white;
-            width: 120px;
-        }
-
-        #login-box button {
-            padding: 8px 12px;
-            border-radius: 8px;
-            border: none;
-            background: var(--primary);
-            color: white;
+        .btn { 
+            padding: 12px 28px; 
+            border-radius: 12px; 
+            text-decoration: none; 
+            font-weight: 600; 
             cursor: pointer;
-            margin-left: 5px;
+            border: none;
+            transition: all 0.3s;
         }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4); }
 
-        #login-box button:hover {
-            background: var(--accent);
+        /* Wartungsmodus Overlay */
+        #maintenance-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
 <body>
 
-    <div id="maintenance-overlay">
-        <div class="grid-bg"></div>
-        <div class="container">
-            <div class="status-tag">System-Upgrade läuft</div>
-            <div class="logo">KÖNIGS<span>BRUNN</span></div>
-
-            <h2>Komplette Neustrukturierung</h2>
-            <p>
-                Wir migrieren aktuell auf eine neue System-Architektur. <br>
-                Die Arbeiten beanspruchen voraussichtlich <b>2 bis 4 Tage</b>.
-            </p>
-
-            <div class="progress-container">
-                <div class="progress-fill"></div>
-            </div>
-
-            <div class="progress-label">
-                <span>Core-Migration</span>
-                <span>25% abgeschlossen</span>
-            </div>
-
-            <div class="system-list">
-                <div class="system-item">
-                    <span>Modernisierung</span>
-                    <span><span class="dot loading"></span> Reconnecting...</span>
-                </div>
-                <div class="system-item">
-                    <span>API-Schnittstellen</span>
-                    <span><span class="dot loading" style="animation-delay: 0.3s"></span> Restructuring...</span>
-                </div>
-                <div class="system-item">
-                    <span>UI/UX Design</span>
-                    <span><span class="dot loading" style="animation-delay: 0.6s"></span> Updating...</span>
-                </div>
-            </div>
+    <div id="maintenance-screen">
+        <div style="text-align: center;">
+            <h2 style="color: var(--primary);">System-Upgrade läuft</h2>
+            <p style="color: var(--text-muted);">Wir sind am 21.03. um 12:00 Uhr zurück.</p>
         </div>
     </div>
 
-    <div id="main-content">
-        <h1>Willkommen im Arbeitsbereich!</h1>
-        <p>Hier kannst du nun am neuen Design basteln.</p>
-        <div style="background: var(--surface); padding: 20px; border-radius: 10px; border: 1px solid var(--primary);">
-            Neues Feature-Modul v1.0
+    <div class="grid-bg"></div>
+
+    <nav>
+        <div class="logo">KÖNIGS<span>BRUNN</span></div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#dashboard">Dashboard</a>
+            <a href="#status">System-Status</a>
         </div>
+    </nav>
+
+    <div id="home" class="hero">
+        <h1>Willkommen zurück.</h1>
+        <p>Die neue Infrastruktur von Königsbrunn ist nun aktiv. Schneller, stabiler und übersichtlicher.</p>
     </div>
 
-    <div id="login-box">
-        <input id="keyInput" placeholder="Discord Code">
-        <button onclick="login()">Unlock</button>
-    </div>
+    <section id="dashboard">
+        <h2>Dashboard</h2>
+        <div class="card">
+            <p style="margin-bottom: 20px;">Hier findest du alle aktuellen Informationen zu deinen Projekten.</p>
+            <button class="btn btn-primary" onclick="loadApps()">Daten aktualisieren</button>
+            <div id="list">
+                </div>
+        </div>
+    </section>
 
     <script>
-        const overlay = document.getElementById('maintenance-overlay');
-        
-        const BOT_IP = "77.90.42.18/"; 
-        const API_URL = `http://${BOT_IP}:1026/verify-code`;
+        // --- AUTO-SWITCH LOGIK ---
+        function checkMaintenance() {
+            const now = new Date();
+            // Ziel: 21. März 2024, 12:00 Uhr (Achtung: Monat ist 0-basiert, 2 = März)
+            // Passe das Jahr an, falls es 2025 sein soll
+            const targetDate = new Date(2024, 2, 21, 12, 0, 0); 
 
-        function unlock() {
-            overlay.style.display = 'none';
-            document.body.style.overflow = 'auto';
-            document.getElementById('login-box').style.display = 'none';
+            const screen = document.getElementById('maintenance-screen');
+            if (now >= targetDate) {
+                screen.style.display = 'none'; // Wartungsmodus aus
+                document.body.style.overflow = 'auto';
+            } else {
+                screen.style.display = 'flex'; // Wartungsmodus an
+                document.body.style.overflow = 'hidden';
+            }
         }
 
-        function login() {
-            const code = document.getElementById('keyInput').value;
+        // Alle 30 Sekunden prüfen oder beim Laden
+        setInterval(checkMaintenance, 30000);
+        checkMaintenance();
 
-            if (!code) {
-                alert("Bitte gib einen Code ein.");
+
+        // --- DASHBOARD LOGIK (Vom alten Skript übernommen) ---
+        function loadApps() {
+            let list = document.getElementById("list");
+            let data = JSON.parse(localStorage.getItem("apps") || "[]");
+            list.innerHTML = "";
+
+            if(data.length === 0) {
+                list.innerHTML = "<p style='color:var(--text-muted); margin-top:10px;'>Keine Einträge gefunden.</p>";
                 return;
             }
 
-            fetch(API_URL, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ code: code.trim().toUpperCase() })
-            })
-            .then(res => {
-                if (res.ok) return res.json();
-                throw new Error("Invalid Code");
-            })
-            .then(data => {
-                if (data.success) {
-                    localStorage.setItem("dev_access", "true");
-                    unlock();
-                    alert("Zugriff gewährt 🔓");
-                } else {
-                    alert("❌ Code falsch oder abgelaufen");
-                }
-            })
-            .catch((err) => {
-                console.error(err);
-                alert("⚠️ Bot-Server nicht erreichbar oder Code ungültig");
+            data.reverse().forEach(a => {
+                list.innerHTML += `
+                <div class="app-item">
+                    <b style="color:var(--primary)">${a.discord}</b> | ${a.role}<br>
+                    <span style="color:var(--text-muted); font-size:0.8rem;">${a.date}</span>
+                </div>`;
             });
         }
-
-        // Automatischer Check beim Laden
-        if (localStorage.getItem("dev_access") === "true") {
-            unlock();
-        }
     </script>
-
-    <script src="script.js"></script>  
 </body>
 </html>
