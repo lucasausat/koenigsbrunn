@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Königsbrunn Projekt-Zentrum</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+
 <style>
 :root {
     --bg: #0c0e13;
@@ -18,69 +20,111 @@
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Plus Jakarta Sans', sans-serif; background:var(--bg); color:var(--text-main); }
-
-nav {
-    position:fixed; top:0; width:100%; padding:20px 5%; display:flex; justify-content:space-between; backdrop-filter:blur(12px); background:var(--glass); border-bottom:1px solid var(--border); z-index:100;
+body {
+    font-family:'Plus Jakarta Sans', sans-serif;
+    background:var(--bg);
+    color:var(--text-main);
+    animation: fadeIn 1s ease;
 }
+
+/* Fade Animation */
+@keyframes fadeIn {
+    from { opacity:0; transform:translateY(10px); }
+    to { opacity:1; transform:translateY(0); }
+}
+
+/* NAV */
+nav {
+    position:fixed;
+    top:0;
+    width:100%;
+    padding:20px 5%;
+    display:flex;
+    justify-content:space-between;
+    backdrop-filter:blur(12px);
+    background:var(--glass);
+    border-bottom:1px solid var(--border);
+}
+
 .logo { font-weight:800; font-size:1.5rem; }
 .logo span { color:var(--primary); }
 
-.nav-links { display:flex; gap:30px; }
-.nav-links a { color:var(--text-muted); text-decoration:none; transition:0.2s; }
-.nav-links a:hover { color:var(--primary); }
+/* HERO */
+.hero {
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:0 10%;
+    gap:20px;
+}
 
-.hero { height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; padding:0 10%; gap:20px; }
-.hero h1 { font-size:3rem; line-height:1.2; }
-.hero p { color:var(--text-muted); font-size:1.1rem; max-width:600px; }
+.hero h1 {
+    font-size:3rem;
+}
 
-section { padding:120px 10%; }
+.hero p {
+    color:var(--text-muted);
+    max-width:600px;
+}
 
-.card { background:var(--surface); padding:25px 30px; border-radius:15px; margin-bottom:20px; box-shadow:0 5px 20px rgba(0,0,0,0.3); }
-
-button { cursor:pointer; border:none; border-radius:10px; padding:12px 25px; font-weight:600; transition:0.2s; }
-button:hover { opacity:0.9; }
-.btn-primary { background:var(--primary); color:#fff; }
-
-.dashboard-item { margin-bottom:15px; padding:15px; border-left:4px solid var(--primary); background:var(--surface); border-radius:8px; }
-.dashboard-item b { font-size:1.1rem; }
-
+/* BUTTON */
+.btn {
+    padding:14px 25px;
+    border-radius:10px;
+    background:var(--primary);
+    color:#fff;
+    text-decoration:none;
+    display:inline-block;
+    width:fit-content;
+}
 </style>
 </head>
+
 <body>
 
 <nav>
 <div class="logo">KÖNIGS<span>BRUNN</span></div>
-<div class="nav-links">
-<a href="#dashboard">Dashboard</a>
-</div>
 </nav>
 
 <section class="hero">
-<h1>Willkommen im Königsbrunn Projekt-Zentrum</h1>
-<p>Alle Projekte und aktuellen Infos an einem Ort – modern, übersichtlich, direkt.</p>
-</section>
-
-<section id="dashboard">
-<h2>Dashboard</h2>
-<div class="card">
-<button onclick="loadApps()">Daten laden</button>
-<div id="list"></div>
-</div>
+<h1>Projekt Königsbrunn</h1>
+<p>Ein zentrales System für Organisation, Entwicklung und Verwaltung – übersichtlich, modern und effizient.</p>
+<a class="btn">System wird geladen...</a>
 </section>
 
 <script>
-// ===== Launch Zeit =====
-const launchDate = new Date('2026-03-21T12:00:00').getTime();
+// ===== Wien Zeit =====
+function getViennaTime() {
+    const now = new Date();
+    return new Date(now.toLocaleString("en-US", { timeZone: "Europe/Vienna" }));
+}
 
-// ===== Wartungsmodus UI =====
+// ===== Zielzeit =====
+function getLaunchDate() {
+    const v = getViennaTime();
+    const t = new Date(v);
+    t.setHours(12,0,0,0);
+    return t.getTime();
+}
+
+const launchDate = getLaunchDate();
+
+// ===== Wartungs UI =====
 function renderMaintenance() {
     document.body.innerHTML = `
     <div id="maintenance">
         <div class="box">
             <h1>KÖNIGS<span>BRUNN</span></h1>
             <p>Neue Version wird vorbereitet</p>
-            <div id="timer">Lädt...</div>
+
+            <div id="timer">00:00:00</div>
+
+            <div class="progress">
+                <div id="bar"></div>
+            </div>
+
+            <small>Release: 12:00 (Wien Zeit)</small>
         </div>
     </div>
     `;
@@ -93,49 +137,56 @@ function renderMaintenance() {
         justify-content:center;
         align-items:center;
         background: radial-gradient(circle at top, #111827, #05070a);
-        color:#f8fafc;
-        font-family:'Plus Jakarta Sans', sans-serif;
+        animation: fadeIn 1s ease;
     }
 
     .box {
         text-align:center;
-        background: rgba(255,255,255,0.03);
-        border:1px solid rgba(255,255,255,0.08);
         padding:50px 60px;
         border-radius:20px;
-        backdrop-filter: blur(15px);
-        box-shadow:0 10px 40px rgba(0,0,0,0.6);
+        background:rgba(255,255,255,0.03);
+        border:1px solid rgba(255,255,255,0.08);
+        backdrop-filter:blur(15px);
     }
 
-    .box h1 {
-        font-size:2.2rem;
-        margin-bottom:10px;
-    }
-
-    .box span {
-        color:#3b82f6;
-    }
-
-    .box p {
-        color:#94a3b8;
-        margin-bottom:25px;
-    }
+    .box span { color:#3b82f6; }
 
     #timer {
-        font-size:2rem;
+        font-size:2.5rem;
+        margin:15px 0;
         font-weight:600;
-        letter-spacing:1px;
+        color:#3b82f6;
+        text-shadow:0 0 15px rgba(59,130,246,0.5);
+    }
+
+    .progress {
+        width:250px;
+        height:6px;
+        background:#1f2937;
+        border-radius:10px;
+        margin:10px auto 20px;
+        overflow:hidden;
+    }
+
+    #bar {
+        height:100%;
+        width:0%;
+        background:linear-gradient(90deg,#3b82f6,#60a5fa);
+        transition:width 1s linear;
     }
     `;
     document.head.appendChild(style);
 }
 
-// ===== Countdown =====
+// ===== Timer =====
 function startTimer() {
-    const timerEl = document.getElementById("timer");
+    const timer = document.getElementById("timer");
+    const bar = document.getElementById("bar");
+
+    const total = launchDate - getViennaTime().getTime();
 
     const interval = setInterval(() => {
-        const now = Date.now();
+        const now = getViennaTime().getTime();
         const diff = launchDate - now;
 
         if (diff <= 0) {
@@ -144,38 +195,25 @@ function startTimer() {
             return;
         }
 
-        const h = Math.floor(diff / 1000 / 60 / 60);
-        const m = Math.floor((diff / 1000 / 60) % 60);
-        const s = Math.floor((diff / 1000) % 60);
+        const h = Math.floor(diff/1000/60/60);
+        const m = Math.floor((diff/1000/60)%60);
+        const s = Math.floor((diff/1000)%60);
 
-        timerEl.textContent =
-            String(h).padStart(2, '0') + ":" +
-            String(m).padStart(2, '0') + ":" +
-            String(s).padStart(2, '0');
-    }, 1000);
+        timer.textContent =
+            String(h).padStart(2,'0')+":"+
+            String(m).padStart(2,'0')+":"+
+            String(s).padStart(2,'0');
+
+        const progress = 100 - (diff / total * 100);
+        bar.style.width = progress + "%";
+
+    },1000);
 }
 
 // ===== Aktivieren =====
-if (Date.now() < launchDate) {
+if (getViennaTime().getTime() < launchDate) {
     renderMaintenance();
     startTimer();
-}
-
-// ===== Dashboard =====
-function loadApps(){
-    let list = document.getElementById("list");
-    let data = JSON.parse(localStorage.getItem("apps") || "[]");
-    list.innerHTML = "";
-    data.reverse().forEach(a=>{
-        list.innerHTML += `
-        <div class="dashboard-item">
-            <b>${a.discord}</b> (${a.role})<br>
-            Alter: ${a.age}<br>
-            Antworten: ${a.answers.join("<br><br>")}<br>
-            Datum: ${a.date}
-        </div>
-        `;
-    });
 }
 </script>
 
