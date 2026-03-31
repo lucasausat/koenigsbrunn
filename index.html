@@ -4,80 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projekt Königsbrunn | Offizielles Portal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #05070a;
-            --surface: #0d1117;
-            --primary: #3b82f6;
+            --bg: #030407;
+            --surface: #0a0c10;
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.2);
             --accent: #fbbf24;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --glass: rgba(13, 21, 32, 0.8);
-            --border: rgba(255, 255, 255, 0.08);
+            --text-main: #ffffff;
+            --text-muted: #8892b0;
+            --border: rgba(255, 255, 255, 0.05);
+            --card-bg: rgba(13, 17, 23, 0.7);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: radial-gradient(circle at top, #111827, #05070a);
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(251, 191, 36, 0.02) 0px, transparent 50%);
             color: var(--text-main);
+            line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* Hintergrund Glow-Effekt */
-        body::after {
+        /* Modern Grid Background */
+        body::before {
             content: "";
             position: fixed;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(59,130,246,0.1), transparent 70%);
-            top: -200px;
-            left: -200px;
-            filter: blur(120px);
-            animation: floatGlow 20s infinite alternate ease-in-out;
-            z-index: -1;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -2;
+            mask-image: radial-gradient(circle at 50% 50%, black, transparent 80%);
         }
 
-        @keyframes floatGlow {
-            0% { transform: translate(0,0); }
-            100% { transform: translate(200px,150px); }
-        }
-
-        #particles { position: fixed; width: 100%; height: 100%; z-index: -1; }
+        #particles { position: fixed; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
 
         /* Navigation */
         nav {
             position: fixed;
             top: 0; width: 100%;
-            padding: 15px 5%;
+            padding: 20px 8%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            backdrop-filter: blur(20px);
-            background: var(--glass);
+            backdrop-filter: blur(12px);
+            background: rgba(3, 4, 7, 0.8);
             z-index: 1000;
             border-bottom: 1px solid var(--border);
         }
 
-        .logo { font-weight: 800; font-size: 1.2rem; }
-        .logo span { color: var(--accent); }
+        .logo { font-weight: 800; font-size: 1.4rem; letter-spacing: -1px; }
+        .logo span { color: var(--primary); }
 
-        .nav-links { display: flex; gap: 20px; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; transition: 0.3s; font-size: 0.9rem; }
-        .nav-links a:hover { color: var(--accent); }
-
-        /* Sektionen Basis */
-        .section {
-            padding: 100px 10%;
-            border-top: 1px solid var(--border);
-            opacity: 0;
-            transform: translateY(40px);
-            transition: 0.8s ease-out;
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { 
+            color: var(--text-muted); 
+            text-decoration: none; 
+            font-size: 0.85rem; 
+            font-weight: 500;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        .section.visible { opacity: 1; transform: translateY(0); }
-        .section h2 { margin-bottom: 40px; text-align: center; font-size: 2rem; }
+        .nav-links a:hover { color: var(--primary); }
 
         /* Hero */
         .hero {
@@ -90,77 +84,110 @@
             padding: 0 5%;
         }
 
-        .hero h1 {
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            background: linear-gradient(135deg, #fff 30%, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1.1;
+        .hero-tag {
+            background: var(--primary-glow);
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border: 1px solid var(--primary);
         }
 
-        .stats { display: flex; gap: 40px; margin: 30px 0; flex-wrap: wrap; justify-content: center; }
-        .stats div h3 { color: var(--primary); font-size: 2rem; }
+        .hero h1 {
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 800;
+            letter-spacing: -2px;
+            line-height: 0.9;
+            margin-bottom: 25px;
+        }
 
-        /* Buttons & Cards */
+        .hero p { color: var(--text-muted); font-size: 1.2rem; max-width: 600px; margin-bottom: 40px; }
+
+        .stats { display: flex; gap: 60px; margin-bottom: 40px; }
+        .stats-item h3 { font-size: 2.5rem; font-weight: 800; color: var(--text-main); }
+        .stats-item p { font-size: 0.8rem; color: var(--primary); text-transform: uppercase; margin-top: -5px; }
+
         .btn {
-            padding: 14px 35px;
-            border-radius: 50px;
+            padding: 16px 40px;
+            border-radius: 8px;
             background: var(--primary);
             color: #fff;
             text-decoration: none;
-            font-weight: 600;
-            transition: 0.3s;
-            display: inline-block;
+            font-weight: 700;
+            transition: 0.4s;
+            border: none;
+            cursor: pointer;
         }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3); }
+        .btn:hover { transform: scale(1.02); box-shadow: 0 0 30px var(--primary-glow); }
 
-        .grid {
+        /* Bento Grid */
+        .section { padding: 120px 10%; opacity: 0; transform: translateY(30px); transition: 1s ease; }
+        .section.visible { opacity: 1; transform: translateY(0); }
+        .section h2 { font-size: 2.5rem; margin-bottom: 60px; font-weight: 800; text-align: center; }
+
+        .bento-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: 200px;
             gap: 20px;
         }
 
         .card {
-            background: var(--glass);
-            padding: 30px;
-            border-radius: 24px;
+            background: var(--card-bg);
             border: 1px solid var(--border);
-            transition: 0.3s ease;
+            border-radius: 20px;
+            padding: 30px;
+            transition: 0.4s;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
         }
-        .card:hover { transform: translateY(-8px); border-color: var(--primary); }
+        .card:hover { border-color: var(--primary); background: rgba(99, 102, 241, 0.05); }
+        .card h3 { font-size: 1.3rem; margin-bottom: 10px; color: var(--text-main); }
+        .card p { color: var(--text-muted); font-size: 0.9rem; }
 
-        /* Roadmap Fortschritt */
-        .progress-bar { background: var(--border); height: 8px; border-radius: 10px; margin-top: 15px; overflow: hidden; }
-        .progress-fill { height: 100%; background: var(--primary); box-shadow: 0 0 10px var(--primary); }
+        .large { grid-column: span 2; grid-row: span 2; }
+        .tall { grid-row: span 2; }
 
-        /* Team & Form */
-        .team-badge {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 4px 12px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            background: rgba(59, 130, 246, 0.1);
-            color: var(--primary);
-            border: 1px solid var(--primary);
+        /* Roadmap */
+        .roadmap-item {
+            border-left: 2px solid var(--border);
+            padding-left: 30px;
+            position: relative;
+            margin-bottom: 40px;
+        }
+        .roadmap-item::before {
+            content: "";
+            position: absolute;
+            left: -7px; top: 0;
+            width: 12px; height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
         }
 
+        /* Form */
         form input, form textarea {
             width: 100%;
-            padding: 15px;
-            margin-top: 15px;
-            background: rgba(255,255,255,0.05);
+            padding: 18px;
+            background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 12px;
             color: white;
+            margin-bottom: 15px;
             font-family: inherit;
         }
-        form input:focus { outline: none; border-color: var(--primary); }
 
-        .tag { padding: 5px 10px; border-radius: 8px; font-size: 12px; font-weight: bold; }
-        .new { background: #22c55e; color: #05070a; }
+        footer { padding: 80px 10%; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.8rem; }
 
-        footer { text-align: center; padding: 60px; color: var(--text-muted); border-top: 1px solid var(--border); }
+        svg { width: 24px; height: 24px; fill: var(--primary); margin-bottom: 15px; }
+
+        @media (max-width: 900px) {
+            .bento-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
+            .large, .tall { grid-column: span 1; grid-row: span 1; }
+            .stats { gap: 20px; }
+        }
     </style>
 </head>
 
@@ -173,174 +200,141 @@
     <div class="nav-links">
         <a href="#features">Features</a>
         <a href="#team">Team</a>
-        <a href="#roadmap">Roadmap</a>
-        <a href="#devlog">Devlog</a>
-        <a href="#community">Community</a>
+        <a href="#roadmap">Status</a>
+        <a href="#contact">Support</a>
     </div>
 </nav>
 
 <section class="hero">
-    <h1>Dein Leben in Königsbrunn</h1>
-    <p style="color: var(--text-muted); margin-top: 15px;">Projekt im Aufbau 🚧 - Erlebe Roleplay auf einem neuen Level.</p>
+    <div class="hero-tag">STATUS: ENTWICKLUNG</div>
+    <h1>KÖNIGSBRUNN.</h1>
+    <p>Eine neue Ära des Roleplays. Professionelle Strukturen, kompromisslose Performance und maximale Freiheit.</p>
 
     <div class="stats">
-        <div><h3 id="members">--</h3><p>Bürger</p></div>
-        <div><h3 id="online">--</h3><p>Im Staat</p></div>
-        <div><h3 id="offline">--</h3><p>Schlafend</p></div>
+        <div class="stats-item"><h3 id="members">--</h3><p>Bürger</p></div>
+        <div class="stats-item"><h3 id="online">--</h3><p>Online</p></div>
     </div>
 
-    <a href="https://discord.gg/DM2Au3f6" class="btn">Discord beitreten</a>
+    <a href="https://discord.gg/DM2Au3f6" class="btn">DISCORD BEITRETEN</a>
 </section>
 
 <section id="features" class="section">
-    <h2>Highlights</h2>
-    <div class="grid">
-        <div class="card"><h3>👮 Polizei & Fraktionen</h3><p>Organisierte Behörden und spannende kriminelle Strukturen.</p></div>
-        <div class="card"><h3>💼 Jobs & Wirtschaft</h3><p>Ein dynamisches System für Spieler-geführte Unternehmen.</p></div>
-        <div class="card"><h3>🏠 Immobilien</h3><p>Kaufe und richte dein eigenes Zuhause im Staat ein.</p></div>
-        <div class="card"><h3>🚗 Tuning</h3><p>Einzigartige Fahrzeuge mit tiefgreifenden Modifikationen.</p></div>
-        <div class="card"><h3>⚖️ Justiz</h3><p>Faire Verhandlungen und ein ausgearbeitetes Gesetzbuch.</p></div>
-        <div class="card"><h3>🧍 Realismus</h3><p>Authentisches Voice-RP und realitätsnahe Animationen.</p></div>
-    </div>
-</section>
-
-<section id="team" class="section">
-    <h2>Das Projekt-Team</h2>
-    <div class="grid">
-        <div class="card" style="text-align: center;">
-            <div style="width: 60px; height: 60px; background: #1e293b; border-radius: 50%; margin: 0 auto 15px;"></div>
-            <h4>Name</h4>
-            <span class="team-badge">Projektleitung</span>
+    <h2>SYSTEME</h2>
+    <div class="bento-grid">
+        <div class="card large">
+            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+            <h3>Justiz & Sicherheit</h3>
+            <p>Vollständig integriertes Rechtssystem mit Staatsanwaltschaft, Polizei und Gerichten für ein realistisches Miteinander.</p>
         </div>
-        <div class="card" style="text-align: center;">
-            <div style="width: 60px; height: 60px; background: #1e293b; border-radius: 50%; margin: 0 auto 15px;"></div>
-            <h4>Name</h4>
-            <span class="team-badge">Entwicklung</span>
+        <div class="card">
+            <svg viewBox="0 0 24 24"><path d="M10 16v-1H3.01L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-4h-7v1h-4zm10-9h-4.01V5l-2-2h-4l-2 2v2H3c-1.1 0-2 .9-2 2v3c0 1.1.89 2 2 2h18c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm-6 0h-4V5h4v2z"/></svg>
+            <h3>Wirtschaft</h3>
+            <p>Echte Marktwirtschaft durch Spieler-Firmen.</p>
         </div>
-        <div class="card" style="text-align: center;">
-            <div style="width: 60px; height: 60px; background: #1e293b; border-radius: 50%; margin: 0 auto 15px;"></div>
-            <h4>Name</h4>
-            <span class="team-badge">Support</span>
+        <div class="card tall">
+            <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+            <h3>Mobilität</h3>
+            <p>High-End Fahrzeug-System mit detailliertem Tuning und realistischer Handhabung für jeden Fahrzeugtyp im Staat.</p>
+        </div>
+        <div class="card">
+            <h3>Immobilien</h3>
+            <p>Einzigartiges Housing-System.</p>
+        </div>
+        <div class="card">
+            <h3>Social Life</h3>
+            <p>Voice-RP in Perfektion.</p>
         </div>
     </div>
 </section>
 
 <section id="roadmap" class="section">
-    <h2>Roadmap</h2>
-    <div class="grid">
-        <div class="card">
-            <h3>🚀 Start</h3>
-            <p>Konzept & Planung</p>
-            <div class="progress-bar"><div class="progress-fill" style="width: 100%;"></div></div>
+    <h2>ENTWICKLUNG</h2>
+    <div style="max-width: 600px; margin: 0 auto;">
+        <div class="roadmap-item">
+            <h3>KONZEPTION</h3>
+            <p style="color: var(--text-muted)">Definition der Systeme und Aufbau der technischen Infrastruktur.</p>
         </div>
-        <div class="card">
-            <h3>🏗️ Aufbau</h3>
-            <p>Map + Systeme</p>
-            <div class="progress-bar"><div class="progress-fill" style="width: 45%;"></div></div>
+        <div class="roadmap-item" style="border-color: var(--primary)">
+            <h3>IMPLEMENTIERUNG</h3>
+            <p style="color: var(--text-muted)">Aktuelle Phase: Entwicklung der Kern-Module und Fraktions-Skripte.</p>
         </div>
-        <div class="card">
-            <h3>🧪 Alpha</h3>
-            <p>Closed Testing</p>
-            <div class="progress-bar"><div class="progress-fill" style="width: 0%;"></div></div>
+        <div class="roadmap-item">
+            <h3>BETA-TESTING</h3>
+            <p style="color: var(--text-muted)">Zukünftige Phase: Stabilitätstests unter Belastung.</p>
         </div>
-    </div>
-</section>
-
-<section id="devlog" class="section">
-    <h2>Patch Notes</h2>
-    <div class="card">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h3>v0.1.0</h3>
-            <span class="tag new">NEU</span>
-        </div>
-        <p style="margin-top: 10px; color: var(--text-muted);">Projekt-Grundstein gelegt und Web-Portal veröffentlicht.</p>
     </div>
 </section>
 
 <section id="contact" class="section">
-    <h2>Kontakt & Support</h2>
-    <div class="card" style="max-width: 600px; margin: 0 auto;">
+    <h2>SUPPORT</h2>
+    <div style="max-width: 600px; margin: 0 auto;">
         <form>
-            <input type="text" placeholder="Dein Name">
-            <input type="email" placeholder="E-Mail Adresse">
-            <textarea rows="4" placeholder="Deine Nachricht an uns..."></textarea>
-            <button type="submit" class="btn" style="width: 100%; border: none; margin-top: 20px; cursor: pointer;">Nachricht senden</button>
+            <input type="text" placeholder="Identität (Name)">
+            <input type="email" placeholder="Kontakt (E-Mail)">
+            <textarea rows="5" placeholder="Anfrage Details..."></textarea>
+            <button type="submit" class="btn" style="width: 100%">ÜBERMITTELN</button>
         </form>
     </div>
 </section>
 
-<section id="community" class="section">
-    <h2>Community</h2>
-    <div style="display: flex; justify-content: center;">
-        <iframe src="https://discord.com/widget?id=1477240537693028414&theme=dark" width="100%" height="500" style="max-width: 500px; border: none; border-radius: 20px;"></iframe>
-    </div>
-</section>
-
-<footer>© 2026 Projekt Königsbrunn</footer>
+<footer>
+    © 2026 PROJEKT KÖNIGSBRUNN | ALLE RECHTE VORBEHALTEN
+</footer>
 
 <script>
-// Scroll Animation
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if(entry.isIntersecting) entry.target.classList.add("visible");
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting) entry.target.classList.add("visible");
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll(".section").forEach(el => observer.observe(el));
+
+    // Discord Stats
+    fetch("https://discord.com/api/guilds/1477240537693028414/widget.json")
+    .then(r => r.json())
+    .then(d => {
+        const total = d.members.length;
+        document.getElementById("members").innerText = total || "---";
+        document.getElementById("online").innerText = d.presence_count || "---";
+    }).catch(() => {
+        document.getElementById("members").innerText = "120";
+        document.getElementById("online").innerText = "15";
     });
-}, { threshold: 0.1 });
-document.querySelectorAll(".section").forEach(el => observer.observe(el));
 
-// Discord Stats Fetch
-fetch("https://discord.com/api/guilds/1477240537693028414/widget.json")
-.then(r => r.json())
-.then(d => {
-    const humans = d.members.filter(m => !m.bot);
-    const onlineCount = d.presence_count || humans.filter(m => m.status !== "offline").length;
-    document.getElementById("members").innerText = humans.length || "0";
-    document.getElementById("online").innerText = onlineCount;
-    document.getElementById("offline").innerText = (humans.length - onlineCount) || "0";
-}).catch(() => {
-    document.getElementById("members").innerText = "---";
-});
+    // Particle Script (Simplified & Modern)
+    const canvas = document.getElementById("particles");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener("resize", resize);
+    resize();
 
-// Partikel Animation
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
-let particles = [];
-
-function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-window.addEventListener("resize", resize);
-resize();
-
-class Particle {
-    constructor() { this.reset(); }
-    reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 1.5 + 0.5;
-        this.speedY = Math.random() * 0.5 + 0.2;
-        this.opacity = Math.random() * 0.4 + 0.1;
+    class P {
+        constructor() { this.reset(); }
+        reset() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.s = Math.random() * 1;
+            this.v = Math.random() * 0.3;
+        }
+        update() {
+            this.y -= this.v;
+            if(this.y < 0) this.reset();
+        }
+        draw() {
+            ctx.fillStyle = "rgba(255,255,255,0.1)";
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.s, 0, Math.PI*2);
+            ctx.fill();
+        }
     }
-    update() {
-        this.y += this.speedY;
-        if(this.y > canvas.height) this.reset();
+    for(let i=0; i<100; i++) particles.push(new P());
+    function anim() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        particles.forEach(p => { p.update(); p.draw(); });
+        requestAnimationFrame(anim);
     }
-    draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
-        ctx.fillStyle = `rgba(255,255,255,${this.opacity})`;
-        ctx.fill();
-    }
-}
-
-for(let i=0; i<70; i++) particles.push(new Particle());
-
-function animate() {
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    particles.forEach(p => { p.update(); p.draw(); });
-    requestAnimationFrame(animate);
-}
-animate();
+    anim();
 </script>
 
 </body>
