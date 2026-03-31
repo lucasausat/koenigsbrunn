@@ -7,15 +7,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #030407;
-            --surface: #0a0c10;
+            --bg: #020305; 
+            --surface: #07090c;
             --primary: #6366f1;
-            --primary-glow: rgba(99, 102, 241, 0.2);
-            --accent: #fbbf24;
+            --primary-glow: rgba(99, 102, 241, 0.15);
             --text-main: #ffffff;
             --text-muted: #8892b0;
-            --border: rgba(255, 255, 255, 0.05);
-            --card-bg: rgba(13, 17, 23, 0.7);
+            --border: rgba(255, 255, 255, 0.04);
+            --card-bg: rgba(10, 12, 16, 0.8);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
@@ -24,27 +23,25 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg);
             background-image: 
-                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.05) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(251, 191, 36, 0.02) 0px, transparent 50%);
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.03) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(255, 255, 255, 0.01) 0px, transparent 40%);
             color: var(--text-main);
             line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* Modern Grid Background */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
-            background-size: 50px 50px;
+            background-size: 60px 60px;
             z-index: -2;
-            mask-image: radial-gradient(circle at 50% 50%, black, transparent 80%);
+            mask-image: radial-gradient(circle at 50% 50%, black, transparent 90%);
         }
 
         #particles { position: fixed; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
 
-        /* Navigation */
         nav {
             position: fixed;
             top: 0; width: 100%;
@@ -52,28 +49,27 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            backdrop-filter: blur(12px);
-            background: rgba(3, 4, 7, 0.8);
+            backdrop-filter: blur(15px);
+            background: rgba(2, 3, 5, 0.7);
             z-index: 1000;
             border-bottom: 1px solid var(--border);
         }
 
-        .logo { font-weight: 800; font-size: 1.4rem; letter-spacing: -1px; }
+        .logo { font-weight: 800; font-size: 1.4rem; letter-spacing: -1px; text-transform: uppercase; }
         .logo span { color: var(--primary); }
 
         .nav-links { display: flex; gap: 30px; }
         .nav-links a { 
             color: var(--text-muted); 
             text-decoration: none; 
-            font-size: 0.85rem; 
-            font-weight: 500;
+            font-size: 0.75rem; 
+            font-weight: 600;
             transition: 0.3s;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
-        .nav-links a:hover { color: var(--primary); }
+        .nav-links a:hover { color: var(--text-main); }
 
-        /* Hero */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -84,109 +80,116 @@
             padding: 0 5%;
         }
 
-        .hero-tag {
-            background: var(--primary-glow);
-            color: var(--primary);
-            padding: 6px 16px;
-            border-radius: 100px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            border: 1px solid var(--primary);
-        }
-
         .hero h1 {
-            font-size: clamp(3rem, 10vw, 6rem);
+            font-size: clamp(3.5rem, 12vw, 7rem);
             font-weight: 800;
-            letter-spacing: -2px;
-            line-height: 0.9;
-            margin-bottom: 25px;
+            letter-spacing: -4px;
+            line-height: 0.85;
+            margin-bottom: 30px;
+            text-transform: uppercase;
         }
 
-        .hero p { color: var(--text-muted); font-size: 1.2rem; max-width: 600px; margin-bottom: 40px; }
+        .hero p { color: var(--text-muted); font-size: 1.1rem; max-width: 550px; margin-bottom: 40px; }
 
-        .stats { display: flex; gap: 60px; margin-bottom: 40px; }
-        .stats-item h3 { font-size: 2.5rem; font-weight: 800; color: var(--text-main); }
-        .stats-item p { font-size: 0.8rem; color: var(--primary); text-transform: uppercase; margin-top: -5px; }
+        .stats { display: flex; gap: 80px; margin-bottom: 50px; }
+        .stats-item h3 { font-size: 3rem; font-weight: 800; color: var(--text-main); letter-spacing: -2px; }
+        .stats-item p { font-size: 0.7rem; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
 
         .btn {
-            padding: 16px 40px;
-            border-radius: 8px;
+            padding: 18px 45px;
+            border-radius: 4px;
             background: var(--primary);
             color: #fff;
             text-decoration: none;
             font-weight: 700;
+            font-size: 0.9rem;
             transition: 0.4s;
-            border: none;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: inline-block;
             cursor: pointer;
+            border: none;
         }
-        .btn:hover { transform: scale(1.02); box-shadow: 0 0 30px var(--primary-glow); }
+        .btn:hover { background: #fff; color: #000; transform: translateY(-3px); }
 
-        /* Bento Grid */
         .section { padding: 120px 10%; opacity: 0; transform: translateY(30px); transition: 1s ease; }
         .section.visible { opacity: 1; transform: translateY(0); }
-        .section h2 { font-size: 2.5rem; margin-bottom: 60px; font-weight: 800; text-align: center; }
+        .section h2 { font-size: 2.5rem; margin-bottom: 60px; font-weight: 800; text-align: left; text-transform: uppercase; letter-spacing: -1px; }
 
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            grid-auto-rows: 200px;
-            gap: 20px;
+            grid-auto-rows: 220px;
+            gap: 15px;
         }
 
         .card {
             background: var(--card-bg);
             border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 30px;
-            transition: 0.4s;
+            padding: 40px;
+            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
+            position: relative;
+            overflow: hidden;
         }
-        .card:hover { border-color: var(--primary); background: rgba(99, 102, 241, 0.05); }
-        .card h3 { font-size: 1.3rem; margin-bottom: 10px; color: var(--text-main); }
-        .card p { color: var(--text-muted); font-size: 0.9rem; }
+        .card:hover { border-color: rgba(255,255,255,0.2); background: #0c0e14; }
+        .card h3 { font-size: 1.2rem; margin-bottom: 8px; font-weight: 700; text-transform: uppercase; }
+        .card p { color: var(--text-muted); font-size: 0.85rem; }
 
         .large { grid-column: span 2; grid-row: span 2; }
         .tall { grid-row: span 2; }
 
+        /* Support Design */
+        .support-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .support-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 40px;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+        }
+        .support-card h3 { color: var(--primary); margin-bottom: 15px; text-transform: uppercase; }
+        .support-card ul { list-style: none; margin-bottom: 25px; }
+        .support-card li { 
+            display: flex; 
+            justify-content: space-between; 
+            font-size: 0.85rem; 
+            color: var(--text-muted);
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+        .support-card li span:last-child { color: var(--text-main); font-weight: 600; }
+
         /* Roadmap */
         .roadmap-item {
-            border-left: 2px solid var(--border);
-            padding-left: 30px;
+            border-left: 1px solid var(--border);
+            padding-left: 40px;
             position: relative;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
         .roadmap-item::before {
             content: "";
             position: absolute;
-            left: -7px; top: 0;
-            width: 12px; height: 12px;
-            background: var(--primary);
-            border-radius: 50%;
+            left: -1px; top: 0;
+            width: 1px; height: 100%;
+            background: linear-gradient(var(--primary), transparent);
         }
 
-        /* Form */
-        form input, form textarea {
-            width: 100%;
-            padding: 18px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            color: white;
-            margin-bottom: 15px;
-            font-family: inherit;
-        }
+        footer { padding: 60px 10%; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.7rem; letter-spacing: 2px; }
 
-        footer { padding: 80px 10%; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.8rem; }
-
-        svg { width: 24px; height: 24px; fill: var(--primary); margin-bottom: 15px; }
+        svg { width: 32px; height: 32px; fill: var(--primary); margin-bottom: 20px; }
 
         @media (max-width: 900px) {
-            .bento-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
+            .bento-grid, .support-grid { grid-template-columns: 1fr; }
             .large, .tall { grid-column: span 1; grid-row: span 1; }
-            .stats { gap: 20px; }
+            .stats { gap: 30px; }
         }
     </style>
 </head>
@@ -196,35 +199,33 @@
 <canvas id="particles"></canvas>
 
 <nav>
-    <div class="logo">KÖNIGS<span>BRUNN</span></div>
+    <div class="logo">Königs<span>brunn</span></div>
     <div class="nav-links">
-        <a href="#features">Features</a>
-        <a href="#team">Team</a>
+        <a href="#features">Systeme</a>
         <a href="#roadmap">Status</a>
         <a href="#contact">Support</a>
     </div>
 </nav>
 
 <section class="hero">
-    <div class="hero-tag">STATUS: ENTWICKLUNG</div>
-    <h1>KÖNIGSBRUNN.</h1>
-    <p>Eine neue Ära des Roleplays. Professionelle Strukturen, kompromisslose Performance und maximale Freiheit.</p>
+    <h1>Königs<br>Brunn</h1>
+    <p>Premium Roleplay auf technischer Exzellenz. Keine Kompromisse, nur echtes Gameplay.</p>
 
     <div class="stats">
         <div class="stats-item"><h3 id="members">--</h3><p>Bürger</p></div>
         <div class="stats-item"><h3 id="online">--</h3><p>Online</p></div>
     </div>
 
-    <a href="https://discord.gg/DM2Au3f6" class="btn">DISCORD BEITRETEN</a>
+    <a href="https://discord.gg/DM2Au3f6RS" class="btn">Discord Beitreten</a>
 </section>
 
 <section id="features" class="section">
-    <h2>SYSTEME</h2>
+    <h2>Systeme</h2>
     <div class="bento-grid">
         <div class="card large">
             <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
             <h3>Justiz & Sicherheit</h3>
-            <p>Vollständig integriertes Rechtssystem mit Staatsanwaltschaft, Polizei und Gerichten für ein realistisches Miteinander.</p>
+            <p>Vollständig integriertes Rechtssystem mit Staatsanwaltschaft, Polizei und Gerichten.</p>
         </div>
         <div class="card">
             <svg viewBox="0 0 24 24"><path d="M10 16v-1H3.01L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-4h-7v1h-4zm10-9h-4.01V5l-2-2h-4l-2 2v2H3c-1.1 0-2 .9-2 2v3c0 1.1.89 2 2 2h18c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm-6 0h-4V5h4v2z"/></svg>
@@ -234,51 +235,63 @@
         <div class="card tall">
             <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
             <h3>Mobilität</h3>
-            <p>High-End Fahrzeug-System mit detailliertem Tuning und realistischer Handhabung für jeden Fahrzeugtyp im Staat.</p>
+            <p>High-End Fahrzeug-System mit detailliertem Tuning und Handling.</p>
         </div>
         <div class="card">
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
             <h3>Immobilien</h3>
-            <p>Einzigartiges Housing-System.</p>
+            <p>Einzigartiges Housing-System für jeden Geschmack.</p>
         </div>
         <div class="card">
+            <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
             <h3>Social Life</h3>
-            <p>Voice-RP in Perfektion.</p>
+            <p>Voice-RP in Perfektion ohne Plugins.</p>
         </div>
     </div>
 </section>
 
 <section id="roadmap" class="section">
-    <h2>ENTWICKLUNG</h2>
-    <div style="max-width: 600px; margin: 0 auto;">
+    <h2>Status</h2>
+    <div style="max-width: 600px;">
         <div class="roadmap-item">
-            <h3>KONZEPTION</h3>
-            <p style="color: var(--text-muted)">Definition der Systeme und Aufbau der technischen Infrastruktur.</p>
-        </div>
-        <div class="roadmap-item" style="border-color: var(--primary)">
-            <h3>IMPLEMENTIERUNG</h3>
-            <p style="color: var(--text-muted)">Aktuelle Phase: Entwicklung der Kern-Module und Fraktions-Skripte.</p>
+            <h3>Konzeption</h3>
+            <p style="color: var(--text-muted)">Abgeschlossen. Infrastruktur steht.</p>
         </div>
         <div class="roadmap-item">
-            <h3>BETA-TESTING</h3>
-            <p style="color: var(--text-muted)">Zukünftige Phase: Stabilitätstests unter Belastung.</p>
+            <h3>Implementierung</h3>
+            <p style="color: var(--text-muted)">In Arbeit. Skripte werden optimiert.</p>
         </div>
     </div>
 </section>
 
 <section id="contact" class="section">
-    <h2>SUPPORT</h2>
-    <div style="max-width: 600px; margin: 0 auto;">
-        <form>
-            <input type="text" placeholder="Identität (Name)">
-            <input type="email" placeholder="Kontakt (E-Mail)">
-            <textarea rows="5" placeholder="Anfrage Details..."></textarea>
-            <button type="submit" class="btn" style="width: 100%">ÜBERMITTELN</button>
-        </form>
+    <h2>Support</h2>
+    <div class="support-grid">
+        <div class="support-card">
+            <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 12h-2v-2h2v2zm0-4h-2V6h2v4z"/></svg>
+            <h3>Ticket Support</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 25px;">
+                Für technische Probleme oder Spieler-Meldungen eröffne bitte ein Ticket auf unserem Discord.
+            </p>
+            <a href="https://discord.com/channels/1477240537693028414/1477240540926967904" class="btn" style="padding: 14px; font-size: 0.75rem; text-align: center;">Ticket öffnen</a>
+        </div>
+
+        <div class="support-card">
+            <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+            <h3>Voice Support</h3>
+            <ul>
+                <li><span>Mo - Do</span> <span>08-12 & 15-21 Uhr</span></li>
+                <li><span>Freitag</span> <span>08-12 & 15-23 Uhr</span></li>
+                <li><span>Samstag</span> <span>12-24 Uhr</span></li>
+                <li><span>Sonntag</span> <span>12-15 Uhr</span></li>
+            </ul>
+            <a href="https://discord.com/channels/1477240537693028414/1486102174546264155" class="btn" style="padding: 14px; font-size: 0.75rem; text-align: center; background: transparent; border: 1px solid var(--primary);">Zum Warteraum</a>
+        </div>
     </div>
 </section>
 
 <footer>
-    © 2026 PROJEKT KÖNIGSBRUNN | ALLE RECHTE VORBEHALTEN
+    &copy; 2026 PROJEKT KÖNIGSBRUNN | ESTABLISHED FOR EXCELLENCE
 </footer>
 
 <script>
@@ -293,15 +306,14 @@
     fetch("https://discord.com/api/guilds/1477240537693028414/widget.json")
     .then(r => r.json())
     .then(d => {
-        const total = d.members.length;
-        document.getElementById("members").innerText = total || "---";
+        document.getElementById("members").innerText = d.members.length || "---";
         document.getElementById("online").innerText = d.presence_count || "---";
     }).catch(() => {
-        document.getElementById("members").innerText = "120";
-        document.getElementById("online").innerText = "15";
+        document.getElementById("members").innerText = "150";
+        document.getElementById("online").innerText = "24";
     });
 
-    // Particle Script (Simplified & Modern)
+    // Partikel Hintergrund
     const canvas = document.getElementById("particles");
     const ctx = canvas.getContext("2d");
     let particles = [];
@@ -314,21 +326,21 @@
         reset() {
             this.x = Math.random() * canvas.width;
             this.y = Math.random() * canvas.height;
-            this.s = Math.random() * 1;
-            this.v = Math.random() * 0.3;
+            this.s = Math.random() * 0.8;
+            this.v = Math.random() * 0.2;
         }
         update() {
             this.y -= this.v;
             if(this.y < 0) this.reset();
         }
         draw() {
-            ctx.fillStyle = "rgba(255,255,255,0.1)";
+            ctx.fillStyle = "rgba(255,255,255,0.05)";
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.s, 0, Math.PI*2);
             ctx.fill();
         }
     }
-    for(let i=0; i<100; i++) particles.push(new P());
+    for(let i=0; i<80; i++) particles.push(new P());
     function anim() {
         ctx.clearRect(0,0,canvas.width,canvas.height);
         particles.forEach(p => { p.update(); p.draw(); });
