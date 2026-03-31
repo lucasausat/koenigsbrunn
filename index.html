@@ -1,274 +1,88 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Maintenance</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
-
-<style>
-:root{
-  --bg:#05060a;
-  --blue:#3b82f6;
-  --red:#ef4444;
-  --text:#e5e7eb;
-  --muted:#9aa4b2;
-  --border:rgba(255,255,255,0.08);
+--bg: #05070a;
+--surface: #0d1117;
+--primary: #3b82f6;
+            --accent: #fbbf24; /* Edles Gold */
+--text-main: #f8fafc;
+--text-muted: #94a3b8;
+--glass: rgba(13, 21, 32, 0.8);
+@@ -27,7 +27,6 @@
+line-height: 1.6;
 }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:"Plus Jakarta Sans", sans-serif;
-}
+        /* Glow Effekt für Überschriften */
+@keyframes glow { 0%, 100% { text-shadow: 0 0 10px rgba(59, 130, 246, 0.5); } 50% { text-shadow: 0 0 25px rgba(96, 165, 250, 0.8); } }
 
-body{
-  height:100vh;
-  background:
-    radial-gradient(circle at top, rgba(59,130,246,0.12), transparent 45%),
-    radial-gradient(circle at bottom, rgba(239,68,68,0.10), transparent 50%),
-    var(--bg);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-}
+nav {
+@@ -67,10 +66,7 @@
+h2 { font-size: 2.5rem; margin-bottom: 50px; text-align: center; }
+h2 span { color: var(--primary); }
 
-/* MUCH LIGHTER BACKGROUND (FAST) */
-body::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background: radial-gradient(circle at center, rgba(255,255,255,0.04), transparent 60%);
-  animation: pulseBg 6s ease-in-out infinite;
-}
+        /* Features & Team Grid */
+        .grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px;
+        }
+.card {
+background: var(--glass); padding: 35px; border-radius: 24px;
+border: 1px solid var(--border); transition: 0.4s;
+@@ -80,10 +76,21 @@
+.card:hover { border-color: var(--primary); background: rgba(255,255,255,0.03); }
+.card h3 { color: var(--accent); margin-bottom: 15px; }
 
-@keyframes pulseBg{
-  0%,100%{transform:scale(1); opacity:0.5;}
-  50%{transform:scale(1.05); opacity:0.2;}
-}
+        /* Roadmap */
+        .roadmap { display: flex; flex-direction: column; gap: 20px; max-width: 800px; margin: 0 auto; }
+        .step { padding: 20px; border-left: 3px solid var(--primary); background: rgba(59, 130, 246, 0.05); border-radius: 0 15px 15px 0; }
+        .step.active { border-left-color: var(--accent); background: rgba(251, 191, 36, 0.05); }
 
-/* MAIN CARD */
-.card{
-  width:min(720px, 92vw);
-  padding:42px;
-  border-radius:26px;
-  background:rgba(11,15,26,0.9);
-  border:1px solid var(--border);
-  backdrop-filter: blur(10px);
-  box-shadow:0 20px 60px rgba(0,0,0,0.45);
-  position:relative;
-}
-
-/* TOP LINE */
-.card::before{
-  content:"";
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:2px;
-  background:linear-gradient(90deg, var(--blue), var(--red));
-  opacity:0.9;
-}
-
-/* HEADER */
-.header{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:26px;
-}
-
-.brand{
-  font-size:18px;
-  font-weight:800;
-  letter-spacing:2px;
-}
-
-.brand span{ color:var(--blue); }
-
-.status-pill{
-  padding:6px 12px;
-  border-radius:999px;
-  font-size:12px;
-  background:rgba(239,68,68,0.12);
-  color:var(--red);
-  border:1px solid rgba(239,68,68,0.3);
-}
-
-/* TITLE */
-h1{
-  font-size:40px;
-  font-weight:800;
-  margin-bottom:10px;
-  background:linear-gradient(90deg,#fff,var(--blue));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-
-/* TEXT */
-p{
-  color:var(--muted);
-  font-size:14px;
-  line-height:1.6;
-}
-
-/* LOADER (FASTER) */
-.loader{
-  width:58px;
-  height:58px;
-  border-radius:50%;
-  border:3px solid rgba(255,255,255,0.08);
-  border-top:3px solid var(--blue);
-  border-right:3px solid var(--red);
-  animation:spin 0.7s linear infinite;
-  margin:26px auto;
-}
-
-@keyframes spin{
-  to{transform:rotate(360deg);}
-}
-
-/* INFO */
-.info{
-  margin-top:20px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
-.item{
-  display:flex;
-  justify-content:space-between;
-  padding:12px 14px;
-  border-radius:14px;
-  background:rgba(255,255,255,0.03);
-  border:1px solid rgba(255,255,255,0.05);
-}
-
-.left{
-  display:flex;
-  gap:10px;
-  align-items:center;
-  font-size:14px;
-  color:var(--text);
-}
-
-/* DOT (SIMPLIFIED FOR SPEED) */
-.dot{
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:var(--blue);
-  animation:pulse 1.2s infinite;
-}
-
-@keyframes pulse{
-  0%,100%{transform:scale(1); opacity:1;}
-  50%{transform:scale(1.5); opacity:0.4;}
-}
-
-.right{
-  font-size:12px;
-  color:var(--muted);
-}
-
-/* FOOTER */
-.footer{
-  margin-top:22px;
-  font-size:11px;
-  text-align:center;
-  color:rgba(255,255,255,0.35);
-}
-
-/* ---------------- MOBILE LOCK ---------------- */
-
-.mobile-block{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:#05060a;
-  z-index:9999;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  padding:30px;
-}
-
-.mobile-block h2{
-  font-size:22px;
-  color:#fff;
-}
-
-.mobile-block p{
-  color:var(--muted);
-  margin-top:10px;
-  font-size:13px;
-}
-
-/* show lock on small screens */
-@media (max-width:768px){
-  .card{
-    display:none;
-  }
-  .mobile-block{
-    display:flex;
-    flex-direction:column;
-  }
-}
+footer { text-align: center; padding: 60px; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--border); }
 </style>
-</head>
+@@ -101,7 +108,7 @@
 
-<body>
-
+<section class="hero">
+<h1>Dein Leben in Königsbrunn</h1>
+    <p>Erlebe das authentische Kleinstadtleben auf Roblox. Projekt Königsbrunn vereint tiefgreifenden Realismus, modernste Technik und eine starke Community zu einem einzigartigen Rollenspiel-Erlebnis. Veröffentlichung geplant für 2026.</p>
+<div class="btn-group">
+<a href="#features" class="btn">Welt erkunden</a>
+<a href="https://discord.gg/DM2Au3f6" class="btn" style="background: transparent; border: 2px solid var(--primary); margin-left: 10px;">Discord beitreten</a>
+@@ -113,32 +120,44 @@ <h2>Unsere <span>Highlights</span></h2>
+<div class="grid">
 <div class="card">
-
-  <div class="header">
-    <div class="brand">SYSTEM <span>CORE</span></div>
-    <div class="status-pill">MAINTENANCE</div>
-  </div>
-
-  <h1>Wird gerade rebuilt</h1>
-
-  <p>
-    Die Struktur wird komplett neu aufgebaut.<br>
-    Stabiler. Schneller. Moderner.
-  </p>
-
-  <div class="loader"></div>
-
-  <div class="info">
-
-    <div class="item">
-      <div class="left"><div class="dot"></div>Backend</div>
-      <div class="right">aktiv</div>
-    </div>
-
-    <div class="item">
-      <div class="left"><div class="dot" style="background:var(--red)"></div>Verbindung</div>
-      <div class="right">instabil</div>
-    </div>
-
-    <div class="item">
-      <div class="left"><div class="dot"></div>Updates</div>
-      <div class="right">läuft</div>
-    </div>
-
-  </div>
-
-  <div class="footer">
-    maintenance ui • optimized build • no dashboard
-  </div>
-
+<h3>Living World</h3>
+            <p>Werde Teil einer lebendigen Wirtschaft. Deine Berufe und Entscheidungen haben direkten Einfluss auf den Markt und das Stadtgeschehen.</p>
 </div>
-
-<!-- MOBILE LOCK SCREEN -->
-<div class="mobile-block">
-  <h2>Zugriff blockiert</h2>
-  <p>Diese Seite ist auf mobilen Geräten nicht verfügbar.</p>
+<div class="card">
+<h3>High Performance</h3>
+            <p>Dank modernster Custom-Scripts bieten wir ein flüssiges und bugfreies Spielerlebnis – egal ob auf PC, Konsole oder Mobile.</p>
 </div>
+<div class="card">
+            <h3>Echtzeit-Anbindung</h3>
+            <p>Behalte alles im Blick: Deine Statistiken, In-Game Events und wichtige Ankündigungen werden live mit diesem Portal synchronisiert.</p>
+</div>
+</div>
+</section>
+    
+</section>
+
+<section id="roadmap" class="section">
+    <h2>Roadmap bis <span>2026</span></h2>
+    <div class="roadmap">
+        <div class="step">
+            <strong>JETZT:</strong> Entwicklung der Core-Systeme und Map-Design.
+</div>
+        <div class="step active">
+            <strong>2025:</strong> Start der geschlossenen Alpha-Phase für Discord-Mitglieder.
+</div>
+        <div class="step">
+            <strong>2026:</strong> Offizieller Release.
+</div>
+</div>
+</section>
+@@ -152,9 +171,9 @@ <h2>Roadmap bis <span>2026</span></h2>
+entries.forEach(entry => {
+if(entry.isIntersecting) entry.target.classList.add('visible');
+});
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.card').forEach(card => observer.observe(card));
+</script>
 
 </body>
-</html>
