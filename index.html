@@ -29,11 +29,20 @@ body {
     line-height: 1.6;
 }
 
-/* Smooth Section Fade */
+/* PARTICLES */
+#particles {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    top: 0;
+    left: 0;
+}
+
+/* SECTION */
 .section {
     padding: 100px 10%;
     border-top: 1px solid var(--border);
-
     opacity: 0;
     transform: translateY(60px);
     transition: all 0.8s ease;
@@ -44,11 +53,7 @@ body {
     transform: translateY(0);
 }
 
-@keyframes glow {
-    0%, 100% { text-shadow: 0 0 10px rgba(59,130,246,0.5); }
-    50% { text-shadow: 0 0 25px rgba(96,165,250,0.8); }
-}
-
+/* NAV */
 nav {
     position: fixed;
     top: 0;
@@ -66,18 +71,15 @@ nav {
 .logo { font-weight: 800; font-size: 1.4rem; }
 .logo span { color: var(--accent); }
 
-.nav-links {
-    display: flex;
-    gap: 25px;
-}
+.nav-links { display: flex; gap: 25px; }
 .nav-links a {
     color: var(--text-muted);
     text-decoration: none;
     font-weight: 600;
-    transition: 0.3s;
 }
 .nav-links a:hover { color: var(--accent); }
 
+/* HERO */
 .hero {
     min-height: 100vh;
     display: flex;
@@ -94,20 +96,11 @@ nav {
     background: linear-gradient(135deg, #fff 40%, var(--primary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: glow 3s infinite;
 }
 
-.hero p {
-    color: var(--text-muted);
-    max-width: 700px;
-    margin: 20px 0;
-}
+.hero p { color: var(--text-muted); max-width: 700px; margin: 20px 0; }
 
-.stats {
-    display: flex;
-    gap: 40px;
-    margin: 20px 0;
-}
+.stats { display: flex; gap: 40px; margin: 20px 0; }
 .stats h3 { color: var(--primary); }
 
 .progress {
@@ -116,12 +109,9 @@ nav {
     background: var(--border);
     border-radius: 20px;
 }
-.bar {
-    height: 100%;
-    background: var(--primary);
-    border-radius: 20px;
-}
+.bar { height: 100%; background: var(--primary); border-radius: 20px; }
 
+/* BUTTONS */
 .btn {
     padding: 14px 32px;
     border-radius: 50px;
@@ -132,19 +122,11 @@ nav {
     color: #fff;
     margin-top: 20px;
 }
-
 .btn-discord {
     background: #5865F2;
-    box-shadow: 0 0 20px rgba(88,101,242,0.6);
 }
 
-h2 {
-    font-size: 2.5rem;
-    text-align: center;
-    margin-bottom: 40px;
-}
-h2 span { color: var(--primary); }
-
+/* GRID */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
@@ -156,40 +138,15 @@ h2 span { color: var(--primary); }
     padding: 30px;
     border-radius: 20px;
     border: 1px solid var(--border);
-    transition: 0.4s;
-
-    opacity: 0;
-    transform: translateY(40px);
-}
-
-.card.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.map-preview {
-    margin-top: 40px;
-    padding: 60px;
-    border-radius: 30px;
-    text-align: center;
-    border: 1px solid var(--border);
-    background: linear-gradient(rgba(13,17,23,0.9), rgba(13,17,23,0.9));
-}
-
-footer {
-    text-align: center;
-    padding: 60px;
-    color: var(--text-muted);
 }
 
 /* ROADMAP */
 .roadmap-v {
-    position: relative;
     max-width: 800px;
-    margin: 0 auto;
+    margin: auto;
     padding-left: 40px;
+    position: relative;
 }
-
 .roadmap-v::before {
     content: '';
     position: absolute;
@@ -199,67 +156,62 @@ footer {
     height: 100%;
     background: var(--border);
 }
-
 .step-v {
-    margin-bottom: 60px;
-    position: relative;
-
+    margin-bottom: 50px;
     opacity: 0;
     transform: translateX(-40px);
-    transition: all 0.8s ease;
+    transition: 0.8s;
 }
+.step-v.active { opacity: 1; transform: translateX(0); }
+.step-v h3 { color: var(--accent); }
 
-.step-v::before {
-    content: '';
-    position: absolute;
-    left: -46px;
-    top: 5px;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    border: 3px solid var(--primary);
-    background: var(--surface);
+/* SLIDER */
+.slider {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    scroll-snap-type: x mandatory;
 }
-
-.step-v.active {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.step-v h3 {
-    color: var(--accent);
-}
-
-.step-v p {
-    color: var(--text-muted);
-}
-
-/* LIVE PROGRESS */
-.live-progress {
-    max-width: 600px;
-    margin: 30px auto;
-    text-align: center;
-}
-
-.live-bar {
-    width: 100%;
-    height: 10px;
-    background: var(--border);
+.slide {
+    min-width: 300px;
+    height: 180px;
+    background: var(--glass);
     border-radius: 20px;
-    overflow: hidden;
-    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    scroll-snap-align: center;
+    border: 1px solid var(--border);
 }
 
-.live-fill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, var(--primary), var(--accent));
-    transition: width 1s ease;
+/* PATCH NOTES */
+.patch {
+    background: var(--glass);
+    padding: 20px;
+    margin: 10px 0;
+    border-radius: 15px;
+}
+
+/* DISCORD */
+.discord {
+    width: 100%;
+    height: 400px;
+    border-radius: 20px;
+    border: none;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 60px;
+    color: var(--text-muted);
 }
 </style>
 </head>
 
 <body>
+
+<canvas id="particles"></canvas>
 
 <nav>
 <div class="logo">KÖNIGS<span>BRUNN</span></div>
@@ -268,131 +220,118 @@ footer {
 <a href="#roadmap">Roadmap</a>
 <a href="#devlog">Devlog</a>
 <a href="#community">Community</a>
-<a href="#" onclick="toggleLang()">🌍</a>
 </div>
 </nav>
 
 <section class="hero">
-<h1 id="title">Dein Leben in Königsbrunn</h1>
-<p id="desc">Projekt im Aufbau – verfolge unsere Entwicklung live.</p>
+<h1>Dein Leben in Königsbrunn</h1>
+<p>Projekt im Aufbau – wir sind noch in der Entwicklungsphase 🚧</p>
 
-<div class="stats">
-<div><h3>3</h3><p>Developer</p></div>
-<div><h3>2026</h3><p>Release</p></div>
-<div><h3>∞</h3><p>Vision</p></div>
-</div>
-
-<div class="progress"><div class="bar" style="width:35%"></div></div>
-<p>Fortschritt ~35%</p>
-
-<a href="#features" class="btn">Erkunden</a>
-<a href="https://discord.gg/DM2Au3f6" class="btn btn-discord">Discord</a>
+<a href="https://discord.gg/DM2Au3f6" class="btn btn-discord">Discord beitreten & Updates erhalten</a>
 </section>
 
+<!-- FEATURES -->
 <section id="features" class="section">
 <h2>Highlights</h2>
-
 <div class="grid">
-<div class="card"><h3>Living World</h3><p>Dynamische Welt im Aufbau.</p></div>
-<div class="card"><h3>Performance</h3><p>Optimierung läuft.</p></div>
-<div class="card"><h3>Stats</h3><p>Live-System geplant.</p></div>
+<div class="card">Living World</div>
+<div class="card">Core Systems</div>
+<div class="card">Roleplay System</div>
 </div>
 </section>
 
+<!-- ROADMAP -->
 <section id="roadmap" class="section">
 <h2>Roadmap</h2>
 
 <div class="roadmap-v">
-
-<div class="step-v">
-<h3>Januar 2026</h3>
-<p>Projektstart & Systemplanung</p>
-</div>
-
-<div class="step-v">
-<h3>März 2026</h3>
-<p>Bauphase & Core-Systeme</p>
-</div>
-
-<div class="step-v">
-<h3>Sommer 2026</h3>
-<p>Erste Tests</p>
-</div>
-
-<div class="step-v">
-<h3>Ende 2026</h3>
-<p>Release (geplant)</p>
-</div>
-
-</div>
-
-<div class="live-progress">
-<h3>Live Dev Progress</h3>
-<div class="live-bar">
-<div class="live-fill" id="liveFill"></div>
-</div>
-<p id="liveText">Berechnung läuft...</p>
+<div class="step-v"><h3>2026 Start</h3></div>
+<div class="step-v"><h3>Build Phase</h3></div>
+<div class="step-v"><h3>Alpha</h3></div>
 </div>
 
 </section>
 
+<!-- DEVLOG -->
+<section id="devlog" class="section">
+<h2>Devlog</h2>
+<div class="patch">System Aufbau läuft aktuell 🚧</div>
+<div class="patch">Map wird aktiv gebaut 🗺️</div>
+</section>
+
+<!-- MAP SLIDER -->
+<section class="section">
+<h2>Map Preview</h2>
+<div class="slider">
+<div class="slide">Area 1</div>
+<div class="slide">City Center</div>
+<div class="slide">Industrial Zone</div>
+</div>
+</section>
+
+<!-- COMMUNITY -->
 <section id="community" class="section">
 <h2>Community</h2>
-<p style="text-align:center;">Discord beitreten & Updates erhalten</p>
+
+<iframe class="discord"
+src="https://discord.com/widget?id=YOUR_SERVER_ID&theme=dark">
+</iframe>
+
+<p style="text-align:center; margin-top:20px;">
+Discord beitreten & Updates erhalten 🚀
+</p>
 </section>
 
 <footer>
-<p>© 2026 Projekt Königsbrunn</p>
+© 2026 Projekt Königsbrunn
 </footer>
 
 <script>
-// SECTION ANIMATION (SMOOTH)
-const sectionObserver = new IntersectionObserver(entries=>{
+// SCROLL ANIMATION
+const observer = new IntersectionObserver(entries=>{
 entries.forEach(e=>{
-if(e.isIntersecting) e.target.classList.add('visible');
+if(e.isIntersecting) e.target.classList.add("visible");
 });
-},{threshold:0.15});
+},{threshold:0.2});
 
-document.querySelectorAll('.section').forEach(el=>{
-sectionObserver.observe(el);
-});
+document.querySelectorAll(".section").forEach(el=>observer.observe(el));
 
-// ROADMAP ANIMATION
-const roadmapObserver = new IntersectionObserver(entries=>{
-entries.forEach(e=>{
-if(e.isIntersecting) e.target.classList.add('active');
-});
-},{threshold:0.3});
-
-document.querySelectorAll('.step-v').forEach((el,i)=>{
-el.style.transitionDelay = i*0.2 + "s";
-roadmapObserver.observe(el);
+// ROADMAP
+document.querySelectorAll(".step-v").forEach((el,i)=>{
+setTimeout(()=>el.classList.add("active"), i*400);
 });
 
-// LIVE PROGRESS (DEV ACTIVITY SIMULATION)
-function updateLiveProgress(){
-let progress = 35 + Math.floor(Math.random()*10);
-document.getElementById("liveFill").style.width = progress + "%";
-document.getElementById("liveText").innerText =
-"Dev Activity: " + progress + "% aktiv (simuliert)";
+// PARTICLES
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+for(let i=0;i<60;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2,
+d:Math.random()*1
+});
 }
 
-updateLiveProgress();
-setInterval(updateLiveProgress, 5000);
-
-// LANGUAGE
-let lang="de";
-function toggleLang(){
-if(lang==="de"){
-document.getElementById("title").innerText="Your Life in Königsbrunn";
-document.getElementById("desc").innerText="Project in development";
-lang="en";
-}else{
-document.getElementById("title").innerText="Dein Leben in Königsbrunn";
-document.getElementById("desc").innerText="Projekt im Aufbau";
-lang="de";
+function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="rgba(255,255,255,0.3)";
+particles.forEach(p=>{
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2,true);
+ctx.fill();
+p.y += p.d;
+if(p.y>canvas.height){p.y=0;}
+});
+requestAnimationFrame(draw);
 }
-}
+draw();
 </script>
 
 </body>
