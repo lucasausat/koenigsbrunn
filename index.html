@@ -28,6 +28,25 @@ body {
     overflow-x: hidden;
 }
 
+/* SUBTLE GLOW */
+body::after {
+    content: "";
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(59,130,246,0.08), transparent 70%);
+    top: -200px;
+    left: -200px;
+    filter: blur(120px);
+    animation: floatGlow 20s infinite alternate ease-in-out;
+    z-index: -1;
+}
+
+@keyframes floatGlow {
+    0% { transform: translate(0,0); }
+    100% { transform: translate(200px,150px); }
+}
+
 /* PARTICLES */
 #particles {
     position: fixed;
@@ -108,11 +127,11 @@ nav {
     padding:25px;
     border-radius:20px;
     border:1px solid var(--border);
-    transition:0.3s;
+    transition:0.25s ease;
 }
 .card:hover {
-    transform: translateY(-8px);
-    box-shadow:0 0 30px rgba(59,130,246,0.5);
+    transform: translateY(-6px);
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
 }
 
 /* TAGS */
@@ -227,50 +246,75 @@ footer { text-align:center; padding:50px; color:var(--text-muted); }
 
 <script>
 // SCROLL
-const observer=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add("visible")})});
+const observer=new IntersectionObserver(e=>{
+e.forEach(x=>{if(x.isIntersecting)x.target.classList.add("visible")})
+});
 document.querySelectorAll(".section").forEach(el=>observer.observe(el));
 
 // DISCORD (best effort ohne bots)
 fetch("https://discord.com/api/guilds/1477240537693028414/widget.json")
 .then(r=>r.json())
 .then(d=>{
-let humans=d.members.filter(m=>!m.bot);
-let online=humans.filter(m=>m.status!=="offline");
-let offline=humans.filter(m=>m.status==="offline");
+const humans=d.members.filter(m=>!m.bot);
+const online=humans.filter(m=>m.status!=="offline");
+const offline=humans.filter(m=>m.status==="offline");
 
-members.innerText=humans.length;
-onlineEl=document.getElementById("online");
-offlineEl=document.getElementById("offline");
-
-onlineEl.innerText=online.length;
-offlineEl.innerText=offline.length;
+document.getElementById("members").innerText=humans.length;
+document.getElementById("online").innerText=online.length;
+document.getElementById("offline").innerText=offline.length;
 });
 
-// PARTICLES UPGRADE
-const c=document.getElementById("particles");
-const ctx=c.getContext("2d");
-c.width=innerWidth; c.height=innerHeight;
+// REALISTIC PARTICLES
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
 
-let p=[];
-for(let i=0;i<90;i++){
-p.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*2,dx:(Math.random()-0.5)*0.4,dy:Math.random()*0.6});
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+
+class Particle{
+constructor(){this.reset();}
+reset(){
+this.x=Math.random()*canvas.width;
+this.y=Math.random()*canvas.height;
+this.size=Math.random()*2+0.5;
+this.speedY=Math.random()*0.6+0.2;
+this.speedX=(Math.random()-0.5)*0.2;
+this.opacity=Math.random()*0.4+0.1;
 }
-
-function draw(){
-ctx.clearRect(0,0,c.width,c.height);
-p.forEach(a=>{
+update(){
+this.y+=this.speedY;
+this.x+=this.speedX;
+this.x+=Math.sin(this.y*0.01)*0.2;
+if(this.y>canvas.height){
+this.reset();
+this.y=0;
+}
+}
+draw(){
 ctx.beginPath();
-ctx.arc(a.x,a.y,a.r,0,6.28);
-ctx.fillStyle="rgba(255,255,255,0.25)";
+ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+ctx.fillStyle=`rgba(255,255,255,${this.opacity})`;
 ctx.fill();
-
-a.x+=a.dx; a.y+=a.dy;
-
-if(a.y>c.height){a.y=0;a.x=Math.random()*c.width;}
-});
-requestAnimationFrame(draw);
 }
-draw();
+}
+
+let particles=[];
+for(let i=0;i<80;i++) particles.push(new Particle());
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+particles.forEach(p=>{
+p.update();
+p.draw();
+});
+requestAnimationFrame(animate);
+}
+animate();
+
+window.addEventListener("resize",()=>{
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+});
 </script>
 
 </body>
