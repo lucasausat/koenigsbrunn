@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -28,7 +27,7 @@
             transition: 0.3s ease;
         }
 
-        /* ✅ HERO FIX */
+        /* ✅ HERO FIX - Z-Index erhöht & Sichtbarkeit erzwungen */
         .hero {
             position: relative;
             min-height: 100vh;
@@ -36,7 +35,9 @@
             flex-direction: column;
             justify-content: center;
             padding: 100px 20px;
-            z-index: 1;
+            z-index: 10; /* Erhöht, um über Partikeln zu liegen */
+            opacity: 1 !important; /* Sofort sichtbar */
+            transform: translateY(0) !important;
         }
 
         .hero h1,
@@ -44,7 +45,7 @@
         .hero .stats,
         .hero .btn {
             position: relative;
-            z-index: 2;
+            z-index: 11;
         }
 
         .hero p {
@@ -67,6 +68,7 @@
         #particles {
             position: fixed;
             z-index: -2;
+            pointer-events: none; /* Klicks gehen durch die Partikel hindurch */
         }
 
         .discord-section {
@@ -100,7 +102,7 @@
     </div>
 </nav>
 
-<section class="hero fade-in">
+<section class="hero">
     <h1>Königs<br><b>Brunn</b></h1>
     <p>
         Eine Stadt im Aufbau. Entscheidungen formen hier deine Zukunft.  
@@ -118,7 +120,6 @@
     <a href="https://discord.gg/DM2Au3f6RS" class="btn btn-main">Discord Beitreten</a>
 </section>
 
-<!-- 🧠 Warum wir -->
 <section class="section fade-in">
     <h2>Warum Königsbrunn?</h2>
     <div class="bento-grid">
@@ -159,7 +160,6 @@
     </div>
 </section>
 
-<!-- 💬 Discord Section -->
 <section class="section fade-in">
     <h2>Community</h2>
     <div class="discord-section">
@@ -200,4 +200,3 @@ document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
 </body>
 </html>
-```
