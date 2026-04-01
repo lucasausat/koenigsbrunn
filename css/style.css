@@ -1,0 +1,220 @@
+ :root {
+            --bg: #02040a; 
+            --surface: #050a15;
+            --primary: #6366f1;
+            --text-main: #ffffff;
+            --text-muted: #8892b0;
+            --border: rgba(255, 255, 255, 0.04);
+            --card-bg: rgba(8, 14, 28, 0.6);
+            --nav-bg: rgba(2, 4, 10, 0.8);
+        }
+
+        [data-theme="light"] {
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --primary: #4f46e5;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: rgba(0, 0, 0, 0.05);
+            --card-bg: rgba(255, 255, 255, 0.7);
+            --nav-bg: rgba(248, 250, 252, 0.85);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color 0.6s ease;
+        }
+
+        .bg-glow {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, var(--primary), transparent 60%);
+            opacity: 0.06;
+            z-index: -2;
+            pointer-events: none;
+            transition: background 0.3s ease-out;
+        }
+
+        #particles { position: fixed; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: 0.4; }
+
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 15px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(20px);
+            background: var(--nav-bg);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Logo als Back-to-Top Button */
+        .logo { 
+            font-weight: 200; 
+            font-size: 1.3rem; 
+            letter-spacing: 1px; 
+            text-transform: uppercase; 
+            cursor: pointer; 
+            user-select: none;
+            transition: 0.3s;
+        }
+        .logo:hover { opacity: 0.7; }
+        .logo b { font-weight: 600; color: var(--primary); }
+
+        .nav-right { display: flex; align-items: center; gap: 30px; }
+        .nav-links { display: flex; gap: 25px; }
+        .nav-links a { 
+            color: var(--text-muted); 
+            text-decoration: none; 
+            font-size: 0.7rem; 
+            font-weight: 600;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        .nav-links a:hover { color: var(--primary); }
+
+        #theme-toggle {
+            background: var(--border);
+            border: none;
+            color: var(--text-main);
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 5%;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 10vw, 6.5rem);
+            font-weight: 200; 
+            letter-spacing: -2px;
+            line-height: 0.9;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+        .hero h1 b { font-weight: 500; color: var(--primary); }
+
+        .hero p { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin-bottom: 40px; font-weight: 300; letter-spacing: 0.5px; }
+
+        .stats { display: flex; gap: 60px; margin-bottom: 50px; }
+        .stats-item h3 { font-size: 2.8rem; font-weight: 200; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
+        .stats-item p { font-size: 0.65rem; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
+
+        .status-dot {
+            width: 8px; height: 8px; background: #10b981; border-radius: 50%; display: inline-block;
+            animation: pulse-green 2s infinite;
+        }
+
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        .btn {
+            padding: 16px 40px;
+            border-radius: 4px;
+            background: var(--primary);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+        .btn-main { animation: btn-glow 4s infinite; }
+        @keyframes btn-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.1); }
+            50% { box-shadow: 0 0 40px rgba(99, 102, 241, 0.3); }
+        }
+        .btn:hover { transform: translateY(-3px); filter: brightness(1.2); }
+
+        .section { padding: 120px 10%; opacity: 0; transform: translateY(30px); transition: 1s ease-out; }
+        .section.visible { opacity: 1; transform: translateY(0); }
+        .section h2 { font-size: 1.5rem; margin-bottom: 60px; font-weight: 200; text-transform: uppercase; letter-spacing: 8px; text-align: center; color: var(--text-muted); }
+
+        /* Verbessertes Bento Grid */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: 260px;
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 40px;
+            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(99, 102, 241, 0.05));
+            opacity: 0; transition: 0.5s;
+        }
+        .card:hover { border-color: var(--primary); transform: translateY(-8px) scale(1.02); }
+        .card:hover::before { opacity: 1; }
+        
+        .card h3 { font-size: 1.2rem; margin-bottom: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; z-index: 1; }
+        .card p { color: var(--text-muted); font-size: 0.9rem; font-weight: 300; z-index: 1; }
+
+        .large { grid-column: span 2; grid-row: span 2; }
+        .tall { grid-row: span 2; }
+
+        /* Verschlüsselte RP-Features */
+        .encrypted-box {
+            filter: blur(8px);
+            transition: 0.8s ease;
+            user-select: none;
+            opacity: 0.3;
+        }
+        .card:hover .encrypted-box {
+            filter: blur(0);
+            opacity: 1;
+        }
+
+        .support-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 30px; }
+        .support-card { background: var(--card-bg); border: 1px solid var(--border); padding: 40px; backdrop-filter: blur(10px); }
+        .support-card h3 { color: var(--primary); margin-bottom: 30px; font-weight: 300; letter-spacing: 3px; text-transform: uppercase; }
+        .support-card ul { list-style: none; }
+        .support-card li { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; color: var(--text-muted); }
+        .support-card li span:first-child { font-weight: 600; color: var(--text-main); }
+
+        footer { padding: 60px 10%; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.65rem; letter-spacing: 4px; text-transform: uppercase; }
+
+        svg { width: 35px; height: 35px; fill: var(--primary); margin-bottom: 25px; transition: 0.3s; }
+        .card:hover svg { transform: scale(1.1); }
+
+        @media (max-width: 900px) {
+            .bento-grid, .support-grid { grid-template-columns: 1fr; }
+            .large, .tall { grid-column: span 1; grid-row: span 1; }
+            .nav-links { display: none; }
