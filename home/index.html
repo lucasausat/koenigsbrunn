@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../css/style.css">
 
     <style>
-        /* ✨ ORIGINAL (UNVERÄNDERT) */
+        /* ✨ NAVIGATION & LAYOUT */
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
@@ -34,14 +34,9 @@
             justify-content: center;
             padding: 100px 20px;
             z-index: 10;
-            opacity: 1 !important;
-            transform: translateY(0) !important;
         }
 
-        .hero h1,
-        .hero p,
-        .hero .stats,
-        .hero .btn {
+        .hero h1, .hero p, .hero .stats, .hero .btn {
             position: relative;
             z-index: 11;
         }
@@ -68,30 +63,13 @@
             pointer-events: none;
         }
 
-        .discord-section {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
-
-        .discord-text {
-            max-width: 400px;
-        }
-
-        /* 📱 MOBILE ONLY (NEU & SAFE) */
+        /* 📱 MOBILE MAINTENANCE */
         .mobile-maintenance {
             display: none;
         }
 
         @media (max-width: 768px) {
-
-            nav,
-            section,
-            footer,
-            canvas,
-            .bg-glow {
+            nav, section, footer, canvas, .bg-glow {
                 display: none !important;
             }
 
@@ -121,16 +99,6 @@
                 0% { background-position: -200px; }
                 100% { background-position: 200px; }
             }
-
-            .mobile-maintenance p {
-                opacity: 0.7;
-                max-width: 300px;
-                margin-top: 10px;
-            }
-
-            .mobile-maintenance .btn {
-                margin-top: 20px;
-            }
         }
     </style>
 </head>
@@ -138,14 +106,8 @@
 
 <div class="mobile-maintenance">
     <h1>Königs<br><b>Brunn</b></h1>
-    <p>
-        Die mobile Version ist aktuell in Entwicklung.<br>
-        Komm später wieder oder nutze einen PC.
-    </p>
-
-    <a href="https://discord.gg/DM2Au3f6RS" class="btn btn-main">
-        Discord öffnen
-    </a>
+    <p>Die mobile Version ist aktuell in Entwicklung.<br>Nutze vorerst einen PC.</p>
+    <a href="https://discord.gg/DM2Au3f6RS" class="btn btn-main">Discord öffnen</a>
 </div>
 
 <div class="bg-glow" id="mouse-glow"></div>
@@ -167,12 +129,12 @@
 <section class="hero">
     <h1>Königs<br><b>Brunn</b></h1>
     <p>
-        Eine Stadt im Aufbau. Entscheidungen formen hier deine Zukunft.  
+        Eine Stadt im Aufbau. Entscheidungen formen hier deine Zukunft.<br>
         Technologie trifft auf Realismus – und du bist mittendrin.
     </p>
 
     <p style="margin-top:15px;opacity:0.6;">
-        Aktuell im Aufbau – wir suchen starke Entwickler, die etwas Großes erschaffen wollen.
+        Aktuell im Aufbau – wir suchen starke Entwickler für unser Team.
     </p>
 
     <div class="stats">
@@ -188,21 +150,18 @@
 
 <section class="section fade-in">
     <h2>Werde Teil des Projekts</h2>
-
     <div class="bento-grid">
         <div class="card">
             <h3>Developer gesucht</h3>
-            <p>Wir suchen aktive und erfahrene Entwickler für Script, Build und UI.</p>
+            <p>Wir suchen aktive Entwickler für Scripting, Mapping und UI.</p>
         </div>
-
         <div class="card">
             <h3>Projekt im Aufbau</h3>
-            <p>Du kannst von Anfang an dabei sein und das Projekt mitgestalten.</p>
+            <p>Gestalte die Grundpfeiler von Königsbrunn von Anfang an mit.</p>
         </div>
-
         <div class="card">
             <h3>Langfristige Vision</h3>
-            <p>Ziel ist ein hochwertiges Roleplay-System mit eigenen Features.</p>
+            <p>Einzigartige Systeme statt Standard-Skripte für echtes RP.</p>
         </div>
     </div>
 
@@ -216,33 +175,15 @@
     <div class="bento-grid">
         <div class="card">
             <h3>Eigene Systeme</h3>
-            <p>Keine Standard-Server – wir entwickeln eigene Features für ein einzigartiges Erlebnis.</p>
+            <p>Wir entwickeln Features, die du so auf keinem anderen Server findest.</p>
         </div>
-
         <div class="card">
             <h3>Aktives Team</h3>
-            <p>Wir arbeiten täglich am Projekt und hören aktiv auf die Community.</p>
+            <p>Täglicher Fortschritt und enge Zusammenarbeit mit der Community.</p>
         </div>
-
         <div class="card">
-            <h3>Qualität statt Masse</h3>
-            <p>Fokus auf sauberes Roleplay, Performance und langfristige Entwicklung.</p>
-        </div>
-    </div>
-</section>
-
-<section class="section fade-in">
-    <h2>Letzte Updates</h2>
-
-    <div class="bento-grid">
-        <div class="card">
-            <h3>Team erweitert</h3>
-            <p>Neue Entwickler sind dem Projekt beigetreten.</p>
-        </div>
-
-        <div class="card">
-            <h3>Systemplanung</h3>
-            <p>Grundstruktur für Gameplay wird aktuell definiert.</p>
+            <h3>Qualität</h3>
+            <p>Fokus auf Performance und ein sauberes Spielerlebnis.</p>
         </div>
     </div>
 </section>
@@ -253,29 +194,31 @@
         <div class="card large">
             <h3>🚧 Aufbauphase</h3>
             <p>
-                Teamaufbau läuft aktiv.<br>
-                Erste Systeme in Planung.<br>
-                Entwicklung startet in Kürze.
+                Das Team wird aktuell massiv erweitert.<br>
+                Die Systemplanung steht kurz vor dem Abschluss.<br>
+                Entwicklung der Kern-Features beginnt.
             </p>
         </div>
     </div>
 </section>
 
 <footer>
-    &copy; 2026 PROJEKT KÖNIGSBRUNN 
+    &copy; 2026 PROJEKT KÖNIGSBRUNN
 </footer>
 
 <script src="../js/app.js"></script>
 
 <script>
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-        }
-    });
-});
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    // Fade-In Animation beim Scrollen
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 </script>
 
 </body>
