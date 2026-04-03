@@ -63,7 +63,16 @@
             pointer-events: none;
         }
 
-        /* 📱 MOBILE MAINTENANCE */
+        /* 🛠️ DARK/LIGHT MODE WARTUNG */
+        #theme-toggle.maintenance {
+            opacity: 0.5;
+            cursor: not-allowed;
+            filter: grayscale(1);
+            position: relative;
+            pointer-events: none;
+        }
+
+        /* 📱 MODERNER MOBILE MAINTENANCE SCREEN */
         .mobile-maintenance {
             display: none;
         }
@@ -77,27 +86,82 @@
                 display: flex;
                 position: fixed;
                 inset: 0;
-                background: #000;
+                background: linear-gradient(135deg, #050505 0%, #111 100%);
                 color: white;
                 z-index: 999999;
                 justify-content: center;
                 align-items: center;
                 flex-direction: column;
                 text-align: center;
-                padding: 20px;
+                padding: 30px;
+                overflow: hidden;
+            }
+
+            /* Hintergrund-Deko für Mobile */
+            .mobile-maintenance::before {
+                content: "";
+                position: absolute;
+                width: 200px;
+                height: 200px;
+                background: #fff;
+                filter: blur(120px);
+                opacity: 0.1;
+                top: 10%;
+                left: -10%;
+            }
+
+            .mobile-maintenance .glass-box {
+                background: rgba(255, 255, 255, 0.03);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.05);
+                padding: 40px 20px;
+                border-radius: 30px;
+                width: 100%;
+                max-width: 320px;
             }
 
             .mobile-maintenance h1 {
-                font-size: 2.5rem;
-                background: linear-gradient(90deg, #fff, #aaa, #fff);
+                font-size: 2.8rem;
+                margin-bottom: 10px;
+                letter-spacing: -1px;
+                background: linear-gradient(180deg, #fff 0%, #777 100%);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
-                animation: shine 6s infinite linear;
             }
 
-            @keyframes shine {
-                0% { background-position: -200px; }
-                100% { background-position: 200px; }
+            .mobile-maintenance b {
+                font-weight: 800;
+            }
+
+            .mobile-maintenance p {
+                font-size: 0.95rem;
+                opacity: 0.6;
+                line-height: 1.6;
+                margin-bottom: 30px;
+            }
+
+            .mobile-maintenance .loader {
+                width: 40px;
+                height: 4px;
+                background: rgba(255,255,255,0.1);
+                margin: 0 auto 30px;
+                border-radius: 10px;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .mobile-maintenance .loader::after {
+                content: "";
+                position: absolute;
+                width: 40%;
+                height: 100%;
+                background: #fff;
+                animation: loading 2s infinite ease-in-out;
+            }
+
+            @keyframes loading {
+                0% { left: -40%; }
+                100% { left: 100%; }
             }
         }
     </style>
@@ -105,9 +169,18 @@
 <body>
 
 <div class="mobile-maintenance">
-    <h1>Königs<br><b>Brunn</b></h1>
-    <p>Die mobile Version ist aktuell in Entwicklung.<br>Nutze vorerst einen PC.</p>
-    <a href="https://discord.gg/DM2Au3f6RS" class="btn btn-main">Discord öffnen</a>
+    <div class="glass-box">
+        <h1>Königs<br><b>Brunn</b></h1>
+        <div class="loader"></div>
+        <p>
+            <b>Mobil-Modus in Arbeit.</b><br>
+            Unsere Techniker optimieren gerade das mobile Erlebnis.<br>
+            Bitte nutze einen Desktop-PC.
+        </p>
+        <a href="https://discord.gg/DM2Au3f6RS" class="btn btn-main" style="width: 100%;">
+            Discord beitreten
+        </a>
+    </div>
 </div>
 
 <div class="bg-glow" id="mouse-glow"></div>
@@ -122,7 +195,7 @@
             <a href="../tos.html">ToS</a>
             <a href="#features">Systeme</a>
         </div>
-        <button id="theme-toggle">Light Mode</button>
+        <button id="theme-toggle" class="maintenance">🛠️ Wartung</button>
     </div>
 </nav>
 
