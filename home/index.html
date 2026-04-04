@@ -63,11 +63,12 @@
             pointer-events: none;
         }
 
-        /* 🛠️ DARK MODE BUTTON */
+        /* 🛠️ DARK/LIGHT MODE WARTUNG */
         #theme-toggle.maintenance {
             opacity: 0.5;
             cursor: not-allowed;
             filter: grayscale(1);
+            position: relative;
             pointer-events: none;
         }
 
@@ -79,7 +80,10 @@
         @media (max-width: 768px) {
 
             nav, section, footer, canvas, .bg-glow {
-                display: none !important;
+                opacity: 0.15;
+                pointer-events: none;
+                filter: blur(1px);
+                transition: 0.3s ease;
             }
 
             .mobile-maintenance {
@@ -97,6 +101,7 @@
                 overflow: hidden;
             }
 
+            /* 🌌 Glow Layer 1 */
             .mobile-maintenance::before {
                 content: "";
                 position: absolute;
@@ -109,6 +114,7 @@
                 left: -15%;
             }
 
+            /* 🌌 Glow Layer 2 */
             .mobile-maintenance::after {
                 content: "";
                 position: absolute;
@@ -139,6 +145,10 @@
                 background: linear-gradient(180deg, #fff 0%, #888 100%);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
+            }
+
+            .mobile-maintenance b {
+                font-weight: 800;
             }
 
             .mobile-maintenance p {
@@ -172,13 +182,14 @@
                 100% { left: 120%; }
             }
 
-            .btn {
+            .mobile-maintenance .btn {
                 display: block;
                 padding: 12px;
                 border-radius: 12px;
                 text-decoration: none;
                 font-weight: 600;
                 margin-top: 10px;
+                transition: 0.2s ease;
             }
 
             .btn-main {
@@ -186,24 +197,33 @@
                 color: white;
             }
 
+            .btn-main:hover {
+                transform: translateY(-2px);
+            }
+
             .btn-secondary {
                 background: rgba(255,255,255,0.06);
                 color: white;
             }
+
+            .btn-secondary:hover {
+                background: rgba(255,255,255,0.1);
+            }
         }
     </style>
 </head>
-
 <body>
 
-<!-- 📱 MOBILE SCREEN -->
 <div class="mobile-maintenance">
     <div class="glass-box">
+
         <h1>Königs<br><b>Brunn</b></h1>
+
         <div class="loader"></div>
+
         <p>
-            <b>Mobile Modus in Arbeit.</b><br>
-            Das Erlebnis wird gerade komplett optimiert.
+            <b>Mobile Experience wird optimiert.</b><br>
+            Einige Features sind aktuell nur auf Desktop vollständig verfügbar.
         </p>
 
         <a href="https://discord.gg/DM2Au3f6RS" class="btn btn-main">
@@ -213,6 +233,7 @@
         <a href="/" class="btn btn-secondary">
             Zur Startseite
         </a>
+
     </div>
 </div>
 
@@ -234,26 +255,96 @@
 
 <section class="hero">
     <h1>Königs<br><b>Brunn</b></h1>
-    <p>Eine Stadt im Aufbau. Du bist Teil davon.</p>
+    <p>
+        Eine Stadt im Aufbau. Entscheidungen formen hier deine Zukunft.<br>
+        Technologie trifft auf Realismus – und du bist mittendrin.
+    </p>
+
+    <p style="margin-top:15px;opacity:0.6;">
+        Aktuell im Aufbau – wir suchen starke Entwickler für unser Team.
+    </p>
 
     <div class="stats">
-        <div><h3>25+</h3><p>Bewerbungen</p></div>
-        <div><h3>Team aktiv</h3><p>Status</p></div>
+        <div class="stats-item"><h3 id="members">25+</h3><p>Bewerbungen</p></div>
+        <div class="stats-item">
+            <h3><span class="status-dot"></span> <span id="online">Team sucht aktiv</span></h3>
+            <p>Status</p>
+        </div>
     </div>
 
     <a href="https://discord.gg/DM2Au3f6RS" class="btn btn-main">Discord Beitreten</a>
 </section>
 
+<section class="section fade-in">
+    <h2>Werde Teil des Projekts</h2>
+    <div class="bento-grid">
+        <div class="card">
+            <h3>Developer gesucht</h3>
+            <p>Wir suchen aktive Entwickler für Scripting, Mapping und UI.</p>
+        </div>
+        <div class="card">
+            <h3>Projekt im Aufbau</h3>
+            <p>Gestalte die Grundpfeiler von Königsbrunn von Anfang an mit.</p>
+        </div>
+        <div class="card">
+            <h3>Langfristige Vision</h3>
+            <p>Einzigartige Systeme statt Standard-Skripte für echtes RP.</p>
+        </div>
+    </div>
+
+    <a href="../team/" class="btn btn-main" style="margin-top:20px;">
+        Zum Team & Bewerben
+    </a>
+</section>
+
+<section class="section fade-in">
+    <h2>Warum Königsbrunn?</h2>
+    <div class="bento-grid">
+        <div class="card">
+            <h3>Eigene Systeme</h3>
+            <p>Wir entwickeln Features, die du so auf keinem anderen Server findest.</p>
+        </div>
+        <div class="card">
+            <h3>Aktives Team</h3>
+            <p>Täglicher Fortschritt und enge Zusammenarbeit mit der Community.</p>
+        </div>
+        <div class="card">
+            <h3>Qualität</h3>
+            <p>Fokus auf Performance und ein sauberes Spielerlebnis.</p>
+        </div>
+    </div>
+</section>
+
+<section id="features" class="section fade-in">
+    <h2>Projekt-Status</h2>
+    <div class="bento-grid">
+        <div class="card large">
+            <h3>🚧 Aufbauphase</h3>
+            <p>
+                Das Team wird aktuell massiv erweitert.<br>
+                Die Systemplanung steht kurz vor dem Abschluss.<br>
+                Entwicklung der Kern-Features beginnt.
+            </p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    &copy; 2026 PROJEKT KÖNIGSBRUNN
+</footer>
+
 <script src="../js/app.js"></script>
 
 <script>
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-    });
-}, { threshold: 0.1 });
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
 
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 </script>
 
 </body>
