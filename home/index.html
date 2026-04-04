@@ -6,10 +6,9 @@
     <title>Projekt Königsbrunn | Home</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style.css"> 
 
     <style>
-        /* ✨ NAVIGATION & LAYOUT */
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
@@ -63,157 +62,194 @@
             pointer-events: none;
         }
 
-        /* 🛠️ DARK/LIGHT MODE WARTUNG */
-        #theme-toggle.maintenance {
-            opacity: 0.5;
-            cursor: not-allowed;
-            filter: grayscale(1);
-            position: relative;
+        
+/* 🔒 THEME TOGGLE - LOCKED STATE (UPGRADED) */
+#theme-toggle.maintenance {
+    opacity: 0.4;
+    cursor: not-allowed;
+    filter: grayscale(1) blur(0.5px);
+    position: relative;
+    pointer-events: none;
+    user-select: none;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Ein feiner innerer Schatten lässt es "eingedrückt" wirken */
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Optional: Ein kleines Schloss-Symbol oder Hinweis, wenn man mit der Maus drüber geht 
+   (Nur wirksam, wenn pointer-events nicht auf 'none' stehen würden. 
+   Falls du Interaktion willst, 'none' entfernen und das hier nutzen:) */
+
+#theme-toggle.maintenance::after {
+    content: "🔒";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 10px;
+    opacity: 0.8;
+    filter: drop-shadow(0 0 2px black);
+}
+
+/* Subtiles Pulsieren, um zu zeigen, dass es "schläft" */
+@keyframes stealth-pulse {
+    0% { opacity: 0.3; }
+    50% { opacity: 0.5; }
+    100% { opacity: 0.3; }
+}
+
+#theme-toggle.maintenance {
+    animation: stealth-pulse 4s infinite ease-in-out;
+}
+        
+    .mobile-maintenance {
+        display: none;
+    }
+
+    @media (max-width: 1024px) { 
+        nav, section, footer, canvas, .bg-glow {
+            filter: blur(8px) grayscale(1);
+            opacity: 0.2;
             pointer-events: none;
             user-select: none;
         }
 
-        /* 📱 MOBILE MAINTENANCE (UPGRADED VERSION) */
         .mobile-maintenance {
-            display: none;
+            display: flex;
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%);
+            color: white;
+            z-index: 999999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+            overflow: hidden;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
-        @media (max-width: 768px) {
-            /* Hintergrund-Elemente ausblenden/ausgrauen */
-            nav, section, footer, canvas, .bg-glow {
-                opacity: 0.15;
-                pointer-events: none;
-                filter: blur(1px);
-                transition: 0.3s ease;
-            }
-
-            .mobile-maintenance {
-                display: flex;
-                position: fixed;
-                inset: 0;
-                background: linear-gradient(135deg, #050505 0%, #111 100%);
-                color: white;
-                z-index: 999999;
-                justify-content: center;
-                align-items: center;
-                flex-direction: column;
-                text-align: center;
-                padding: 30px;
-                overflow: hidden;
-            }
-
-            /* 🌌 Glow Effekte */
-            .mobile-maintenance::before {
-                content: "";
-                position: absolute;
-                width: 220px;
-                height: 220px;
-                background: #ffffff;
-                filter: blur(140px);
-                opacity: 0.08;
-                top: 10%;
-                left: -15%;
-            }
-
-            .mobile-maintenance::after {
-                content: "";
-                position: absolute;
-                width: 260px;
-                height: 260px;
-                background: #7c5cff;
-                filter: blur(160px);
-                opacity: 0.10;
-                bottom: 5%;
-                right: -20%;
-            }
-
-            .mobile-maintenance .glass-box {
-                background: rgba(255, 255, 255, 0.03);
-                backdrop-filter: blur(12px);
-                border: 1px solid rgba(255, 255, 255, 0.06);
-                padding: 40px 22px;
-                border-radius: 28px;
-                width: 100%;
-                max-width: 340px;
-                z-index: 2;
-            }
-
-            .mobile-maintenance h1 {
-                font-size: 2.6rem;
-                margin-bottom: 10px;
-                letter-spacing: -1px;
-                background: linear-gradient(180deg, #fff 0%, #888 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-            }
-
-            .mobile-maintenance b { font-weight: 800; }
-
-            .mobile-maintenance p {
-                font-size: 0.95rem;
-                opacity: 0.65;
-                line-height: 1.6;
-                margin-bottom: 25px;
-            }
-
-            .mobile-maintenance .loader {
-                width: 100%;
-                height: 6px;
-                background: rgba(255,255,255,0.08);
-                border-radius: 50px;
-                overflow: hidden;
-                margin: 15px 0 25px;
-                position: relative;
-            }
-
-            .mobile-maintenance .loader::after {
-                content: "";
-                position: absolute;
-                width: 35%;
-                height: 100%;
-                background: linear-gradient(90deg, transparent, #7c5cff, transparent);
-                animation: loading 1.8s infinite ease-in-out;
-            }
-
-            @keyframes loading {
-                0% { left: -40%; }
-                100% { left: 120%; }
-            }
-
-            .mobile-maintenance .btn {
-                display: block;
-                padding: 12px;
-                border-radius: 12px;
-                text-decoration: none;
-                font-weight: 600;
-                margin-top: 10px;
-                transition: 0.2s ease;
-            }
-
-            .btn-main { background: #7c5cff; color: white; }
-            .btn-main:hover { transform: translateY(-2px); }
-            .btn-secondary { background: rgba(255,255,255,0.06); color: white; }
-            .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+        .mobile-maintenance::before {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: #7c5cff;
+            filter: blur(150px);
+            opacity: 0.12;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
-    </style>
-</head>
-<body>
+
+        .glass-box {
+            position: relative;
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 50px 30px;
+            border-radius: 40px;
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .desktop-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            display: block;
+            opacity: 0.8;
+        }
+
+        .mobile-maintenance h1 {
+            font-size: clamp(2rem, 8vw, 2.8rem);
+            line-height: 1.1;
+            margin-bottom: 15px;
+            font-weight: 300;
+            letter-spacing: -0.03em;
+            background: linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.5) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .mobile-maintenance h1 b {
+            font-weight: 800;
+            display: block;
+        }
+
+        .divider {
+            width: 40px;
+            height: 2px;
+            background: #7c5cff;
+            margin: 20px auto;
+            border-radius: 2px;
+            box-shadow: 0 0 15px rgba(124, 92, 255, 0.6);
+        }
+
+        .mobile-maintenance p {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.6;
+            margin-bottom: 35px;
+        }
+
+        .mobile-maintenance p strong {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 16px;
+            border-radius: 16px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-main {
+            background: #ffffff;
+            color: #000;
+        }
+
+        .btn-main:active {
+            transform: scale(0.96);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    }
+</style>
 
 <div class="mobile-maintenance">
     <div class="glass-box">
-        <h1>Königs<br><b>Brunn</b></h1>
-        <div class="loader"></div>
+        <span class="desktop-icon">🖥️</span>
+        <h1>Königs<b>Brunn</b></h1>
+        <div class="divider"></div>
         <p>
-            <b>Mobile Experience wird optimiert.</b><br>
-            Einige Features sind aktuell nur auf Desktop vollständig verfügbar.
+            Dieses Erlebnis ist exklusiv für <strong>Desktop-Systeme</strong> konzipiert.<br>
+            <small style="font-size: 0.8rem; opacity: 0.6;">Mobile Endgeräte werden nicht unterstützt.</small>
         </p>
-        <a href="https://discord.gg/DM2Au3f6RS" class="btn btn-main">Discord beitreten</a>
-        <a href="./" class="btn btn-secondary">Seite neu laden</a>
+        <div class="btn-group">
+            <a href="https://discord.gg/DM2Au3f6RS" class="btn btn-main">Discord beitreten</a>
+            <a href="https://www.google.com" class="btn btn-secondary">Seite verlassen</a>
+        </div>
     </div>
 </div>
-
-<div class="bg-glow" id="mouse-glow"></div>
-<canvas id="particles"></canvas>
+    
 
 <nav>
     <div class="logo" onclick="window.location.href='../'">Königs<b>brunn</b></div>
@@ -290,7 +326,7 @@
     <h2>Projekt-Status</h2>
     <div class="bento-grid">
         <div class="card large">
-            <h3>🚧 Aufbauphase</h3>
+            <h3> Aufbauphase</h3>
             <p>
                 Das Team wird aktuell massiv erweitert.<br>
                 Die Systemplanung steht kurz vor dem Abschluss.<br>
