@@ -70,6 +70,7 @@
             filter: grayscale(1);
             position: relative;
             pointer-events: none;
+            user-select: none;
         }
 
         /* 📱 MOBILE MAINTENANCE (UPGRADED VERSION) */
@@ -78,7 +79,7 @@
         }
 
         @media (max-width: 768px) {
-
+            /* Hintergrund-Elemente ausblenden/ausgrauen */
             nav, section, footer, canvas, .bg-glow {
                 opacity: 0.15;
                 pointer-events: none;
@@ -101,7 +102,7 @@
                 overflow: hidden;
             }
 
-            /* 🌌 Glow Layer 1 */
+            /* 🌌 Glow Effekte */
             .mobile-maintenance::before {
                 content: "";
                 position: absolute;
@@ -114,7 +115,6 @@
                 left: -15%;
             }
 
-            /* 🌌 Glow Layer 2 */
             .mobile-maintenance::after {
                 content: "";
                 position: absolute;
@@ -147,9 +147,7 @@
                 -webkit-text-fill-color: transparent;
             }
 
-            .mobile-maintenance b {
-                font-weight: 800;
-            }
+            .mobile-maintenance b { font-weight: 800; }
 
             .mobile-maintenance p {
                 font-size: 0.95rem;
@@ -192,23 +190,10 @@
                 transition: 0.2s ease;
             }
 
-            .btn-main {
-                background: #7c5cff;
-                color: white;
-            }
-
-            .btn-main:hover {
-                transform: translateY(-2px);
-            }
-
-            .btn-secondary {
-                background: rgba(255,255,255,0.06);
-                color: white;
-            }
-
-            .btn-secondary:hover {
-                background: rgba(255,255,255,0.1);
-            }
+            .btn-main { background: #7c5cff; color: white; }
+            .btn-main:hover { transform: translateY(-2px); }
+            .btn-secondary { background: rgba(255,255,255,0.06); color: white; }
+            .btn-secondary:hover { background: rgba(255,255,255,0.1); }
         }
     </style>
 </head>
@@ -216,24 +201,14 @@
 
 <div class="mobile-maintenance">
     <div class="glass-box">
-
         <h1>Königs<br><b>Brunn</b></h1>
-
         <div class="loader"></div>
-
         <p>
             <b>Mobile Experience wird optimiert.</b><br>
             Einige Features sind aktuell nur auf Desktop vollständig verfügbar.
         </p>
-
-        <a href="https://discord.gg/DM2Au3f6RS" class="btn btn-main">
-            Discord beitreten
-        </a>
-
-        <a href="/" class="btn btn-secondary">
-            Zur Startseite
-        </a>
-
+        <a href="https://discord.gg/DM2Au3f6RS" class="btn btn-main">Discord beitreten</a>
+        <a href="./" class="btn btn-secondary">Seite neu laden</a>
     </div>
 </div>
 
@@ -259,7 +234,6 @@
         Eine Stadt im Aufbau. Entscheidungen formen hier deine Zukunft.<br>
         Technologie trifft auf Realismus – und du bist mittendrin.
     </p>
-
     <p style="margin-top:15px;opacity:0.6;">
         Aktuell im Aufbau – wir suchen starke Entwickler für unser Team.
     </p>
@@ -291,10 +265,7 @@
             <p>Einzigartige Systeme statt Standard-Skripte für echtes RP.</p>
         </div>
     </div>
-
-    <a href="../team/" class="btn btn-main" style="margin-top:20px;">
-        Zum Team & Bewerben
-    </a>
+    <a href="../team/" class="btn btn-main" style="margin-top:20px;">Zum Team & Bewerben</a>
 </section>
 
 <section class="section fade-in">
