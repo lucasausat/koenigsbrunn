@@ -71,6 +71,7 @@ nav{
     margin:0 10px;
     color:var(--muted);
     text-decoration:none;
+    transition: 0.3s;
 }
 .nav-links a:hover{color:#fff;}
 
@@ -126,19 +127,6 @@ nav{
     border-color:rgba(124,92,255,0.3);
 }
 
-/* Glow Border */
-.card::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    border-radius:18px;
-    padding:1px;
-    background:linear-gradient(120deg,transparent,#7c5cff,transparent);
-    opacity:0;
-    transition:0.4s;
-}
-.card:hover::after{opacity:1;}
-
 .card h3{
     margin-bottom:12px;
     font-size:1.2rem;
@@ -156,6 +144,27 @@ nav{
 .card p, .card li{
     color:var(--muted);
     line-height:1.7;
+}
+
+/* Button Style */
+.btn-guidelines {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: var(--accent);
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.btn-guidelines:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(124, 92, 255, 0.3);
 }
 
 ul{padding-left:20px;}
@@ -177,14 +186,14 @@ footer{
 <div class="bg bottom"></div>
 
 <nav>
-    <div class="logo" onclick="location.href='./index.html'">Königs<b>brunn</b></div>
+    <div class="logo" onclick="location.href='./home/index.html'">Königs<b>brunn</b></div>
     <div class="nav-links">
-        <a href="./home/">Home</a>
-        <a href="./team/">Team</a>
+        <a href="./home/index.html">Home</a>
+        <a href="./team/index.html">Team</a>
+        <a href="./Richtlinien/Richtlinien.html">Richtlinien</a>
         <a href="./tos.html">ToS</a>
     </div>
 </nav>
-    
 
 <header class="hero">
     <h1>Nutzungsbedingungen</h1>
@@ -243,9 +252,11 @@ footer{
 </div>
 
 <div class="card">
-<h3><i data-lucide="file-text"></i>Erweiterte Richtlinien</h3>
-<p>Detailierte Community-Richtlinien und Moderationssysteme sind aktuell in Arbeit.</p>
-<p><b>➡️ Kommt bald</b></p>
+<h3><i data-lucide="scroll-text"></i>Community Richtlinien</h3>
+<p>Für ein detailliertes Regelwerk zu unserem Discord und dem Miteinander besuche bitte unsere Richtlinien-Seite.</p>
+<a href="./Richtlinien/Richtlinien.html" class="btn-guidelines">
+    <i data-lucide="external-link"></i> Zu den Richtlinien
+</a>
 </div>
 
 </main>
@@ -262,7 +273,7 @@ window.addEventListener("scroll", () => {
     document.getElementById("progress").style.width = (scroll / height) * 100 + "%";
 });
 
-// Scroll Animation (FIX: Prüft jetzt auch beim Laden)
+// Scroll Animation
 const cards = document.querySelectorAll(".card");
 const checkVisible = () => {
     cards.forEach(card => {
