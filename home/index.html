@@ -105,7 +105,6 @@
     border-radius: 20px;
     text-align: center;
     max-width: 300px;
-    border: 1px solid rgba(255,255,255,0.1);
 }
 
 .popup button {
@@ -130,12 +129,6 @@
     transform: translateY(0);
 }
 
-/* Deaktivierter Button Style */
-.nav-links a.disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-}
-
 </style>
 </head>
 
@@ -150,15 +143,14 @@
 </div>
 
 <nav>
-<div class="logo" onclick="window.location.href='./'">Königs<b>brunn</b></div>
+<div class="logo" onclick="window.location.href='../'">Königs<b>brunn</b></div>
 
 <div class="nav-right">
 <div class="nav-links">
 <a href="./">Home</a>
-<a href="Team/">Team</a>
-<a href="tos.html">ToS</a>
-<a href="#" class="disabled" onclick="event.preventDefault(); openPopup();">Community Richtlinien</a>
-<a href="Bewerbung/apply.html">Bewerbungscenter</a>
+<a href="../team/">Team</a>
+<a href="../tos.html">ToS</a>
+<a href="#" onclick="event.preventDefault(); openPopup();">Community Richtlinien</a>
 </div>
 
 <button id="theme-toggle" class="maintenance" onclick="event.preventDefault(); openPopup();">
