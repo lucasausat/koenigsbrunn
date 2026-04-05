@@ -105,6 +105,7 @@
     border-radius: 20px;
     text-align: center;
     max-width: 300px;
+    border: 1px solid rgba(255,255,255,0.1);
 }
 
 .popup button {
@@ -135,6 +136,15 @@
     cursor: not-allowed;
 }
 
+/* Aktiver Spezial-Button für Bewerbung */
+.nav-links a.active-btn {
+    border: 1px solid #7c5cff;
+    padding: 5px 12px;
+    border-radius: 8px;
+    background: rgba(124, 92, 255, 0.1);
+    color: white;
+}
+
 </style>
 </head>
 
@@ -149,15 +159,15 @@
 </div>
 
 <nav>
-<div class="logo" onclick="window.location.href='../'">Königs<b>brunn</b></div>
+<div class="logo" onclick="window.location.href='./'">Königs<b>brunn</b></div>
 
 <div class="nav-right">
 <div class="nav-links">
 <a href="./">Home</a>
-<a href="../team/">Team</a>
-<a href="../tos.html">ToS</a>
-<a href="#" onclick="event.preventDefault(); openPopup();">Community Richtlinien</a>
-<a href="#" class="disabled" onclick="event.preventDefault(); openPopup();">Bewerbungscenter</a>
+<a href="Team/">Team</a>
+<a href="tos.html">ToS</a>
+<a href="#" class="disabled" onclick="event.preventDefault(); openPopup();">Community Richtlinien</a>
+<a href="Bewerbung/apply.html" class="active-btn">Bewerbungscenter</a>
 </div>
 
 <button id="theme-toggle" class="maintenance" onclick="event.preventDefault(); openPopup();">
