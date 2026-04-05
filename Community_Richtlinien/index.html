@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Community Richtlinien |  Königsbrunn</title>
+    <title>Regelwerk & Richtlinien | Königsbrunn</title>
     
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;800&display=swap" rel="stylesheet">
@@ -11,16 +11,18 @@
     <style>
         :root {
             --primary: #7c5cff;
+            --primary-hover: #967aff;
             --bg: #070A12;
-            --card: rgba(255,255,255,0.04);
-            --border: rgba(255,255,255,0.08);
-            --text-muted: rgba(255,255,255,0.6);
+            --card: rgba(255,255,255,0.03);
+            --border: rgba(255,255,255,0.06);
+            --text-muted: rgba(255,255,255,0.5);
+            --safe: #22c55e;
+            --accent-blue: #3b82f6;
         }
 
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            margin: 0;
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: var(--bg);
             color: white;
@@ -28,7 +30,6 @@
             overflow-x: hidden;
         }
 
-        /* BACKGROUND EFFECTS */
         .bg-glow {
             position: fixed;
             inset: 0;
@@ -36,92 +37,76 @@
             background: radial-gradient(circle at top, #0d1230, #070A12);
         }
 
-        /* NAV */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 18px 40px;
+            padding: 15px 40px;
             backdrop-filter: blur(16px);
-            background: rgba(0,0,0,0.35);
+            background: rgba(0,0,0,0.3);
             border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
         }
 
-        .logo { font-weight: 800; cursor: pointer; font-size: 1.2rem; }
+        .logo { font-weight: 800; cursor: pointer; font-size: 1.1rem; }
         .logo span { color: var(--primary); }
 
-        .nav-links a {
-            color: var(--text-muted);
-            margin-left: 20px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: 0.3s;
+        /* SLICK TAB SELECTOR */
+        .tab-wrapper {
+            display: flex;
+            justify-content: center;
+            padding: 25px 0;
         }
 
-        .nav-links a:hover { color: white; }
-
-        /* HERO */
-        .hero {
-            text-align: center;
-            padding: 80px 20px 40px;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin: 0;
-            background: linear-gradient(90deg, #fff, #7c5cff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p { color: var(--text-muted); max-width: 600px; margin: 10px auto; }
-
-        /* GRID */
-        .grid {
-            max-width: 1200px;
-            margin: 40px auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            padding: 0 20px;
-        }
-
-        /* CARDS */
-        .card {
-            background: var(--card);
+        .selector-pill {
+            display: flex;
+            background: rgba(255,255,255,0.03);
+            padding: 4px;
+            border-radius: 100px;
             border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 30px;
-            transition: 0.3s;
-            position: relative;
+            gap: 5px;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            background: rgba(255,255,255,0.06);
-        }
-
-        .card i {
-            color: var(--primary);
-            margin-bottom: 15px;
-        }
-
-        .card h3 { margin: 0 0 10px 0; font-weight: 700; }
-        .card p { font-size: 0.9rem; color: var(--text-muted); margin: 0; }
-
-        /* FOOTER */
-        footer {
-            text-align: center;
-            padding: 60px 20px;
+        .select-btn {
+            padding: 8px 24px;
+            border-radius: 100px;
+            border: none;
+            background: transparent;
             color: var(--text-muted);
-            font-size: 0.8rem;
-            border-top: 1px solid var(--border);
-            margin-top: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
+
+        .select-btn i { width: 16px; height: 16px; }
+        .select-btn.active { background: var(--primary); color: white; box-shadow: 0 4px 15px rgba(124,92,255,0.2); }
+        .select-btn:hover:not(.active) { color: white; background: rgba(255,255,255,0.05); }
+
+        /* CONTENT */
+        .tab-content { display: none; max-width: 1200px; margin: auto; padding: 20px 20px 60px; animation: slideUp 0.4s ease-out; }
+        .tab-content.active { display: block; }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+
+        .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; transition: 0.3s; }
+        .card:hover { border-color: var(--primary); background: rgba(124,92,255,0.02); transform: translateY(-3px); }
+        .card i { color: var(--primary); margin-bottom: 12px; }
+        .card h3 { margin-bottom: 10px; font-size: 1.1rem; font-weight: 700; }
+        .card p { color: var(--text-muted); font-size: 0.9rem; }
+        .card ul { padding-left: 18px; color: var(--text-muted); font-size: 0.85rem; margin-top: 10px; }
+        .card li { margin-bottom: 6px; }
+
+        .divider { grid-column: 1 / -1; margin: 30px 0 10px; color: var(--primary); font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; opacity: 0.8; }
+
+        footer { text-align: center; padding: 30px; color: var(--text-muted); font-size: 0.75rem; border-top: 1px solid var(--border); }
     </style>
 </head>
 <body>
@@ -129,70 +114,153 @@
     <div class="bg-glow"></div>
 
     <nav>
-        <div class="logo" onclick="location.href='../home/'">
-            Königs<span>brunn</span>
-        </div>
+        <div class="logo" onclick="location.href='../home/'">Königs<span>brunn</span></div>
         <div class="nav-links">
-            <a href="../home/">Home</a>
-            <a href="../Nutzungsbedingungen/">ToS</a>
+            <a href="../home/" style="color: var(--text-muted); text-decoration: none; font-size: 0.8rem;">Zurück zur Homepage</a>
         </div>
     </nav>
 
-    <div class="hero">
-        <h1>Community Richtlinien</h1>
-        <p>Ein respektvolles Miteinander ist die Basis für unser Projekt. Bitte halte dich an die folgenden Grundsätze.</p>
+    <div class="tab-wrapper">
+        <div class="selector-pill">
+            <button class="select-btn active" onclick="showTab('rules', this)"><i data-lucide="gavel"></i> Regelwerk</button>
+            <button class="select-btn" onclick="showTab('community', this)"><i data-lucide="heart"></i> Richtlinien</button>
+        </div>
     </div>
 
-    <div class="grid">
-        <div class="card">
-            <i data-lucide="heart"></i>
-            <h3>Respekt & Höflichkeit</h3>
-            <p>Behandle andere Nutzer so, wie du selbst behandelt werden möchtest. Beleidigungen, Hetze oder Diskriminierung führen zum sofortigen Ausschluss.</p>
-        </div>
+    <div id="rules" class="tab-content active">
+        <div class="grid">
+            <div class="divider">Allgemeiner Server-Betrieb</div>
+            <div class="card">
+                <i data-lucide="shield-check"></i>
+                <h3>Support-Hierarchie</h3>
+                <p>Bei normalen Fällen hat das Team das Sagen. Das <b>Management & Top-Management</b> hat bei großen Fällen (Team-Reports, Entbannungen) immer das letzte Wort.</p>
+            </div>
+            <div class="card">
+                <i data-lucide="monitor"></i>
+                <h3>Discord & OOC</h3>
+                <p>OOC-Inhalte gehören nicht in das Roleplay. Streitigkeiten auf Discord dürfen nicht in das Spiel übertragen werden.</p>
+            </div>
+            <div class="card">
+                <i data-lucide="alert-octagon"></i>
+                <h3>RDM & VDM</h3>
+                <p>Töten ohne RP-Grund oder das Nutzen von Fahrzeugen als Waffe ist streng verboten und wird hart sanktioniert.</p>
+            </div>
 
-        <div class="card">
-            <i data-lucide="shield-check"></i>
-            <h3>Sicherheit & Datenschutz</h3>
-            <p>Teile niemals private Daten (Adressen, Passwörter) von dir oder anderen. Schütze deinen Account und melde verdächtige Aktivitäten.</p>
-        </div>
+            <div class="divider">Roleplay Standards</div>
+            <div class="card">
+                <i data-lucide="user-minus"></i>
+                <h3>New Life Rule (NLR)</h3>
+                <p>Nach dem Tod beginnt ein neues Leben. Informationen aus dem alten Leben (Täter, Ort) dürfen nicht verwendet werden.</p>
+            </div>
+            <div class="card">
+                <i data-lucide="megaphone"></i>
+                <h3>RP-Flucht</h3>
+                <p>Das Ausloggen oder Verlassen der Situation während einer aktiven Handlung (z.B. Festnahme) ist verboten.</p>
+            </div>
+            <div class="card">
+                <i data-lucide="Zap"></i>
+                <h3>Power-RP</h3>
+                <p>Dem Gegenüber muss immer eine realistische Chance gelassen werden. "Erzwingen" von Handlungen ist untersagt.</p>
+            </div>
+            <div class="card">
+                <i data-lucide="siren"></i>
+                <h3>Blaulicht-Schutz</h3>
+                <p>Feuerwehr und Rettungsdienst dürfen nicht als Geiseln genommen werden. Ihre Arbeit ist unantastbar.</p>
+            </div>
 
-        <div class="card">
-            <i data-lucide="message-circle-off"></i>
-            <h3>Spam & Werbung</h3>
-            <p>Unerwünschte Werbung für andere Projekte oder das Fluten der Kanäle mit unnötigen Nachrichten ist untersagt.</p>
+            <div class="divider">Sicherheit & Zonen</div>
+            <div class="card">
+                <i data-lucide="anchor"></i>
+                <h3>Safezones</h3>
+                <p>Spawn, Krankenhäuser und Polizeiwachen sind absolut gewaltfrei. Hier darf niemand ausgeraubt werden.</p>
+            </div>
+            <div class="card">
+                <i data-lucide="bug"></i>
+                <h3>Bug-Using</h3>
+                <p>Das Ausnutzen von Fehlern im Spielsystem führt zum permanenten Ausschluss. Melde Fehler sofort im Support.</p>
+            </div>
+            <div class="card">
+                <i data-lucide="user-x"></i>
+                <h3>Combat Logging</h3>
+                <p>Das absichtliche Verlassen des Servers, um einer Strafe oder einer RP-Situation zu entgehen, wird bestraft.</p>
+            </div>
         </div>
+    </div>
 
-        <div class="card">
-            <i data-lucide="gavel"></i>
-            <h3>Anweisungen des Teams</h3>
-            <p>Den Anweisungen der Teammitglieder (Moderatoren/Management) ist Folge zu leisten. Diskussionen über Strafen gehören in den Support-Bereich.</p>
-        </div>
+    <div id="community" class="tab-content">
+        <div class="grid">
+            <div class="divider">Verhaltenskodex</div>
+            <div class="card">
+                <i data-lucide="smile"></i>
+                <h3>Respektpflicht</h3>
+                <p>Jeder Mensch hinter dem Bildschirm verdient Respekt. Beleidigungen werden bei uns nicht toleriert.</p>
+            </div>
+            <div class="card">
+                <i data-lucide="heart-handshake"></i>
+                <h3>Diskriminierung</h3>
+                <p>Rassismus, Sexismus oder homophobe Äußerungen führen zum sofortigen und permanenten Bann.</p>
+            </div>
+            <div class="card">
+                <i data-lucide="message-circle"></i>
+                <h3>Spam & Werbung</h3>
+                <p>Unerwünschte Werbung für andere Projekte oder das Fluten von Textkanälen ist untersagt.</p>
+            </div>
 
-        <div class="card">
-            <i data-lucide="users"></i>
-            <h3>Kein Trolling</h3>
-            <p>Provokationen oder mutwilliges Stören der Community-Atmosphäre werden nicht geduldet. Wir fördern ein konstruktives Umfeld.</p>
-        </div>
+            <div class="divider">Account & Sicherheit</div>
+            <div class="card">
+                <i data-lucide="key"></i>
+                <h3>Account-Sicherheit</h3>
+                <p>Jeder ist für seinen Account selbst verantwortlich. "Mein Bruder war am PC" ist keine gültige Ausrede.</p>
+            </div>
+            <div class="card">
+                <i data-lucide="eye-off"></i>
+                <h3>Datenschutz (Doxing)</h3>
+                <p>Das Veröffentlichen privater Daten anderer Personen führt zur sofortigen Meldung und einem Bann.</p>
+            </div>
+            <div class="card">
+                <i data-lucide="image"></i>
+                <h3>Medien-Inhalte</h3>
+                <p>Das Teilen von Gore, NSFW oder illegalen Inhalten ist strengstens verboten.</p>
+            </div>
 
-        <div class="card">
-            <i data-lucide="alert-triangle"></i>
-            <h3>Inhalte & Medien</h3>
-            <p>Das Teilen von pornografischen, gewaltverherrlichenden oder illegalen Inhalten ist strengstens verboten und wird rechtlich gemeldet.</p>
-        </div>
-
-        <div class="card">
-            <i data-lucide="help-circle"></i>
-            <h3>Support-Etikette</h3>
-            <p>Nutze die Support-Kanäle sachlich und geduldig. Eröffne keine Mehrfach-Tickets für dasselbe Anliegen.</p>
+            <div class="divider">Community-Management</div>
+            <div class="card">
+                <i data-lucide="crown"></i>
+                <h3>Management-Entscheid</h3>
+                <p>Bei Unklarheiten oder Team-Beschwerden hat das Top-Management die finale Entscheidungsgewalt.</p>
+            </div>
+            <div class="card">
+                <i data-lucide="ticket"></i>
+                <h3>Support-Etikette</h3>
+                <p>Tickets sind höflich und mit Beweisen (Video/Bild) zu führen. Pings an das Team sind zu unterlassen.</p>
+            </div>
+            <div class="card">
+                <i data-lucide="users"></i>
+                <h3>Trolling</h3>
+                <p>Wer nur joint, um die Atmosphäre zu stören, wird ohne Vorwarnung der Community verwiesen.</p>
+            </div>
+            <div class="card">
+                <i data-lucide="thumbs-up"></i>
+                <h3>Konstruktive Kritik</h3>
+                <p>Feedback ist erwünscht, solange es sachlich bleibt und der Verbesserung des Projekts dient.</p>
+            </div>
         </div>
     </div>
 
     <footer>
-        &copy; 2026 Projekt Königsbrunn • Deine Community, deine Regeln.
+        &copy; 2026 Projekt Königsbrunn • Dein Roleplay, deine Regeln.
     </footer>
 
     <script>
-        // Initialisiert die Lucide Icons
+        function showTab(tabId, btn) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.select-btn').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            btn.classList.add('active');
+            
+            lucide.createIcons();
+        }
         lucide.createIcons();
     </script>
 </body>
