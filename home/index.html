@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wartungsarbeiten | Projekt Under Construction</title>
+    <title>Wartungsarbeiten | Klein Stdt Roleplay</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
         :root {
-            --primary: #7c5cff;
-            --bg: #0a0a0a;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.08);
+            /* Ein etwas lebendigeres Violett für ein freundlicheres Design */
+            --primary: #8b6eff; 
+            --bg: #0a0a0b;
+            --card-bg: rgba(255, 255, 255, 0.04);
+            --border: rgba(255, 255, 255, 0.1);
         }
 
         * {
@@ -33,130 +34,165 @@
             overflow: hidden;
         }
 
-        /* ===== BACKGROUND GLOW ===== */
+        /* BACKGROUND GLOW */
         .glow {
             position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(124, 92, 255, 0.15) 0%, transparent 70%);
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(139, 110, 255, 0.12) 0%, transparent 70%);
             border-radius: 50%;
-            filter: blur(50px);
+            filter: blur(60px);
             z-index: 0;
-            animation: pulse 6s infinite alternate;
+            animation: pulse 8s infinite alternate;
         }
 
         @keyframes pulse {
-            from { transform: scale(1); opacity: 0.5; }
-            to { transform: scale(1.3); opacity: 0.8; }
+            from { transform: scale(1) translate(-5%, -5%); opacity: 0.4; }
+            to { transform: scale(1.2) translate(5%, 5%); opacity: 0.7; }
         }
 
-        /* ===== MAIN CONTAINER ===== */
         .container {
             position: relative;
             z-index: 10;
             text-align: center;
             padding: 40px;
-            max-width: 600px;
+            max-width: 650px;
         }
 
         .icon-box {
             display: inline-flex;
-            padding: 20px;
+            padding: 24px;
             background: var(--card-bg);
             border: 1px solid var(--border);
-            border-radius: 24px;
+            border-radius: 30px;
             margin-bottom: 30px;
             color: var(--primary);
-            animation: float 3s ease-in-out infinite;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            animation: float 4s ease-in-out infinite;
         }
 
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-15px); }
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 800;
             margin-bottom: 15px;
-            letter-spacing: -1px;
+            letter-spacing: -1.5px;
+            line-height: 1.2;
         }
 
         h1 span {
             color: var(--primary);
+            text-shadow: 0 0 20px rgba(139, 110, 255, 0.3);
         }
 
-        p {
-            color: rgba(255, 255, 255, 0.6);
+        .description {
+            color: rgba(255, 255, 255, 0.7);
             line-height: 1.6;
             margin-bottom: 30px;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
         }
 
-        /* ===== RELOAD / DISCORD BUTTON ===== */
+        /* FEATURES PREVIEW */
+        .features-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 35px;
+            text-align: left;
+        }
+
+        .feature-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 12px 16px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .feature-item i {
+            color: var(--primary);
+        }
+
         .btn {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             background: var(--primary);
             color: white;
             text-decoration: none;
-            padding: 14px 28px;
-            border-radius: 14px;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            padding: 16px 32px;
+            border-radius: 18px;
+            font-weight: 700;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: none;
             cursor: pointer;
         }
 
         .btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(124, 92, 255, 0.3);
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 15px 30px rgba(139, 110, 255, 0.4);
         }
 
-        /* ===== PROGRESS BAR ===== */
+        /* PROGRESS BAR */
         .status-container {
             margin-top: 50px;
             width: 100%;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
         }
 
         .status-text {
             display: flex;
             justify-content: space-between;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-            color: rgba(255,255,255,0.4);
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+            color: rgba(255,255,255,0.5);
+            font-weight: 600;
         }
 
         .progress-bg {
-            height: 6px;
-            background: var(--card-bg);
+            height: 8px;
+            background: rgba(255,255,255,0.05);
             border-radius: 10px;
             overflow: hidden;
-            border: 1px solid var(--border);
         }
 
         .progress-fill {
             height: 100%;
             width: 0%;
-            background: var(--primary);
+            background: linear-gradient(90deg, var(--primary), #b0a0ff);
             box-shadow: 0 0 15px var(--primary);
-            animation: fillProgress 2.5s forwards cubic-bezier(0.65, 0, 0.35, 1);
+            animation: fillProgress 3s forwards cubic-bezier(0.65, 0, 0.35, 1);
         }
 
         @keyframes fillProgress {
-            to { width: 15%; } /* Zeigt an, dass der Umzug gerade erst beginnt */
+            to { width: 35%; } 
         }
 
         footer {
             position: absolute;
             bottom: 30px;
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.2);
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.3);
             width: 100%;
             text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .features-list { grid-template-columns: 1fr; }
+            h1 { font-size: 2rem; }
         }
     </style>
 </head>
@@ -166,25 +202,32 @@
 
     <div class="container">
         <div class="icon-box">
-            <i data-lucide="map-pin-off" size="40"></i>
+            <i data-lucide="sparkles" size="48"></i>
         </div>
 
-        <h1>Neuer Name. <br><span>Gleiche Vision.</span></h1>
+        <h1>Willkommen bei <br><span>Klein Stdt Roleplay</span></h1>
         
-        <p>
-            Wir ziehen um! Da wir uns für eine komplett fiktive Welt entschieden haben, 
-            verabschieden wir uns vom Namen <b>Königsbrunn</b>. Aktuell arbeiten wir 
-            am neuen Branding und den Systemen.
+        <p class="description">
+            Wir verpassen unserem Projekt gerade einen komplett neuen Anstrich! 
+            Vergiss Königsbrunn – freu dich auf ein modernes Branding, 
+            verbesserte Funktionen und ein noch freundlicheres Spielerlebnis.
         </p>
 
+        <div class="features-list">
+            <div class="feature-item"><i data-lucide="palette" size="18"></i> Neues Branding</div>
+            <div class="feature-item"><i data-lucide="layout" size="18"></i> Angenehmes Design</div>
+            <div class="feature-item"><i data-lucide="help-circle" size="18"></i> Neues Hilfefenster</div>
+            <div class="feature-item"><i data-lucide="zap" size="18"></i> Mehr Funktionen</div>
+        </div>
+
         <a href="https://discord.gg/DM2Au3f6RS" class="btn">
-            <i data-lucide="message-circle"></i> Updates auf Discord
+            <i data-lucide="message-circle"></i> Community beitreten
         </a>
 
         <div class="status-container">
             <div class="status-text">
-                <span>Rebranding-Status</span>
-                <span>In Arbeit</span>
+                <span>Entwicklungs-Phase</span>
+                <span>35% Abgeschlossen</span>
             </div>
             <div class="progress-bg">
                 <div class="progress-fill"></div>
@@ -193,11 +236,10 @@
     </div>
 
     <footer>
-        &copy; 2026 Projekt Management | Alle Rechte vorbehalten.
+        &copy; 2026 Klein Stdt Roleplay | Wo Geschichte geschrieben wird.
     </footer>
 
     <script>
-        // Icons initialisieren
         lucide.createIcons();
     </script>
 </body>
