@@ -20,11 +20,9 @@
             --text-muted: #94a3b8;
         }
 
-        /* Auto-Scroll Reset für Browser-Refresh */
-        html { scroll-behavior: smooth; }
-
+        /* Reset & Base */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
+        html { scroll-behavior: smooth; }
         body {
             background-color: var(--bg);
             color: var(--text-main);
@@ -33,11 +31,11 @@
             line-height: 1.6;
         }
 
-        /* Überschriften-Korrektur (weniger fett) */
-        h1, h2, h3 { font-weight: 400 !important; }
-        h1 b, h2 b, h3 b { font-weight: 600 !important; }
+        /* Überschriften (nicht mehr so fett) */
+        h1, h2, h3 { font-weight: 300; }
+        h1 b, h2 b, h3 b { font-weight: 600; color: var(--primary); }
 
-        /* ===== LOADING SCREEN ===== */
+        /* ===== LOADER ===== */
         #loader {
             position: fixed; inset: 0; background: var(--bg); z-index: 9999;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -46,36 +44,32 @@
         .loader-logo { font-size: 2rem; letter-spacing: 5px; margin-bottom: 20px; animation: pulse 2s infinite; }
         @keyframes pulse { 0%, 100% { opacity: 0.5; transform: scale(0.98); } 50% { opacity: 1; transform: scale(1); } }
 
-        .ambient-glow {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% -10%, rgba(16, 185, 129, 0.15), transparent 60%);
-            z-index: -1; pointer-events: none;
-        }
-
-        /* ===== NAVIGATION ===== */
+        /* ===== NAVIGATION (Vom alten Skript übernommen & angepasst) ===== */
         nav {
             position: fixed; top: 0; width: 100%; padding: 20px 8%;
             display: flex; justify-content: space-between; align-items: center;
             backdrop-filter: blur(20px); background: rgba(5, 7, 10, 0.8);
             z-index: 1000; border-bottom: 1px solid var(--border);
         }
-        .logo { font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; }
-        .logo b { color: var(--primary); }
+        .logo { font-size: 1.1rem; text-transform: uppercase; cursor: pointer; letter-spacing: 2px; }
+        .logo b { color: var(--primary); font-weight: 800; }
         .nav-right { display: flex; align-items: center; gap: 40px; }
         .nav-links { display: flex; gap: 35px; }
-        .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; transition: 0.3s; }
-        .nav-links a:hover { color: var(--primary); }
-
-        #theme-toggle.maintenance {
-            border: 1px solid rgba(16, 185, 129, 0.3); background: rgba(16, 185, 129, 0.05);
-            color: var(--primary); padding: 8px 18px; border-radius: 6px; font-weight: 600;
-            font-size: 0.7rem; cursor: pointer; display: flex; align-items: center; gap: 8px;
+        .nav-links a { 
+            text-decoration: none; color: var(--text-muted); font-size: 0.75rem; 
+            font-weight: 700; text-transform: uppercase; transition: 0.3s; 
         }
+        .nav-links a:hover { color: var(--primary); }
+        .maintenance {
+            border: 1px solid rgba(16, 185, 129, 0.3); background: rgba(16, 185, 129, 0.05);
+            color: var(--primary); padding: 8px 18px; border-radius: 6px; font-weight: 700;
+            font-size: 0.7rem; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: 0.3s;
+        }
+        .maintenance:hover { background: var(--primary); color: white; }
 
         /* ===== HERO ===== */
         .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 120px 20px; }
-        .hero h1 { font-size: clamp(2.2rem, 7vw, 4.5rem); line-height: 1.1; margin-bottom: 20px; }
-        .hero h1 b { color: var(--primary); }
+        .hero h1 { font-size: clamp(2.5rem, 8vw, 5rem); margin-bottom: 20px; }
         .hero-sub { max-width: 700px; color: var(--text-muted); font-size: 1.1rem; margin-bottom: 40px; }
 
         /* ===== STATUS BOX ===== */
@@ -85,54 +79,39 @@
             border: 1px solid rgba(16, 185, 129, 0.15);
         }
         .bar-bg { height: 8px; background: rgba(0,0,0,0.3); border-radius: 10px; overflow: hidden; margin: 15px 0; }
-        .bar-fill { height: 100%; width: 0%; background: var(--primary); transition: width 2s ease; }
+        .bar-fill { height: 100%; width: 0%; background: var(--primary); transition: width 2s cubic-bezier(0.65, 0, 0.35, 1); }
 
-        /* ===== SECTION STYLES ===== */
+        /* ===== GRID ===== */
         .section { padding: 80px 10%; }
-        .section-header { text-align: center; margin-bottom: 50px; }
-        .section-header h2 { font-size: 2.2rem; letter-spacing: 1px; }
-        .section-header b { color: var(--primary); }
-
-        /* GRID */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
         .card {
             background: var(--card-bg); border: 1px solid var(--border);
-            padding: 35px; border-radius: 24px; transition: 0.4s ease;
+            padding: 40px; border-radius: 28px; transition: all 0.4s ease;
         }
-        .card:hover { border-color: var(--primary); transform: translateY(-5px); background: rgba(16, 185, 129, 0.05); }
-        .card i { color: var(--primary); margin-bottom: 15px; display: block; }
-        .card h3 { margin-bottom: 10px; font-size: 1.2rem; }
-        .card p { font-size: 0.9rem; color: var(--text-muted); }
+        .card:hover { border-color: var(--primary); transform: translateY(-10px); background: rgba(16, 185, 129, 0.05); }
+        .card i { color: var(--primary); margin-bottom: 20px; display: block; }
 
-        /* POPUP */
-        .popup {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.85);
-            display: none; justify-content: center; align-items: center; z-index: 9999;
-        }
-        .popup-box {
-            background: #0a0a0a; padding: 30px; border-radius: 20px;
-            text-align: center; max-width: 350px; border: 1px solid var(--primary);
-        }
-        .popup button {
-            margin-top: 20px; padding: 10px 20px; border: none;
-            background: var(--primary); color: white; border-radius: 8px; cursor: pointer;
-        }
+        /* ===== POPUP ===== */
+        .popup { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 9999; }
+        .popup-box { background: #0a0a0a; padding: 40px; border-radius: 20px; text-align: center; max-width: 350px; border: 1px solid var(--primary); }
+        .popup button { margin-top: 20px; padding: 10px 25px; border: none; background: var(--primary); color: white; border-radius: 8px; cursor: pointer; font-weight: 700; }
 
-        /* MOBILE BLOCKER */
+        /* PC BLOCKER */
         @media (max-width: 1024px) {
-            #mobile-blocker {
-                position: fixed; inset: 0; background: var(--bg); z-index: 10000;
-                display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px; text-align: center;
-            }
+            #mobile-blocker { position: fixed; inset: 0; background: var(--bg); z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px; text-align: center; }
         }
         @media (min-width: 1025px) { #mobile-blocker { display: none; } }
 
-        .fade { opacity: 0; transform: translateY(20px); transition: 0.8s ease-out; }
+        /* FADE ANIMATION */
+        .fade { opacity: 0; transform: translateY(30px); transition: 1s ease-out; }
         .fade.show { opacity: 1; transform: translateY(0); }
 
-        footer { padding: 60px; text-align: center; color: var(--text-muted); border-top: 1px solid var(--border); font-size: 0.8rem; }
-        .footer-links { margin-top: 10px; display: flex; justify-content: center; gap: 20px; }
-        .footer-links a { color: var(--text-muted); text-decoration: none; }
+        /* ===== FOOTER (Vom alten Skript übernommen) ===== */
+        footer { padding: 80px; text-align: center; color: var(--text-muted); border-top: 1px solid var(--border); font-size: 0.8rem; }
+        .footer-links { margin-top: 15px; display: flex; justify-content: center; gap: 25px; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; transition: 0.3s; }
+        .footer-links a:hover { color: var(--primary); }
     </style>
 </head>
 <body>
@@ -144,20 +123,18 @@
         </div>
     </div>
 
-    <div class="popup" id="popup">
-        <div class="popup-box">
-            <h3>Wartung</h3>
-            <p>Die Seite ist noch im Aufbau.</p>
-            <button onclick="closePopup()">Verstanden</button>
-        </div>
-    </div>
-
-    <div class="ambient-glow"></div>
-
     <div id="mobile-blocker">
         <i data-lucide="monitor" size="48" color="#10b981"></i>
         <h2 style="margin-top:20px;">PC benötigt</h2>
-        <p style="color:var(--text-muted); margin-top:10px;">Unsere Stadt ist für Desktop-User optimiert.</p>
+        <p style="color:var(--text-muted); margin-top:10px;">Bitte besuche uns am Computer für das beste Erlebnis.</p>
+    </div>
+
+    <div class="popup" id="popup">
+        <div class="popup-box">
+            <h3>Wartung</h3>
+            <p>Diese Seite ist aktuell noch nicht verfügbar.</p>
+            <button onclick="closePopup()">OK</button>
+        </div>
     </div>
 
     <nav>
@@ -166,11 +143,11 @@
         </div>
         <div class="nav-right">
             <div class="nav-links">
-                <a href="#">Start</a>
-                <a href="#info">Über Uns</a> 
+                <a href="../home/">Home</a>
+                <a href="../team/">Team</a> 
             </div>
             <button id="theme-toggle" class="maintenance" onclick="openPopup();">
-                <i data-lucide="wrench" size="14"></i> Wartung
+                <i data-lucide="wrench"></i> Wartung
             </button>
         </div>
     </nav>
@@ -178,78 +155,79 @@
     <section class="hero">
         <h1 class="fade">DEINE STADT.<br><b>DEINE FREIHEIT.</b></h1>
         <p class="hero-sub fade">
-            Ein Projekt von Freunden für Freunde. Wir bauen ohne Druck, ohne Eile und schauen einfach, wo die Reise hingeht.
+            Ein ehrliches Projekt von Freunden. Wir bauen ohne Druck und schauen, wohin die Reise geht. Roblox ist nicht mehr das, was es mal war, aber wir geben unser Bestes.
         </p>
         
         <div class="status-container fade">
-            <div style="display:flex; justify-content:space-between; font-weight:600; color:var(--primary); font-size:0.7rem; text-transform:uppercase;">
-                <span>Fortschritt</span>
+            <div style="display:flex; justify-content:space-between; font-weight:800; color:var(--primary); font-size:0.7rem; text-transform:uppercase;">
+                <span>Status: In den Kinderschuhen</span>
                 <span id="perc-val">0%</span>
             </div>
             <div class="bar-bg"><div class="bar-fill" id="main-bar"></div></div>
-            <p style="font-size: 0.75rem; opacity: 0.5;">Entwicklung läuft im Hintergrund</p>
+            <p style="font-size: 0.75rem; opacity: 0.5;">Ob es jemals erscheint? Wer weiß...</p>
         </div>
     </section>
 
-    <section id="info" class="section">
+    <section class="section">
         <div class="section-header fade">
-            <h2>DIE <b>WAHRHEIT</b> ZUM PROJEKT</h2>
+            <h2>DIE <b>REALITÄT</b></h2>
         </div>
         <div class="grid">
             <div class="card fade">
-                <i data-lucide="timer"></i>
-                <h3>Ehrlicher Status</h3>
-                <p>Wir sind ganz am Anfang. Ob und wann das Spiel jemals fertig wird, wissen wir selbst nicht genau. Es ist ein Hobby-Projekt.</p>
+                <i data-lucide="clock" size="40"></i>
+                <h3>Anfangsstadium</h3>
+                <p>Das Spiel ist ganz am Anfang. Wir bauen dann, wenn wir Zeit und Lust haben – völlig ohne Stress.</p>
             </div>
             <div class="card fade">
-                <i data-lucide="users-2"></i>
-                <h3>Das Team</h3>
-                <p>Hinter Klein Stadt steht kein großes Studio, sondern nur eine Gruppe aus Freunden. Wir machen das, weil wir Bock haben, nicht für Geld.</p>
+                <i data-lucide="users-2" size="40"></i>
+                <h3>Freunde-Team</h3>
+                <p>Hinter Klein Stadt steht kein Studio, sondern nur eine kleine Gruppe aus Freunden. Hobby geht vor.</p>
             </div>
             <div class="card fade">
-                <i data-lucide="frown"></i>
-                <h3>Thema Roblox</h3>
-                <p>Roblox hat sich stark verändert und macht es Entwicklern oft schwer. Wir schauen, wie viel Lust und Zeit wir investieren können.</p>
+                <i data-lucide="construction" size="40"></i>
+                <h3>Ungewisse Zukunft</h3>
+                <p>Wir wissen nicht, ob es jemals fertig wird. Roblox hat sich verändert, aber wir basteln trotzdem weiter.</p>
             </div>
         </div>
     </section>
 
-    <section class="section" style="background: rgba(16, 185, 129, 0.02);">
+    <section class="section" style="background: rgba(255,255,255,0.01);">
         <div class="section-header fade">
-            <h2>WAS <b>GEPLANT</b> IST</h2>
+            <h2>SPIEL-<b>INHALTE</b></h2>
         </div>
         <div class="grid">
             <div class="card fade">
-                <i data-lucide="wallet"></i>
-                <h3>Simples Geld-System</h3>
-                <p>Ein einfaches Konto-System für Jobs und Käufe. Nichts zu kompliziertes, damit der Spielspaß bleibt.</p>
+                <i data-lucide="wallet" size="40"></i>
+                <h3>Wirtschaft</h3>
+                <p>Ein einfaches System, um Geld zu verdienen und Dinge zu kaufen. Realistisch und bodenständig.</p>
             </div>
             <div class="card fade">
-                <i data-lucide="car"></i>
-                <h3>Fahrzeuge</h3>
-                <p>Ein paar solide Standard-Fahrzeuge, um von A nach B zu kommen. Funktionalität geht vor Optik.</p>
+                <i data-lucide="home" size="40"></i>
+                <h3>Wohnen</h3>
+                <p>Ein kleiner Ort zum Unterkommen. Wir planen schlichte Unterkünfte für deine RP-Story.</p>
             </div>
             <div class="card fade">
-                <i data-lucide="megaphone"></i>
-                <h3>Melde-System</h3>
-                <p>Da wir ein kleines Team sind, bauen wir Tools, mit denen ihr Probleme direkt an uns senden könnt.</p>
+                <i data-lucide="shield" size="40"></i>
+                <h3>Regeln</h3>
+                <p>Ein faires Miteinander ohne unnötig komplizierte Gesetze. Der Spaß steht im Vordergrund.</p>
             </div>
         </div>
     </section>
 
     <footer>
         <div class="logo" style="margin-bottom: 10px; opacity: 0.5;">KLEIN<b>STADT</b></div>
-        <div>&copy; 2026 PROJEKT KLEIN STADT | KEINE GARANTIE AUF RELEASE</div>
+        <div>&copy; 2026 PROJEKT KLEIN STADT</div>
         <div class="footer-links">
-            <a href="#">Impressum</a>
-            <a href="#">Discord</a>
+            <a href="../Impressum/">Impressum</a>
+            <a href="../Nutzungsbedingungen/">ToS</a>
+            <a href="../Community_Richtlinien/">Richtlinien</a>
         </div>
     </footer>
 
     <script>
         lucide.createIcons();
 
-        // Auto-Scroll nach oben beim Laden/Neuladen
+        // Beim Neuladen nach oben scrollen
         window.onbeforeunload = function () { window.scrollTo(0, 0); };
         if (history.scrollRestoration) { history.scrollRestoration = 'manual'; }
 
@@ -259,7 +237,6 @@
         window.addEventListener('load', () => {
             const loaderBar = document.getElementById('loader-bar');
             const loader = document.getElementById('loader');
-            window.scrollTo(0, 0); // Doppelte Sicherheit
             loaderBar.style.width = '100%';
             setTimeout(() => {
                 loader.style.opacity = '0';
@@ -271,7 +248,7 @@
         function animateProgressBar() {
             const bar = document.getElementById('main-bar');
             const val = document.getElementById('perc-val');
-            const target = 15; // Realistischer niedriger Wert für den Anfang
+            const target = 12; // Realistischer niedriger Wert
             bar.style.width = target + '%';
             let current = 0;
             let interval = setInterval(() => {
@@ -291,6 +268,5 @@
 
         document.querySelectorAll('.fade').forEach(el => observer.observe(el));
     </script>
-
 </body>
 </html>
