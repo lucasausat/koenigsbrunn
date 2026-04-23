@@ -1,277 +1,211 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Team |  Königsbrunn</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team | Klein Stadt</title>
 
-<script src="https://unpkg.com/lucide@latest"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-<style>
-:root {
-    --primary: #7c5cff;
-    --secondary: #3b82f6;
-    --bg: #070A12;
-    --card: rgba(255,255,255,0.04);
-    --border: rgba(255,255,255,0.08);
-}
+    <style>
+        :root {
+            --primary: #10b981;
+            --primary-soft: rgba(16, 185, 129, 0.1);
+            --bg: #05070a;
+            --card-bg: rgba(15, 23, 42, 0.3);
+            --border: rgba(255, 255, 255, 0.05);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
 
-* { box-sizing: border-box; }
+        /* Reset & Base */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
 
-body {
-    margin: 0;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    background: var(--bg);
-    color: white;
-    overflow-x: hidden;
-}
+        h1, h2, h3 { font-weight: 300; }
+        h1 b, h3 b { font-weight: 600; color: var(--primary); }
 
-/* BACKGROUND */
-.bg {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    background: radial-gradient(circle at top, #0d1230, #070A12);
-}
-.glow {
-    position: absolute;
-    width: 700px;
-    height: 700px;
-    background: radial-gradient(circle, rgba(124,92,255,0.18), transparent 70%);
-    filter: blur(20px);
-    animation: float 12s ease-in-out infinite;
-}
-.glow:nth-child(2){
-    top: 50%;
-    left: 60%;
-    animation-delay: -4s;
-    opacity: .5;
-}
-@keyframes float {
-    0%,100% { transform: translate(0,0); }
-    50% { transform: translate(60px,-40px); }
-}
+        /* ===== NAVIGATION (Einheitlich wie Home) ===== */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 20px 8%;
+            display: flex; justify-content: space-between; align-items: center;
+            backdrop-filter: blur(20px); background: rgba(5, 7, 10, 0.8);
+            z-index: 1000; border-bottom: 1px solid var(--border);
+        }
+        .logo { font-size: 1.1rem; text-transform: uppercase; cursor: pointer; letter-spacing: 2px; }
+        .logo b { color: var(--primary); font-weight: 800; }
+        .nav-right { display: flex; align-items: center; gap: 40px; }
+        .nav-links { display: flex; gap: 35px; }
+        .nav-links a { 
+            text-decoration: none; color: var(--text-muted); font-size: 0.75rem; 
+            font-weight: 700; text-transform: uppercase; transition: 0.3s; 
+        }
+        .nav-links a:hover { color: var(--primary); }
+        
+        .btn-apply {
+            border: 1px solid var(--primary); background: var(--primary-soft);
+            color: var(--primary); padding: 8px 18px; border-radius: 6px; font-weight: 700;
+            font-size: 0.7rem; cursor: pointer; text-decoration: none; text-transform: uppercase; transition: 0.3s;
+        }
+        .btn-apply:hover { background: var(--primary); color: white; }
 
-/* NAV */
-nav {
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:18px 40px;
-    backdrop-filter: blur(16px);
-    background: rgba(0,0,0,0.35);
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-.logo {
-    font-weight:800;
-    cursor:pointer;
-    display:flex;
-    gap:6px;
-    align-items:center;
-}
-.logo span { color: var(--primary); }
+        /* ===== HERO ===== */
+        .hero { padding: 160px 20px 60px; text-align: center; }
+        .hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); margin-bottom: 15px; }
+        .hero p { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
 
-nav a {
-    color: rgba(255,255,255,0.7);
-    margin-left: 18px;
-    text-decoration:none;
-    font-size: 0.9rem;
-    transition:.3s;
-}
-nav a:hover { color:white; }
+        /* ===== TEAM GRID ===== */
+        .grid {
+            max-width: 1200px; margin: 0 auto; padding: 40px 20px 100px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px;
+        }
 
-/* HERO */
-.hero {
-    text-align:center;
-    padding:90px 20px 40px;
-}
-.hero h1 {
-    font-size:3rem;
-    margin:0;
-    background: linear-gradient(90deg, #fff, #aaa);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-}
-.hero p { opacity:.6; }
+        .card {
+            background: var(--card-bg); border: 1px solid var(--border);
+            padding: 35px; border-radius: 28px; position: relative;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex; flex-direction: column; gap: 20px;
+        }
+        .card:hover { border-color: var(--primary); transform: translateY(-10px); background: rgba(16, 185, 129, 0.05); }
 
-/* GRID */
-.grid {
-    max-width:1100px;
-    margin:auto;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-    gap:20px;
-    padding:20px;
-}
+        .card-top { display: flex; align-items: center; gap: 18px; }
+        
+        .avatar {
+            width: 65px; height: 65px; border-radius: 18px;
+            border: 2px solid var(--primary); object-fit: cover;
+            background: var(--bg);
+        }
 
-/* CARD */
-.card {
-    background: var(--card);
-    border:1px solid var(--border);
-    border-radius:20px;
-    padding:25px;
-    position:relative;
-    overflow:hidden;
-    transition:.35s;
-}
-.card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(124,92,255,0.5);
-    background: rgba(255,255,255,0.06);
-}
+        .role-tag {
+            font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px;
+            color: var(--primary); font-weight: 800; margin-bottom: 4px;
+        }
 
-/* TOP */
-.top {
-    display:flex;
-    gap:15px;
-    align-items:center;
-}
-.avatar {
-    width:55px;
-    height:55px;
-    border-radius:14px;
-    border:2px solid var(--primary);
-}
+        .card-desc { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
 
-/* ROLE */
-.role {
-    font-size:.7rem;
-    text-transform:uppercase;
-    letter-spacing:1px;
-    color: var(--primary);
-    font-weight:700;
-}
+        .badge-icon {
+            position: absolute; top: 25px; right: 25px;
+            opacity: 0.2; color: var(--primary);
+        }
 
-/* ICON BADGE */
-.badge {
-    position:absolute;
-    top:15px;
-    right:15px;
-    width:34px;
-    height:34px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:10px;
-    background: rgba(255,255,255,0.06);
-    border:1px solid var(--border);
-}
+        /* ===== FOOTER ===== */
+        footer { padding: 80px; text-align: center; color: var(--text-muted); border-top: 1px solid var(--border); font-size: 0.8rem; }
+        .footer-links { margin-top: 15px; display: flex; justify-content: center; gap: 25px; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; transition: 0.3s; }
+        .footer-links a:hover { color: var(--primary); }
 
-/* FOOTER */
-footer {
-    text-align:center;
-    padding:50px;
-    opacity:.3;
-    font-size:.8rem;
-}
-
-h3 { margin:0; }
-.desc { opacity:.6; font-size:.9rem; line-height:1.5; margin-top:10px; }
-</style>
+        /* ANIMATION */
+        .fade-in { opacity: 0; transform: translateY(20px); animation: fadeIn 0.8s forwards; }
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+    </style>
 </head>
-
 <body>
 
-<div class="bg">
-    <div class="glow"></div>
-    <div class="glow"></div>
-</div>
-
-<nav>
-    <div class="logo" onclick="location.href='../home/'">
-        <i data-lucide="building-2"></i>
-        Königs<span>brunn</span>
-    </div>
-    <div>
-        <a href="../home/">Home</a>
-        <a href="./">Team</a>
-        <a href="../Bewerbung/">Bewerbungscenter</a>
-    </div>
-</nav>
-    
-    
-<div class="hero">
-    <h1>Unser Team</h1>
-    <p>Die Köpfe hinter dem Projekt Königsbrunn</p>
-</div>
-
-<div class="grid">
-
-    <div class="card">
-        <div class="badge"><i data-lucide="crown"></i></div>
-        <div class="top">
-            <img class="avatar" src="https://cdn.discordapp.com/avatars/881206091009122406/05b6f30e62d300214c3aa755bb342bca.png">
-            <div>
-                <div class="role">Top Management</div>
-                <h3>lucas.aus.at</h3>
-            </div>
+    <nav>
+        <div class="logo" onclick="window.location.href='../home/'">
+            KLEIN<b>STADT</b>
         </div>
-        <div class="desc">Projektleitung & Vision für das komplette Projekt.</div>
-    </div>
-
-    <div class="card">
-        <div class="badge"><i data-lucide="shield-check"></i></div>
-        <div class="top">
-            <img class="avatar" src="https://cdn.discordapp.com/avatars/1057606009243316273/bc66e06a1208d0724e20d0f7de94922f.png">
-            <div>
-                <div class="role">Top Management</div>
-                <h3>joge2286</h3>
+        <div class="nav-right">
+            <div class="nav-links">
+                <a href="../home/">Home</a>
+                <a href="./">Team</a> 
             </div>
+            <a href="../Bewerbung/" class="btn-apply">Bewerbung</a>
         </div>
-        <div class="desc">Projektstruktur & Koordination der Fraktionsverwaltung.</div>
-    </div>
+    </nav>
 
-    <div class="card" style="border-color: rgba(255, 20, 147, 0.3);">
-        <div class="badge"><i data-lucide="code-2"></i></div>
-        <div class="top">
-            <img class="avatar" style="border-color: #ff1493;" src="https://cdn.discordapp.com/avatars/1204084190014865439/54fcde4be119f3fa0552e88adb204eca.png">
-            <div>
-                <div class="role" style="color: #ff1493;">Head of Development</div>
-                <h3>benschi1503</h3>
+    <section class="hero">
+        <h1 class="fade-in">DAS <b>TEAM</b></h1>
+        <p class="fade-in" style="animation-delay: 0.1s;">Die Gesichter hinter Klein Stadt – wir bauen gemeinsam an einer Vision.</p>
+    </section>
+
+    <div class="grid">
+
+        <div class="card fade-in" style="animation-delay: 0.2s;">
+            <div class="badge-icon"><i data-lucide="crown"></i></div>
+            <div class="card-top">
+                <img class="avatar" src="https://cdn.discordapp.com/avatars/881206091009122406/05b6f30e62d300214c3aa755bb342bca.png" alt="Avatar">
+                <div>
+                    <div class="role-tag">Top Management</div>
+                    <h3>lucas.aus.at</h3>
+                </div>
             </div>
+            <p class="card-desc">Projektleitung & Visionär. Verantwortlich für die strategische Ausrichtung und das Gesamtkonzept von Klein Stadt.</p>
         </div>
-        <div class="desc">Backend, Features und technische Stabilität des Projekts.</div>
-    </div>
 
-    <div class="card" style="border-color: rgba(255, 50, 50, 0.3);">
-        <div class="badge"><i data-lucide="gavel"></i></div>
-        <div class="top">
-            <div class="avatar" style="border-color: #ff3232; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.05);">
-                <i data-lucide="users"></i>
+        <div class="card fade-in" style="animation-delay: 0.3s;">
+            <div class="badge-icon"><i data-lucide="shield-check"></i></div>
+            <div class="card-top">
+                <img class="avatar" src="https://cdn.discordapp.com/avatars/1057606009243316273/bc66e06a1208d0724e20d0f7de94922f.png" alt="Avatar">
+                <div>
+                    <div class="role-tag">Top Management</div>
+                    <h3>joge2286</h3>
+                </div>
             </div>
-            <div>
-                <div class="role" style="color: #ff3232;">Moderation</div>
-                <h3>Team gesucht</h3>
-            </div>
+            <p class="card-desc">Projektstruktur & Koordination. Sorgt für Ordnung in der Fraktionsverwaltung und den internen Abläufen.</p>
         </div>
-        <div class="desc">Zuständig für Ordnung und Support im Spielbetrieb.</div>
-    </div>
 
-    <div class="card" style="border-color: rgba(46, 204, 113, 0.3);">
-        <div class="badge"><i data-lucide="life-buoy"></i></div>
-        <div class="top">
-            <div class="avatar" style="border-color: #2ecc71; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.05);">
-                <i data-lucide="help-circle"></i>
+        <div class="card fade-in" style="animation-delay: 0.4s;">
+            <div class="badge-icon"><i data-lucide="code-2"></i></div>
+            <div class="card-top">
+                <img class="avatar" src="https://cdn.discordapp.com/avatars/1204084190014865439/54fcde4be119f3fa0552e88adb204eca.png" alt="Avatar">
+                <div>
+                    <div class="role-tag">Development</div>
+                    <h3>benschi1503</h3>
+                </div>
             </div>
-            <div>
-                <div class="role" style="color: #2ecc71;">Support</div>
-                <h3>Team gesucht</h3>
-            </div>
+            <p class="card-desc">Head of Development. Mastermind hinter den Systemen, Features und der technischen Performance.</p>
         </div>
-        <div class="desc">Erste Hilfe für alle Spieler bei Fragen und Problemen.</div>
+
+        <div class="card fade-in" style="animation-delay: 0.5s; border-style: dashed; opacity: 0.8;">
+            <div class="badge-icon"><i data-lucide="gavel"></i></div>
+            <div class="card-top">
+                <div class="avatar" style="display:flex; align-items:center; justify-content:center; background: var(--primary-soft);">
+                    <i data-lucide="user-plus" color="#10b981"></i>
+                </div>
+                <div>
+                    <div class="role-tag">Moderation</div>
+                    <h3>Werde Teil von uns</h3>
+                </div>
+            </div>
+            <p class="card-desc">Wir suchen motivierte Teammitglieder, die Lust haben, für Ordnung und ein faires Miteinander zu sorgen.</p>
+        </div>
+
+        <div class="card fade-in" style="animation-delay: 0.6s; border-style: dashed; opacity: 0.8;">
+            <div class="badge-icon"><i data-lucide="life-buoy"></i></div>
+            <div class="card-top">
+                <div class="avatar" style="display:flex; align-items:center; justify-content:center; background: var(--primary-soft);">
+                    <i data-lucide="help-circle" color="#10b981"></i>
+                </div>
+                <div>
+                    <div class="role-tag">Support</div>
+                    <h3>Support gesucht</h3>
+                </div>
+            </div>
+            <p class="card-desc">Du hilfst gerne anderen Spielern bei Fragen? Dann bewirb dich jetzt als Supporter für Klein Stadt.</p>
+        </div>
+
     </div>
 
-</div>
+    <footer>
+        <div class="logo" style="margin-bottom: 10px; opacity: 0.5;">KLEIN<b>STADT</b></div>
+        <div>&copy; 2026 PROJEKT KLEIN STADT</div>
+        <div class="footer-links">
+            <a href="../Impressum/">Impressum</a>
+            <a href="../Nutzungsbedingungen/">ToS</a>
+            <a href="../Community_Richtlinien/">Richtlinien</a>
+        </div>
+    </footer>
 
-<footer>© 2026 Projekt Königsbrunn</footer>
-
-<script>
-lucide.createIcons();
-</script>
-
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>
