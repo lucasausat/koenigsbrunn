@@ -59,12 +59,6 @@
             font-weight: 700; text-transform: uppercase; transition: 0.3s; 
         }
         .nav-links a:hover { color: var(--primary); }
-        .maintenance {
-            border: 1px solid rgba(16, 185, 129, 0.3); background: rgba(16, 185, 129, 0.05);
-            color: var(--primary); padding: 8px 18px; border-radius: 6px; font-weight: 700;
-            font-size: 0.7rem; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: 0.3s;
-        }
-        .maintenance:hover { background: var(--primary); color: white; }
 
         /* ===== HERO ===== */
         .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 120px 20px; }
@@ -80,7 +74,7 @@
         .bar-bg { height: 8px; background: rgba(0,0,0,0.3); border-radius: 10px; overflow: hidden; margin: 15px 0; }
         .bar-fill { height: 100%; width: 0%; background: var(--primary); transition: width 2s cubic-bezier(0.65, 0, 0.35, 1); }
 
-        /* ===== GRID ===== */
+        /* ===== GRID & SECTIONS ===== */
         .section { padding: 80px 10%; }
         .section-header { text-align: center; margin-bottom: 60px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
@@ -90,6 +84,19 @@
         }
         .card:hover { border-color: var(--primary); transform: translateY(-10px); background: rgba(16, 185, 129, 0.05); }
         .card i { color: var(--primary); margin-bottom: 20px; display: block; }
+
+        /* ===== WARTUNG SECTION (NEU) ===== */
+        .maintenance-info {
+            background: rgba(239, 68, 68, 0.03);
+            border: 1px dashed rgba(239, 68, 68, 0.2);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .maintenance-info h3 { color: #ef4444; margin-bottom: 15px; font-weight: 600; }
+        .maintenance-info p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.8; }
 
         /* ===== POPUP ===== */
         .popup { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 9999; }
@@ -109,14 +116,13 @@
         /* ===== FOOTER ===== */
         footer { padding: 80px; text-align: center; color: var(--text-muted); border-top: 1px solid var(--border); font-size: 0.8rem; }
         .footer-links { margin-top: 15px; display: flex; justify-content: center; gap: 25px; }
-        /* Geänderter Footer Link Style für "In Arbeit" */
         .footer-links a { 
             color: var(--text-muted); 
             text-decoration: none; 
             transition: 0.3s; 
-            cursor: not-allowed; /* Zeigt an, dass es nicht klickbar ist */
+            cursor: help; 
         }
-        .footer-links a:hover { color: #ef4444; } /* Rote Farbe beim Hover als Warnung */
+        .footer-links a:hover { color: #ef4444; }
     </style>
 </head>
 <body>
@@ -137,7 +143,7 @@
     <div class="popup" id="popup">
         <div class="popup-box">
             <i data-lucide="construction" color="#10b981" style="margin-bottom: 15px;"></i>
-            <h3>In Arbeit</h3>
+            <h3>Info</h3>
             <p id="popup-text">Diese Seite ist aktuell noch nicht verfügbar.</p>
             <button onclick="closePopup()">Verstanden</button>
         </div>
@@ -151,10 +157,8 @@
             <div class="nav-links">
                 <a href="../home/">Home</a>
                 <a href="../team/">Team</a> 
-                <a href="../Regelwerk/">Regelwerk</a> </div>
-            <button class="maintenance" onclick="openPopup('Wartung: Das Bewerbungssystem folgt bald.');">
-                <i data-lucide="wrench"></i> Wartung
-            </button>
+                <a href="../Community_Richtlinien/">Regelwerk</a>
+            </div>
         </div>
     </nav>
 
@@ -220,13 +224,27 @@
         </div>
     </section>
 
+    <section class="section">
+        <div class="maintenance-info fade">
+            <i data-lucide="info" color="#ef4444" style="margin-bottom: 15px;"></i>
+            <h3>Warum sind manche Seiten gesperrt?</h3>
+            <p>
+                Hey! Vielleicht ist dir aufgefallen, dass das Impressum und die Nutzungsbedingungen unten noch nicht anklickbar sind. 
+                Der Grund ist simpel: Wir befinden uns mitten in einer **Umstrukturierung und einem neuen Branding** für Klein Stadt. 
+                Da wir dieses Projekt komplett in unserer **Freizeit** entwickeln und nebenbei auch noch ein echtes Leben (Schule, Arbeit, etc.) haben, 
+                reicht die Zeit leider nicht immer für alles gleichzeitig. Wir setzen die Priorität aktuell auf das Spiel selbst. 
+                Sry dafür – wir geben Gas, sobald es die Zeit zulässt!
+            </p>
+        </div>
+    </section>
+
     <footer>
         <div class="logo" style="margin-bottom: 10px; opacity: 0.5;">KLEIN<b>STADT</b></div>
         <div>&copy; 2026 PROJEKT KLEIN STADT</div>
         <div class="footer-links">
-            <a href="javascript:void(0)" onclick="openPopup('Das Impressum wird derzeit rechtlich geprüft und bald hinzugefügt.');">Impressum</a>
-            <a href="javascript:void(0)" onclick="openPopup('Die Nutzungsbedingungen befinden sich in der finalen Bearbeitung.');">ToS</a>
-            <a href="javascript:void(0)" onclick="openPopup('Die Community-Richtlinien werden gerade für Klein Stadt optimiert.');">Richtlinien</a>
+            <a href="javascript:void(0)" onclick="openPopup('Das Impressum wird derzeit aufgrund des neuen Brandings überarbeitet.');">Impressum</a>
+            <a href="javascript:void(0)" onclick="openPopup('Die Nutzungsbedingungen sind wegen der Umstrukturierung in Arbeit.');">ToS</a>
+            <a href="../Community_Richtlinien/">Richtlinien</a>
         </div>
     </footer>
 
@@ -236,7 +254,6 @@
         window.onbeforeunload = function () { window.scrollTo(0, 0); };
         if (history.scrollRestoration) { history.scrollRestoration = 'manual'; }
 
-        // Popup Funktion mit Text-Parameter
         function openPopup(text) { 
             if(text) document.getElementById("popup-text").innerText = text;
             document.getElementById("popup").style.display = "flex"; 
